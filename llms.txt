@@ -1,0 +1,32 @@
+# NorthReserve
+
+> NorthReserve turns personal finances into a landscape you can see — your whole picture at a glance, and the one clear next step. Free calculators and guides, plus a Financial Mountain app (in early access). Founded by Marcelo Bayon, a licensed Mortgage Loan Officer (NMLS #1851997).
+
+Core idea: money stress is usually a visibility problem, not a math problem. NorthReserve models finances as a mountain of four reservoirs, filled from the base up — Buffer, Emergency, Sinking Funds, and Retirement — and always points to a single next move. Voice: the calm guide, not the alarm bell. Everything is educational and general in nature, not personalized financial advice.
+
+## Start here
+- [Financial Mountain Assessment](https://northreserve.org/assessment): Seven quick questions (ranges, never account numbers). Returns a Mountain Score (0–100), an identity level from Base Camper to Mountaineer, a diagnosis of the weakest reservoir, and one next move. Free, ~3 minutes, calculated on-device.
+- [Free tools hub](https://northreserve.org/tools): Index of every calculator and guide.
+
+## Calculators
+- [Emergency Fund Calculator](https://northreserve.org/emergency-fund): Enter monthly essential expenses and current savings to see months of protection and a target amount. Monetized via a high-yield savings referral.
+- [What Should I Do With My Next $1,000?](https://northreserve.org/next-1000): A decision engine that returns the single best use of a spare $1,000 in the correct order (starter cushion → high-interest debt → employer match → goals).
+- [Home Buying Readiness](https://northreserve.org/home-buying-readiness): An eight-question readiness score (0–100) across credit, debt-to-income, down payment, reserves, and timeline, with the biggest gap and next move. No credit pull.
+- [House Poor Calculator](https://northreserve.org/house-poor): Shows what percentage of take-home pay a housing payment would consume, and whether that is Mountain-safe, tight, or house poor.
+- [Rent vs Buy Calculator](https://northreserve.org/rent-vs-buy): Compares the real monthly cost of owning vs renting and the net cost over the years you plan to stay, including a break-even estimate.
+- [Debt Freedom Calculator](https://northreserve.org/debt-freedom): Coming soon. Shows payoff time, interest saved, and estimated Financial Mountain impact from an extra monthly payment.
+- [Mortgage Qualification vs Comfortable Payment](https://northreserve.org/mortgage-qualification): Coming soon. Compares what a lender will approve against a comfortable, "Mountain-safe" price.
+- [Financial Mountain Progress Tracker](https://northreserve.org/progress-tracker): Coming soon. Projects how a monthly contribution raises your Mountain Score over 3, 6, and 12 months.
+
+## Guides
+- [The 5 Stages of Financial Health](https://northreserve.org/stages): The five stages (Base Camper, Trekker, Climber, Summit Seeker, Mountaineer), what each means, and how to level up.
+- [The Four Reservoirs](https://northreserve.org/four-reservoirs): Where your next dollar should go, filled base to summit.
+- [Financial Anxiety is a Visibility Problem](https://northreserve.org/visibility): Why seeing your money, not just tracking it, reduces stress.
+
+## Mortgage help
+- Marcelo Bayon, licensed Mortgage Loan Officer, NMLS #1851997. The home-buying tools can connect users to a real conversation about financing. Submitting a form is not a loan application, preapproval, commitment to lend, or credit decision, and no credit is pulled. Equal Housing Opportunity.
+
+## About
+- [Join the early-access waitlist](https://northreserve.org/waitlist): For the NorthReserve app.
+- Tagline: "Know where you stand. Climb with confidence."
+- Privacy: calculators run in the browser; the app stores financial numbers on-device.

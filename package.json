@@ -1,0 +1,10 @@
+{
+  "name": "northreserve-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "NorthReserve Mountain — static site + Netlify Functions (Stripe + Supabase). Function deps are declared HERE (top level) because Netlify installs the top-level package.json, then esbuild bundles the functions against the resulting node_modules.",
+  "dependencies": {
+    "stripe": "^17.0.0",
+    "@supabase/supabase-js": "^2.45.0"
+  }
+}

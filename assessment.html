@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0Z24386PQN');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Financial Mountain Assessment · NorthReserve</title>
+<meta name="description" content="See the weakest part of your financial foundation in about 3 minutes — and the one step that strengthens it most. Free.">
+<meta property="og:title" content="The Financial Mountain Assessment">
+<meta property="og:description" content="Answer a few quick questions and watch your financial mountain take shape. Free · about 3 minutes.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/og-image.png">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --basalt:#0A2A2E; --ink:#0E3A40; --pine:#176658; --glacier:#57C7DA; --gold:#F2B441;
+    --snow:#F4F6F3; --slate:#8DA09C; --pine-bright:#1E8A6E; --coral:#E2553D;
+    --z-buffer:#7F77DD; --z-emergency:#2A8ADD; --z-sinking:#BA7517; --z-retirement:#1D6E45;
+    --disp:'Clash Display',system-ui,sans-serif; --body:'Satoshi',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+    --line:rgba(87,199,218,.16);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--body); color:var(--snow); line-height:1.55;
+    background:radial-gradient(1100px 700px at 30% -5%, #12545f 0%, rgba(18,84,95,0) 62%), linear-gradient(180deg,#0A2A2E 0%,#0E3A40 100%);
+    background-attachment:fixed; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    display:flex; flex-direction:column; align-items:center;
+    padding:28px 20px 60px;
+  }
+  .nr-top{width:100%;max-width:680px;display:flex;align-items:center;gap:11px;margin-bottom:26px}
+  .nr-logo{width:38px;height:38px;border-radius:10px;flex:none;
+    background:radial-gradient(120% 120% at 35% 30%,#14545f,#0A2A2E);
+    display:flex;align-items:center;justify-content:center;border:1px solid rgba(87,199,218,.2)}
+  .nr-wordmark{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.01em}
+  .nr-wordmark b{color:var(--gold);font-weight:700}
+  .nr-back-home{margin-left:auto;font-size:13px;color:var(--slate);text-decoration:none}
+  .nr-back-home:hover{color:var(--glacier)}
+
+  .nr-app{width:100%;max-width:680px}
+  .nr-card{background:rgba(9,32,37,.5);border:1px solid var(--line);border-radius:22px;
+    padding:38px 34px;backdrop-filter:blur(6px);box-shadow:0 24px 60px -30px rgba(0,0,0,.6)}
+
+  .nr-screen{display:none;animation:fade .45s ease both}
+  .nr-screen.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--glacier);margin-bottom:16px}
+  .eyebrow.gold{color:var(--gold)}
+  h1{font-family:var(--disp);font-weight:700;font-size:clamp(30px,6vw,42px);line-height:1.04;letter-spacing:-.02em;margin:0 0 16px}
+  h2{font-family:var(--disp);font-weight:600;font-size:clamp(23px,4.4vw,30px);line-height:1.1;letter-spacing:-.01em;margin:0 0 14px}
+  h3{font-family:var(--disp);font-weight:600;font-size:22px;line-height:1.15;margin:0 0 10px}
+  p.lead{font-size:16.5px;color:#DCE6E3;margin:0 0 22px;max-width:52ch}
+  .trust{font-size:13px;color:var(--slate);margin:0}
+  .trust b{color:var(--glacier);font-weight:500}
+
+  .btn{font-family:var(--disp);font-weight:600;font-size:16px;border:none;border-radius:12px;cursor:pointer;
+    padding:15px 26px;transition:transform .12s ease,box-shadow .2s ease,background .2s;display:inline-block;text-decoration:none;text-align:center}
+  .btn-primary{background:var(--gold);color:#20160a;box-shadow:0 10px 26px -12px rgba(242,180,65,.7)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--glacier);border:1px solid rgba(87,199,218,.4);font-weight:500;font-family:var(--body)}
+  .btn-ghost:hover{border-color:var(--glacier);background:rgba(87,199,218,.06)}
+  .nr-meta{font-family:var(--mono);font-size:12px;color:var(--slate);letter-spacing:.04em;margin:22px 0 0}
+
+  /* progress */
+  .nr-progress{height:5px;background:rgba(87,199,218,.12);border-radius:99px;overflow:hidden;margin-bottom:26px}
+  .nr-progress-fill{height:100%;width:0;background:var(--gold);border-radius:99px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+  .nr-step-count{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;color:var(--slate);text-transform:uppercase;margin-bottom:14px}
+
+  .q-prompt{font-family:var(--disp);font-weight:600;font-size:clamp(20px,3.6vw,25px);line-height:1.22;letter-spacing:-.01em;margin:0 0 6px}
+  .q-help{font-size:14.5px;color:var(--slate);margin:0 0 22px}
+
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{width:100%;text-align:left;background:rgba(14,58,64,.5);border:1.5px solid rgba(87,199,218,.16);border-radius:13px;
+    padding:16px 18px;color:var(--snow);font-family:var(--body);font-size:15.5px;cursor:pointer;
+    transition:border-color .15s,background .15s,transform .1s;display:flex;align-items:center;gap:13px}
+  .opt:hover{border-color:rgba(242,180,65,.45);background:rgba(14,58,64,.8)}
+  .opt:focus-visible{outline:2px solid var(--glacier);outline-offset:2px}
+  .opt.sel{border-color:var(--gold);background:rgba(242,180,65,.1)}
+  .opt .tick{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(87,199,218,.4);flex:none;transition:all .15s;position:relative}
+  .opt.sel .tick{border-color:var(--gold);background:var(--gold)}
+  .opt.sel .tick::after{content:"";position:absolute;inset:5px;border-radius:50%;background:#20160a}
+
+  /* scale */
+  .scale-wrap{margin:8px 0 4px}
+  .scale-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--slate);margin-bottom:8px}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:99px;
+    background:linear-gradient(90deg,var(--glacier),var(--gold));outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+    background:var(--snow);border:3px solid var(--gold);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--snow);border:3px solid var(--gold);cursor:pointer}
+  .scale-val{font-family:var(--disp);font-weight:700;font-size:40px;color:var(--gold);text-align:center;margin:18px 0 4px}
+  .scale-val span{font-size:18px;color:var(--slate)}
+
+  .q-nav{display:flex;align-items:center;gap:14px;margin-top:26px}
+  .q-back{background:none;border:none;color:var(--slate);font-size:14px;cursor:pointer;font-family:var(--body);padding:6px 0}
+  .q-back:hover{color:var(--glacier)}
+  .q-back[hidden]{display:none}
+
+  /* calculating */
+  .calc{text-align:center;padding:26px 0}
+  .calc h2{margin-bottom:20px}
+  .calc-bar{height:6px;max-width:280px;margin:0 auto;background:rgba(87,199,218,.14);border-radius:99px;overflow:hidden}
+  .calc-bar i{display:block;height:100%;width:40%;background:var(--gold);border-radius:99px;animation:sweep 1.3s ease-in-out infinite}
+  @keyframes sweep{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+
+  /* email */
+  .email-form{margin-top:8px}
+  .email-row{display:flex;flex-direction:column;gap:12px;max-width:420px}
+  .email-input{background:rgba(9,32,37,.7);border:1.5px solid rgba(87,199,218,.28);border-radius:12px;padding:15px 16px;
+    color:var(--snow);font-family:var(--body);font-size:16px}
+  .email-input:focus{outline:none;border-color:var(--gold)}
+  .email-err{color:var(--coral);font-size:13.5px;margin:10px 0 0;min-height:1em}
+
+  /* results */
+  .results-top{display:flex;gap:30px;align-items:center;margin:6px 0 30px;flex-wrap:wrap}
+  .nr-mountain-wrap{flex:1 1 260px;min-width:240px;display:flex;justify-content:center}
+  .nr-mountain-wrap svg{max-width:300px;width:100%;height:auto;overflow:visible}
+  .nr-3d{width:100%;max-width:320px;height:360px;border:0;background:transparent;display:block;border-radius:16px}
+  @media (max-width:560px){ .nr-3d{height:300px} }
+  .readout{flex:1 1 240px;min-width:230px}
+  .score-num{font-family:var(--disp);font-weight:700;font-size:66px;line-height:1;color:var(--snow)}
+  .score-num span{font-size:24px;color:var(--slate);font-weight:600}
+  .score-label{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--glacier);margin:6px 0 10px}
+  .score-interp{font-size:15px;color:#DCE6E3;margin:0 0 20px}
+  .legend{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding-top:14px}
+  .zrow{display:flex;align-items:center;gap:11px;padding:7px 0}
+  .znum{font-family:var(--mono);font-size:11px;color:var(--slate);width:20px}
+  .zdot{width:11px;height:11px;border-radius:3px;flex:none}
+  .zname{font-weight:500;font-size:15px;flex:1}
+  .zstat{font-family:var(--mono);font-size:12px;letter-spacing:.03em}
+  .zstat.solid{color:var(--pine-bright)} .zstat.healthy{color:var(--glacier)}
+  .zstat.building{color:var(--gold)} .zstat.thin{color:var(--coral)}
+
+  .rec-card{background:linear-gradient(180deg,rgba(23,102,88,.22),rgba(14,58,64,.35));
+    border:1px solid rgba(242,180,65,.3);border-radius:18px;padding:28px 26px;margin:4px 0 22px}
+  .rec-card .btn{margin-top:6px}
+  .rec-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+  .rec-card[hidden]{display:none}
+
+  /* gate (unlock the #1 next step) */
+  .gate-card .lock{display:inline-flex;align-items:center;gap:7px}
+  .gate-card svg{width:15px;height:15px}
+
+  .disclaimer{font-size:12.5px;color:var(--slate);line-height:1.5;border-top:1px solid var(--line);padding-top:18px;margin:6px 0 0}
+  .retake{background:none;border:none;color:var(--glacier);font-size:14px;cursor:pointer;font-family:var(--body);margin-top:18px;text-decoration:underline;text-underline-offset:3px}
+  .retake:hover{color:var(--gold)}
+
+  .nr-foot{max-width:680px;width:100%;text-align:center;font-size:12.5px;color:var(--slate);margin-top:30px;line-height:1.6}
+  .nr-foot b{color:var(--slate);font-weight:500}
+
+  @media (max-width:560px){ .nr-card{padding:30px 22px} .results-top{gap:20px} }
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms!important;transition-duration:.01ms!important} }
+</style>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+  <!-- Hidden static form so Netlify detects the "assessment" form at deploy time.
+       The visible email step below submits these fields via fetch. -->
+  <form name="assessment" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="assessment">
+    <input name="bot-field">
+    <input type="email" name="email">
+    <input name="mountain_score"><input name="weakest_zone"><input name="recommended_action"><input name="confidence">
+    <input name="buffer_status"><input name="emergency_status"><input name="sinking_status"><input name="retirement_status">
+  </form>
+
+  <header class="nr-top">
+    <span class="nr-logo">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M11 3 L4 18 L18 18 Z" fill="none" stroke="#57C7DA" stroke-width="1.3"/><path d="M11 3 L8.4 8.5 L13.6 8.5 Z" fill="#EAF6F8"/><path d="M11 1.6 l.9 2.4 2.4 .0 -1.9 1.5 .7 2.4 -2.1 -1.4 -2.1 1.4 .7 -2.4 -1.9 -1.5 2.4 0 Z" fill="#F2B441" transform="translate(0,-.4) scale(.7) translate(4.7,2)"/></svg>
+    </span>
+    <span class="nr-wordmark">North<b>Reserve</b></span>
+    <a class="nr-back-home" href="/">← Home</a>
+  </header>
+
+  <main class="nr-app">
+    <div class="nr-card">
+
+      <!-- INTRO -->
+      <section class="nr-screen on" id="screen-intro">
+        <div class="eyebrow">Free · 7 questions · about 3 minutes</div>
+        <h1>See your money<br>as a mountain.</h1>
+        <p class="lead">Answer a few quick questions and watch your financial mountain take shape — four reservoirs, from your everyday <b style="color:var(--snow);font-weight:500">Buffer</b> at the base to <b style="color:var(--snow);font-weight:500">Retirement</b> at the summit. You'll get a Mountain Score and the one clear step that strengthens it most.</p>
+        <button class="btn btn-primary" id="startBtn">Start the assessment</button>
+        <p class="nr-meta">We ask for ranges, never account numbers.</p>
+      </section>
+
+      <!-- QUESTIONS -->
+      <section class="nr-screen" id="screen-question">
+        <div class="nr-step-count" id="stepCount">Question 1 of 7</div>
+        <div class="nr-progress"><div class="nr-progress-fill" id="progressFill"></div></div>
+        <div class="eyebrow" id="qEyebrow"></div>
+        <h2 class="q-prompt" id="qPrompt"></h2>
+        <p class="q-help" id="qHelp"></p>
+        <div id="qBody"></div>
+        <div class="q-nav">
+          <button class="q-back" id="backBtn" hidden>← Back</button>
+          <button class="btn btn-primary" id="continueBtn" style="display:none">Continue</button>
+        </div>
+      </section>
+
+      <!-- CALCULATING -->
+      <section class="nr-screen" id="screen-calc">
+        <div class="calc" aria-live="polite">
+          <h2>Reading your mountain…</h2>
+          <div class="calc-bar"><i></i></div>
+        </div>
+      </section>
+
+      <!-- RESULTS — the mountain + score reveal immediately (the "wow");
+           the personalized #1 next step is gated by the email unlock below. -->
+      <section class="nr-screen" id="screen-results">
+        <div class="eyebrow">Your results</div>
+        <h2>Here's your Financial Mountain.</h2>
+        <div class="results-top">
+          <div class="nr-mountain-wrap" id="mountainWrap"></div>
+          <div class="readout">
+            <div class="score-num" id="scoreNum">0<span>/100</span></div>
+            <div class="score-label">Mountain Score</div>
+            <div class="score-interp" id="scoreInterp"></div>
+            <div class="legend" id="legend"></div>
+          </div>
+        </div>
+
+        <!-- EMAIL GATE — unlocks the #1 next step. The "wow" above is free; the
+             action step is the reward for the email (keeps lead capture intact). -->
+        <div class="rec-card gate-card" id="gateCard">
+          <div class="eyebrow gold"><span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Your #1 next step is ready</span></div>
+          <h3 id="gateHeadline">One move strengthens your mountain most. Here's yours.</h3>
+          <p class="lead" id="gateSub">You can see where you stand. Enter your email to reveal the single next step for your mountain — and open the NorthReserve app.</p>
+          <div class="email-form">
+            <div class="email-row">
+              <input class="email-input" id="emailInput" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" aria-label="Email address">
+              <button class="btn btn-primary" id="revealBtn">Reveal my #1 next step →</button>
+            </div>
+            <p class="email-err" id="emailErr"></p>
+          </div>
+          <p class="trust" style="margin-top:18px">Calculated on your device — we save only your email and your headline result. <b>Unsubscribe anytime.</b></p>
+        </div>
+
+        <!-- UNLOCKED #1 next step (revealed after email) -->
+        <div class="rec-card" id="recCard" hidden>
+          <div class="eyebrow gold">Your #1 next step</div>
+          <h3 id="recTitle"></h3>
+          <p class="lead" id="recBody" style="margin-bottom:0"></p>
+          <div class="rec-actions" id="recActions"></div>
+        </div>
+
+        <p class="disclaimer">This assessment is educational and general in nature — a starting point for reflection, not personalized financial advice. Your situation is unique; for decisions specific to you, consider speaking with a qualified professional.</p>
+        <button class="retake" id="retakeBtn">Retake the assessment</button>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="nr-foot">
+    <b>NorthReserve</b> · Know where you stand. Climb with confidence.
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     CONFIG — the only part you edit
+     ============================================================ */
+  var CONFIG = {
+    formName: "assessment",          // matches the hidden Netlify form + your Make scenario
+    waitlistUrl: "/",                // homepage has the waitlist
+    mountainViewerUrl: "/mountain",  // the 3D Financial Mountain page
+    // Reveal the mountain + score BEFORE the email, and gate only the #1 next step.
+    // true  = mountain/score are free; the next step unlocks with the email (recommended — keeps capture).
+    // false = reveal everything immediately, no email gate (maximizes experience, sacrifices capture).
+    gateNextStep: true,
+    guides: {
+      buffer:"/four-reservoirs", emergency:"/emergency-fund", sinking:"/four-reservoirs",
+      retirement:"/four-reservoirs", debt:"/four-reservoirs", "default":"/four-reservoirs"
+    },
+    // Affiliate/product links — fill in ONLY where you actually have an offer.
+    // Leave a zone out (or null) to fall back to the related guide.
+    // Retirement is intentionally omitted: information-only, no affiliate.
+    offers: {
+      buffer:"https://www.chime.com/r/ingridbayon/?c=s",     // e.g. your Chime checking affiliate link
+      emergency:"https://www.marcus.com/share/MAR-78Q-8PU2",  // e.g. a high-yield savings affiliate, once you have one
+      sinking:null
+    }
+  };
+
+  /* ============================================================
+     QUESTIONS
+     kind:'zone' options carry a 0-100 score; 'modifier' carry a tag; 'scale' is 1-10
+     ============================================================ */
+  var QUESTIONS = [
+    { key:"buffer", kind:"zone", eyebrow:"Reservoir 01 · Buffer",
+      prompt:"After your bills are paid, how much breathing room is usually in your checking account?",
+      options:[
+        {label:"It's often near zero, or I've overdrafted", score:5},
+        {label:"A little — under $500", score:40},
+        {label:"A steady $500–$1,000 cushion", score:78},
+        {label:"More than $1,000, always there", score:100}
+      ]},
+    { key:"emergency", kind:"zone", eyebrow:"Reservoir 02 · Emergency",
+      prompt:"If your income stopped tomorrow, how long could your savings cover just the essentials?",
+      help:"Rent or mortgage, utilities, food, insurance — the must-pays only.",
+      options:[
+        {label:"Less than 2 weeks", score:8},
+        {label:"About 1 month", score:38},
+        {label:"2–3 months", score:66},
+        {label:"3–6 months", score:90},
+        {label:"More than 6 months", score:100}
+      ]},
+    { key:"sinking", kind:"zone", eyebrow:"Reservoir 03 · Sinking Funds",
+      prompt:"For costs you know are coming but that don't hit every month — car repairs, holidays, insurance, annual bills — do you set money aside ahead of time?",
+      options:[
+        {label:"No — they tend to hit me by surprise", score:10},
+        {label:"Sometimes, informally", score:42},
+        {label:"For a few of them", score:70},
+        {label:"Yes, I budget for them every month", score:100}
+      ]},
+    { key:"retirement", kind:"zone", eyebrow:"Reservoir 04 · Retirement",
+      prompt:"Are you putting money toward retirement — a 401(k), IRA, or similar?",
+      options:[
+        {label:"Not yet", score:5},
+        {label:"A little, or on and off", score:40},
+        {label:"Yes, consistently", score:78},
+        {label:"Yes — around 15% of my income or more", score:100}
+      ]},
+    { key:"match", kind:"modifier", eyebrow:"The free-money check",
+      prompt:"If your employer offers to match retirement contributions, are you getting the full match?",
+      options:[
+        {label:"There's a match and I'm not getting all of it", tag:"match_gap"},
+        {label:"No match offered, or I'm not sure", tag:"match_na"},
+        {label:"Yes — I capture the full match", tag:"match_full"}
+      ]},
+    { key:"debt", kind:"modifier", eyebrow:"One more thing",
+      prompt:"Are you carrying high-interest debt — like a credit-card balance — from month to month?",
+      options:[
+        {label:"None", tag:"debt_none"},
+        {label:"A little", tag:"debt_some"},
+        {label:"Yes, a significant balance", tag:"debt_high"}
+      ]},
+    { key:"confidence", kind:"scale", eyebrow:"Last one",
+      prompt:"Right now, how confident do you feel about your finances?",
+      help:"There's no wrong answer — this just helps us send you the right next step." }
+  ];
+
+  /* ============================================================
+     STATE + DOM
+     ============================================================ */
+  var answers = {};
+  var idx = 0;
+  var submitted = false;
+  var revealTracked = false;
+  var RESULTS = null;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function(id){ return document.getElementById(id); };
+  function webglOK(){ try{ var c=document.createElement("canvas"); return !!(window.WebGLRenderingContext && (c.getContext("webgl")||c.getContext("experimental-webgl"))); }catch(e){ return false; } }
+
+  /* ============================================================
+     ANALYTICS — GA4 (G-0Z24386PQN) + dataLayer. Guarded so it never
+     throws. Consistent params on every event build a clean funnel:
+     start → per-question → complete → mountain_reveal → email_submit
+     → next_step_unlocked → next_move_click / view_3d_click.
+     ============================================================ */
+  function trackParams(extra){
+    var p = { entry_source:"assessment" };
+    if(RESULTS){
+      p.mountain_score = RESULTS.overall;
+      p.weakest_zone = RESULTS.weakest;
+      p.recommended_action = RESULTS.rec ? RESULTS.rec.tag : null;
+      p.confidence = RESULTS.confidence;
+      p.buffer_status = RESULTS.status.buffer.label;
+      p.emergency_status = RESULTS.status.emergency.label;
+      p.sinking_status = RESULTS.status.sinking.label;
+      p.retirement_status = RESULTS.status.retirement.label;
+    }
+    return Object.assign(p, extra||{});
+  }
+  function track(ev, extra){
+    var m = trackParams(extra);
+    try{ if(typeof gtag==="function") gtag("event", ev, m); }catch(e){}
+    try{ (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:ev}, m)); }catch(e){}
+  }
+  // Referrer check: where did this assessment start come from? (homepage, /tools, /stages, a guide, external, or an ad)
+  function entryInfo(){
+    var q=new URLSearchParams(location.search), ref=document.referrer||"";
+    var refHost="", refPath=""; try{ if(ref){ var u=new URL(ref); refHost=u.hostname; refPath=u.pathname; } }catch(e){}
+    var internal = !!refHost && refHost===location.hostname;
+    return {
+      referrer: ref || "(none)",
+      referrer_host: refHost || "(direct)",
+      referrer_path: internal ? refPath : "",                 // e.g. "/", "/tools", "/stages", "/four-reservoirs"
+      entry_kind: !ref ? "direct" : (internal ? "internal" : "external"),
+      src: q.get("src") || q.get("utm_source") || "",
+      utm_medium: q.get("utm_medium") || "",
+      utm_campaign: q.get("utm_campaign") || ""
+    };
+  }
+
+  function showScreen(name){
+    var list = document.querySelectorAll(".nr-screen");
+    for(var i=0;i<list.length;i++) list[i].classList.remove("on");
+    $("screen-"+name).classList.add("on");
+    window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});
+  }
+
+  /* ============================================================
+     FLOW
+     ============================================================ */
+  $("startBtn").addEventListener("click", function(){ idx=0; track("assessment_start", entryInfo()); showScreen("question"); renderQuestion(); });
+  $("retakeBtn").addEventListener("click", function(){
+    answers={}; idx=0; submitted=false; revealTracked=false;
+    // reset the gate so a retake starts locked again
+    $("recCard").hidden = true; $("gateCard").style.display = "";
+    var rb=$("revealBtn"); rb.textContent="Reveal my #1 next step →"; rb.style.opacity="1";
+    $("emailInput").value=""; $("emailErr").textContent="";
+    showScreen("intro");
+  });
+  $("backBtn").addEventListener("click", function(){ if(idx>0){ idx--; renderQuestion(); } });
+
+  function renderQuestion(){
+    var q = QUESTIONS[idx];
+    track("assessment_question", { step: idx+1, question: q.key });
+    $("stepCount").textContent = "Question "+(idx+1)+" of "+QUESTIONS.length;
+    $("progressFill").style.width = ((idx)/QUESTIONS.length*100)+"%";
+    $("qEyebrow").textContent = q.eyebrow;
+    $("qPrompt").textContent = q.prompt;
+    var help = $("qHelp"); help.textContent = q.help||""; help.style.display = q.help?"block":"none";
+    $("backBtn").hidden = idx===0;
+    var body = $("qBody"); body.innerHTML=""; $("continueBtn").style.display="none";
+
+    if(q.kind==="scale"){ renderScale(q, body); return; }
+
+    var wrap = document.createElement("div"); wrap.className="opts";
+    q.options.forEach(function(opt){
+      var b = document.createElement("button"); b.className="opt"; b.type="button";
+      b.innerHTML = '<span class="tick"></span><span>'+opt.label+'</span>';
+      if(answers[q.key] !== undefined){
+        var cur = (q.kind==="zone") ? opt.score : opt.tag;
+        if(answers[q.key]===cur) b.classList.add("sel");
+      }
+      b.addEventListener("click", function(){
+        var sibs = wrap.querySelectorAll(".opt"); for(var i=0;i<sibs.length;i++) sibs[i].classList.remove("sel");
+        b.classList.add("sel");
+        answers[q.key] = (q.kind==="zone") ? opt.score : opt.tag;
+        setTimeout(advance, 230);
+      });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+  }
+
+  function renderScale(q, body){
+    var val = answers[q.key]!==undefined ? answers[q.key] : 5;
+    var wrap = document.createElement("div"); wrap.className="scale-wrap";
+    wrap.innerHTML =
+      '<div class="scale-val" id="scaleVal">'+val+'<span>/10</span></div>'+
+      '<input type="range" min="1" max="10" step="1" value="'+val+'" id="scaleInput" aria-label="Confidence from 1 to 10">'+
+      '<div class="scale-row"><span>Not at all</span><span>Completely</span></div>';
+    body.appendChild(wrap);
+    var input = $("scaleInput");
+    input.addEventListener("input", function(){ $("scaleVal").firstChild.textContent = input.value; answers[q.key]=parseInt(input.value,10); });
+    answers[q.key] = parseInt(input.value,10);
+    var cont = $("continueBtn"); cont.style.display="inline-block"; cont.textContent="See my mountain →";
+    cont.onclick = function(){ answers[q.key]=parseInt(input.value,10); advance(); };
+  }
+
+  function advance(){
+    if(idx < QUESTIONS.length-1){ idx++; renderQuestion(); }
+    else { computeResults(); runCalculating(); }
+  }
+
+  function runCalculating(){
+    showScreen("calc");
+    setTimeout(function(){
+      // Reveal the mountain + score FIRST (the payoff), then gate the next step.
+      renderResults();
+      showScreen("results");
+    }, 1600);
+  }
+
+  /* ============================================================
+     SCORING
+     ============================================================ */
+  function clamp(n){ return Math.max(0, Math.min(100, n)); }
+
+  function statusFor(score){
+    if(score>=85) return {label:"Solid", cls:"solid"};
+    if(score>=65) return {label:"Healthy", cls:"healthy"};
+    if(score>=40) return {label:"Building", cls:"building"};
+    return {label:"Needs attention", cls:"thin"};
+  }
+
+  function computeResults(){
+    var z = { buffer:answers.buffer||0, emergency:answers.emergency||0, sinking:answers.sinking||0, retirement:answers.retirement||0 };
+    // Weighted for a base-up foundation: emergency + retirement carry the most.
+    var overall = 0.15*z.buffer + 0.35*z.emergency + 0.20*z.sinking + 0.30*z.retirement;
+    if(answers.debt==="debt_high") overall -= 12;
+    else if(answers.debt==="debt_some") overall -= 4;
+    overall = Math.round(clamp(overall));
+
+    // weakest zone by raw score
+    var weakest="buffer", low=Infinity, k;
+    for(k in z){ if(z[k]<low){ low=z[k]; weakest=k; } }
+
+    RESULTS = { z:z, overall:overall, weakest:weakest,
+      status:{ buffer:statusFor(z.buffer), emergency:statusFor(z.emergency), sinking:statusFor(z.sinking), retirement:statusFor(z.retirement) },
+      confidence:answers.confidence||null, rec:recommend(z, answers) };
+
+    // ---- Hand off to the 3D Mountain Viewer (/mountain). Visualize, don't recompute. ----
+    try {
+      localStorage.setItem("nr_mountain", JSON.stringify({
+        v:1, ts:Date.now(),
+        scores: RESULTS.z,
+        overall: RESULTS.overall,
+        weakest: RESULTS.weakest,
+        status: RESULTS.status,
+        confidence: RESULTS.confidence,
+        debt: answers.debt || "debt_none",
+        match: answers.match || "match_na",
+        rec: RESULTS.rec
+      }));
+    } catch(e) {}
+
+    track("assessment_complete");
+  }
+
+  // The "where does my next dollar go?" waterfall from the Four Reservoirs guide.
+  function recommend(z, a){
+    if(z.buffer < 40) return { tag:"BUFFER", zone:"buffer",
+      title:"Start with your Buffer.",
+      body:"Your everyday cushion is thin — and that's where most day-to-day money stress actually lives. Getting a small $500–$1,000 buffer in place first means a slow week no longer turns into an overdraft. It's the fastest win on your whole mountain." };
+    if(a.debt==="debt_high") return { tag:"DEBT", zone:"debt",
+      title:"Clear the high-interest debt next.",
+      body:"A carried credit-card balance usually grows faster than any savings can — so it outranks almost everything below it. Putting extra toward it now stops the current that keeps pulling your progress backward, and frees up room to build the rest." };
+    if(a.match==="match_gap") return { tag:"RETIREMENT_MATCH", zone:"retirement",
+      title:"Grab your full employer match.",
+      body:"You mentioned leaving part of your employer match on the table — that's an instant, guaranteed return you can't get anywhere else. Nudging your contribution just enough to capture the full match is often the single highest-return move on the mountain." };
+    if(z.emergency < 40) return { tag:"EMERGENCY", zone:"emergency",
+      title:"Build your base to one month.",
+      body:"Your emergency reservoir is thin. You don't need the full 3–6 months yet — just one month of essential expenses changes how a surprise feels almost overnight. That first milestone is closer than it looks." };
+    if(z.sinking < 40) return { tag:"SINKING", zone:"sinking",
+      title:"Set up your sinking funds.",
+      body:"The costs that seem to come out of nowhere — car repairs, holidays, insurance — mostly aren't surprises; they're certainties without a plan. Setting a little aside each month turns a $1,200 shock into a non-event, and stops it from raiding your emergency base." };
+    if(z.emergency < 70) return { tag:"EMERGENCY", zone:"emergency",
+      title:"Keep filling your emergency base.",
+      body:"You've got a real start. Climbing toward 3–6 months of essentials is what turns a setback from a spiral into an inconvenience. Keep the auto-transfer running and let it compound." };
+    if(z.retirement < 70) return { tag:"RETIREMENT", zone:"retirement",
+      title:"Turn your attention to the summit.",
+      body:"Your foundation is in good shape — which means time is now your biggest ally. Nudging your retirement contribution up, even a little with each raise, is the long, steady climb that compounds the most." };
+    return { tag:"ACCELERATE", zone:null,
+      title:"You're climbing well — now accelerate.",
+      body:"Your mountain is solid from base to summit. From here it's optimization: investing beyond the basics, paying down lower-interest debt faster, or funding bigger goals. Your foundation is doing its job." };
+  }
+
+  function interpFor(o){
+    if(o>=80) return "Strong and steady, base to summit.";
+    if(o>=60) return "A solid foundation, with room to climb.";
+    if(o>=40) return "Your mountain is taking shape.";
+    return "Early days — and one clear step changes a lot.";
+  }
+
+  /* ============================================================
+     EMAIL SUBMIT  (fetch -> Netlify -> Make -> MailerLite)
+     ============================================================ */
+  $("revealBtn").addEventListener("click", submitEmail);
+  $("emailInput").addEventListener("keydown", function(e){ if(e.key==="Enter") submitEmail(); });
+
+  function submitEmail(){
+    if(submitted){ unlockNextStep(); return; }
+    var email = ($("emailInput").value||"").trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      $("emailErr").textContent = "That email doesn't look right — mind checking it?";
+      return;
+    }
+    $("emailErr").textContent = "";
+    submitted = true;
+    var btn = $("revealBtn"); btn.textContent = "Revealing…"; btn.style.opacity=".7";
+
+    var data = {
+      "form-name": CONFIG.formName,
+      email: email,
+      mountain_score: String(RESULTS.overall),
+      weakest_zone: RESULTS.weakest,
+      recommended_action: RESULTS.rec.tag,
+      confidence: RESULTS.confidence!=null ? String(RESULTS.confidence) : "",
+      buffer_status: RESULTS.status.buffer.label,
+      emergency_status: RESULTS.status.emergency.label,
+      sinking_status: RESULTS.status.sinking.label,
+      retirement_status: RESULTS.status.retirement.label
+    };
+    var body = Object.keys(data).map(function(k){ return encodeURIComponent(k)+"="+encodeURIComponent(data[k]); }).join("&");
+
+    track("email_submit");
+
+    var done = false;
+    function reveal(){ if(done) return; done = true; unlockNextStep(); }
+
+    fetch("/", { method:"POST", headers:{ "Content-Type":"application/x-www-form-urlencoded" }, body: body })
+      .then(reveal).catch(reveal);
+    // Safety net: never leave the user stuck on a slow/failed network.
+    setTimeout(reveal, 2500);
+  }
+
+  /* ============================================================
+     RESULTS RENDER
+     ============================================================ */
+  var ZONES = [ // summit -> base (drawing order)
+    {key:"retirement", top:44,  bot:119, color:"#1D6E45", name:"Retirement", num:"04"},
+    {key:"sinking",    top:119, bot:194, color:"#BA7517", name:"Sinking Funds", num:"03"},
+    {key:"emergency",  top:194, bot:269, color:"#2A8ADD", name:"Emergency", num:"02"},
+    {key:"buffer",     top:269, bot:344, color:"#7F77DD", name:"Buffer", num:"01"}
+  ];
+  var APEX_Y=44, BASE_Y=344, BASE_HALF=150;
+  function hw(y){ return BASE_HALF*(y-APEX_Y)/(BASE_Y-APEX_Y); }
+
+  function mountainSVG(){
+    var defs="", bg="", fills="";
+    ZONES.forEach(function(z){
+      var tlx=200-hw(z.top), trx=200+hw(z.top), blx=200-hw(z.bot), brx=200+hw(z.bot);
+      var trap="M "+tlx+" "+z.top+" L "+trx+" "+z.top+" L "+brx+" "+z.bot+" L "+blx+" "+z.bot+" Z";
+      defs += '<clipPath id="clip-'+z.key+'"><path d="'+trap+'"/></clipPath>';
+      bg   += '<path d="'+trap+'" fill="'+z.color+'" fill-opacity="0.10" stroke="'+z.color+'" stroke-opacity="0.5" stroke-width="1.4"/>';
+      fills+= '<rect id="fill-'+z.key+'" x="'+blx+'" y="'+z.bot+'" width="'+(brx-blx)+'" height="0" fill="'+z.color+'" fill-opacity="0.85" clip-path="url(#clip-'+z.key+')"/>';
+    });
+    var sil = '<path d="M 200 44 L 50 344 L 350 344 Z" fill="none" stroke="#57C7DA" stroke-opacity="0.22" stroke-width="1.5"/>';
+    var cap = '<path d="M 200 44 L '+(200-hw(74))+' 74 L '+(200+hw(74))+' 74 Z" fill="#EAF6F8" fill-opacity="0.92"/>';
+    var star= '<path transform="translate(200,40)" d="M0 -9 L2.4 -2.4 L9 0 L2.4 2.4 L0 9 L-2.4 2.4 L-9 0 L-2.4 -2.4 Z" fill="#F2B441"/>';
+    return '<svg viewBox="0 0 400 384" role="img" aria-label="Your financial mountain, filled to your scores"><defs>'+defs+'</defs>'+sil+bg+fills+cap+star+'</svg>';
+  }
+
+  function tweenFills(){
+    var order = ZONES.slice().reverse(); // base first
+    order.forEach(function(z, i){
+      var rect = document.getElementById("fill-"+z.key);
+      if(!rect) return;
+      var full = z.bot - z.top;
+      var target = full * (RESULTS.z[z.key]||0)/100;
+      if(reduce){ rect.setAttribute("y", z.bot-target); rect.setAttribute("height", target); return; }
+      var dur=850, start=performance.now()+i*110;
+      (function frame(now){
+        var p=(now-start)/dur; if(p<0)p=0; if(p>1)p=1;
+        var e=1-Math.pow(1-p,3); var h=target*e;
+        rect.setAttribute("height", h); rect.setAttribute("y", z.bot-h);
+        if(p<1) requestAnimationFrame(frame);
+      })(performance.now());
+    });
+  }
+
+  function countTo(el, target){
+    if(reduce){ el.firstChild.textContent = target; return; }
+    var start=performance.now(), dur=900;
+    (function frame(now){
+      var p=(now-start)/dur; if(p>1)p=1;
+      el.firstChild.textContent = Math.round(target*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(frame);
+    })(performance.now());
+  }
+
+  // Renders the free teaser: mountain + score + zone legend. The #1 next step
+  // stays gated (or opens immediately if CONFIG.gateNextStep === false).
+  function renderResults(){
+    // The reveal is now the interactive 3D mountain (the "wow" that earns the email);
+    // the 2D SVG stays as the no-WebGL fallback.
+    var use3d = webglOK();
+    if(use3d){
+      var mp = new URLSearchParams({ embed:"1", b:RESULTS.z.buffer, e:RESULTS.z.emergency, s:RESULTS.z.sinking, r:RESULTS.z.retirement,
+        debt: answers.debt||"debt_none", match: answers.match||"match_na" });
+      if(RESULTS.confidence!=null) mp.set("cf", RESULTS.confidence);
+      $("mountainWrap").innerHTML = '<iframe class="nr-3d" title="Your 3D financial mountain — drag to rotate" src="'+CONFIG.mountainViewerUrl+'?'+mp.toString()+'" loading="lazy" allow="accelerometer; gyroscope; xr-spatial-tracking; fullscreen"></iframe>';
+    } else {
+      $("mountainWrap").innerHTML = mountainSVG();
+    }
+    $("scoreInterp").textContent = interpFor(RESULTS.overall);
+
+    // legend, base -> summit to match the build order in the guides
+    var leg = $("legend"); leg.innerHTML="";
+    ZONES.slice().reverse().forEach(function(z){
+      var st = RESULTS.status[z.key];
+      var row = document.createElement("div"); row.className="zrow";
+      row.innerHTML = '<span class="znum">'+z.num+'</span>'+
+        '<span class="zdot" style="background:'+z.color+'"></span>'+
+        '<span class="zname">'+z.name+'</span>'+
+        '<span class="zstat '+st.cls+'">'+st.label+'</span>';
+      leg.appendChild(row);
+    });
+
+    // point the gate at the weakest reservoir so the unlock feels personal
+    var wk = ZONES.filter(function(z){ return z.key===RESULTS.weakest; })[0];
+    if(wk){ $("gateSub").textContent = "You can see where you stand — your "+wk.name+" reservoir is your thinnest layer. Enter your email to reveal the single next step that strengthens your mountain most, and join early access."; }
+
+    if(!revealTracked){ track("mountain_reveal"); revealTracked = true; }
+
+    // animate the reveal — the 3D iframe self-animates; the 2D fallback tweens its fills
+    requestAnimationFrame(function(){ if(!use3d) tweenFills(); countTo($("scoreNum"), RESULTS.overall); });
+
+    // gate state
+    if(CONFIG.gateNextStep){
+      $("gateCard").style.display = "";
+      $("recCard").hidden = true;
+    } else {
+      // No gate: reveal the step immediately (email capture then lives on the waitlist).
+      $("gateCard").style.display = "none";
+      unlockNextStep(true);
+    }
+  }
+
+  function buildRecActions(){
+    var rec = RESULTS.rec;
+    $("recTitle").textContent = rec.title;
+    $("recBody").textContent = rec.body;
+    var acts = $("recActions"); acts.innerHTML="";
+
+    // Primary gold CTA — the money step (offer if we have one, else the guide)
+    var offer = rec.zone && CONFIG.offers[rec.zone];
+    var primary = document.createElement("a"); primary.className="btn btn-primary";
+    if(offer){
+      primary.textContent="Explore options →"; primary.href=offer; primary.target="_blank"; primary.rel="noopener sponsored";
+      primary.addEventListener("click", function(){ track("next_move_click", {destination:"offer", rec_zone:rec.zone, surface:"assessment"}); });
+    } else {
+      primary.textContent="Read the related guide →"; primary.href = CONFIG.guides[rec.zone] || CONFIG.guides["default"];
+      primary.addEventListener("click", function(){ track("next_move_click", {destination:"guide", rec_zone:rec.zone||"none", surface:"assessment"}); });
+    }
+    acts.appendChild(primary);
+
+    // Ghost — see the mountain in 3D (URL params make the link work on any device)
+    var view3d = document.createElement("a"); view3d.className="btn btn-ghost";
+    view3d.textContent="Open the full mountain + AR →";
+    var p = new URLSearchParams({
+      b:RESULTS.z.buffer, e:RESULTS.z.emergency, s:RESULTS.z.sinking, r:RESULTS.z.retirement,
+      debt: answers.debt||"debt_none", match: answers.match||"match_na", src:"assessment"
+    });
+    if(RESULTS.confidence!=null) p.set("cf", RESULTS.confidence);
+    view3d.href = CONFIG.mountainViewerUrl + "?" + p.toString();
+    view3d.addEventListener("click", function(){ track("view_3d_click", {surface:"assessment"}); });
+    acts.appendChild(view3d);
+
+    // Ghost — save your Mountain into the app
+    var secondary = document.createElement("a"); secondary.className="btn btn-ghost";
+    secondary.textContent="Save your Mountain →"; secondary.href="/app";
+    secondary.addEventListener("click", function(){ track("save_mountain_click", {surface:"assessment"}); });
+    acts.appendChild(secondary);
+  }
+
+  function unlockNextStep(silent){
+    buildRecActions();
+    $("gateCard").style.display = "none";
+    var rc = $("recCard"); rc.hidden = false;
+    if(!silent){
+      track("next_step_unlocked");
+      if(!reduce){ try{ rc.scrollIntoView({behavior:"smooth", block:"nearest"}); }catch(e){} }
+    }
+  }
+})();
+</script>
+</body>
+</html>

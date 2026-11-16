@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NorthReserve — Your Financial Mountain (Result)</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    --basalt:#0A2A2E; --ink:#0E3A40; --ink2:#10454C; --pine:#176658;
+    --glacier:#57C7DA; --glacier-deep:#2A8FA8; --gold:#F2B441; --gold-2:#F6C657;
+    --gold-soft:#FFE6A6; --snow:#F4F6F3; --slate:#8DA09C; --ridge:#B8C6C3;
+    --z-ret:#1D6E45; --z-mid:#BA7517; --z-emg:#2A8ADD; --z-buf:#7F77DD;
+    --disp:'Clash Display','Satoshi',ui-sans-serif,system-ui,sans-serif;
+    --body:'Satoshi',ui-sans-serif,system-ui,-apple-system,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 700px at 50% -10%,#0E3A40,#071f25 60%,#061a1f);
+    color:var(--snow);font-family:var(--body);line-height:1.55;padding:40px 18px 90px;-webkit-font-smoothing:antialiased}
+  .page{max-width:780px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.30em;text-transform:uppercase;color:var(--glacier);text-align:center}
+  .wm{font-family:var(--disp);font-weight:600;font-size:20px;text-align:center;margin-bottom:26px}
+  .wm .g{color:var(--gold)}
+
+  /* hero score */
+  .hero{background:linear-gradient(165deg,var(--ink),var(--basalt));border:1px solid rgba(87,199,218,.16);
+    border-radius:22px;padding:34px 30px;text-align:center;margin-top:14px;position:relative;overflow:hidden}
+  .hero .score{font-family:var(--mono);font-weight:700;font-size:96px;line-height:1;color:var(--snow)}
+  .hero .score small{font-family:var(--body);font-weight:500;font-size:22px;color:var(--slate)}
+  .hero .level{font-family:var(--disp);font-weight:600;font-size:30px;color:var(--gold);margin-top:6px;letter-spacing:.01em}
+  .hero .ldesc{color:#CFE0DC;font-size:16px;max-width:44ch;margin:10px auto 0}
+  .track{height:12px;border-radius:999px;background:rgba(255,255,255,.09);margin:22px auto 4px;max-width:460px;overflow:hidden}
+  .track i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-soft))}
+  .track-labels{display:flex;justify-content:space-between;max-width:460px;margin:0 auto;
+    font-family:var(--mono);font-size:11px;color:var(--slate);letter-spacing:.08em}
+
+  h2{font-family:var(--disp);font-weight:600;font-size:22px;margin:38px 0 4px}
+  .sub{color:var(--slate);font-size:14px;margin-bottom:16px}
+
+  /* explainable zone stack (canonical: summit on top, base on bottom) */
+  .stack{display:flex;flex-direction:column;gap:10px}
+  .zone{background:linear-gradient(160deg,rgba(255,255,255,.03),transparent);
+    border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px 16px}
+  .zrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .zname{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:600;font-size:16px}
+  .dot{width:12px;height:12px;border-radius:50%}
+  .zpos{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+  .zscore{font-family:var(--mono);font-weight:700;font-size:18px}
+  .zbar{height:8px;border-radius:999px;background:rgba(255,255,255,.08);margin:10px 0 8px;overflow:hidden}
+  .zbar i{display:block;height:100%;border-radius:999px}
+  .znote{font-size:13.5px;color:#BFD0CC}
+  .tagpill{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    padding:3px 8px;border-radius:999px;border:1px solid currentColor}
+
+  /* diagnosis */
+  .diag{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .dcard{border-radius:14px;padding:16px 18px;border:1px solid rgba(255,255,255,.10)}
+  .dcard .dl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+  .dcard .dv{font-family:var(--disp);font-weight:600;font-size:19px;margin-top:5px}
+  .dcard.strong{background:rgba(30,110,69,.10);border-color:rgba(30,110,69,.4)}
+  .dcard.strong .dv{color:#7FE0A8}
+  .dcard.weak{background:rgba(226,85,61,.08);border-color:rgba(226,85,61,.38)}
+  .dcard.weak .dv{color:#F2A18F}
+
+  /* next move (the one gold action) */
+  .move{background:radial-gradient(120% 140% at 100% 0%,rgba(242,180,65,.16),transparent 60%),linear-gradient(160deg,var(--ink),var(--basalt));
+    border:1px solid rgba(242,180,65,.34);border-radius:18px;padding:24px 24px 22px;margin-top:14px}
+  .move .ml{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .move .mt{font-family:var(--disp);font-weight:600;font-size:26px;margin:8px 0 6px;line-height:1.15}
+  .move .md{color:#D9E6E2;font-size:15px;max-width:52ch}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 18px}
+  .chip{font-family:var(--mono);font-size:12px;color:#CFE0DC;background:rgba(87,199,218,.10);
+    border:1px solid rgba(87,199,218,.26);border-radius:10px;padding:8px 12px}
+  .chip b{color:var(--snow)}
+  .btn{font-family:var(--disp);font-weight:600;font-size:17px;background:linear-gradient(180deg,var(--gold-2),var(--gold));
+    color:var(--basalt);border:none;border-radius:13px;padding:15px 26px;cursor:pointer;
+    box-shadow:0 16px 30px -14px rgba(242,180,65,.6)}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--glacier);border:1.5px solid var(--glacier-deep);box-shadow:none;margin-left:10px}
+
+  .disc{font-size:12px;color:var(--slate);margin-top:18px;line-height:1.5}
+
+  /* ============ SHARE CARD (1080x1080) ============ */
+  .sharewrap{margin-top:40px}
+  .sharebar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+  .scaler{transform-origin:top left}
+  .card{position:relative;width:1080px;height:1080px;overflow:hidden;border-radius:6px;
+    background:linear-gradient(180deg,#062028 0%,#0A323C 62%,#0C3A44 100%);color:var(--snow)}
+  .card .cwrap{position:absolute;inset:0;padding:78px 74px;display:flex;flex-direction:column}
+  .card .ceyebrow{font-family:var(--mono);font-size:22px;letter-spacing:.34em;text-transform:uppercase;color:var(--glacier)}
+  .card .cscore{font-family:var(--mono);font-weight:700;font-size:300px;line-height:.9;color:var(--snow);margin:26px 0 0}
+  .card .cof{font-family:var(--body);font-weight:500;font-size:40px;color:var(--slate)}
+  .card .clevel{font-family:var(--disp);font-weight:600;font-size:76px;color:var(--gold);margin-top:8px;letter-spacing:.01em}
+  .card .cquote{font-family:var(--body);font-size:34px;color:#D9E6E2;margin-top:14px;max-width:20ch}
+  .card .cnext{margin-top:auto;border-top:1px solid rgba(87,199,218,.28);padding-top:30px}
+  .card .cnl{font-family:var(--mono);font-size:22px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  .card .cnv{font-family:var(--disp);font-weight:600;font-size:46px;margin-top:8px}
+  .card .cfoot{display:flex;align-items:baseline;justify-content:space-between;margin-top:34px}
+  .card .cask{font-family:var(--disp);font-weight:600;font-size:36px;color:var(--snow)}
+  .card .cbrand{font-family:var(--disp);font-weight:600;font-size:30px}
+  .card .cbrand .g{color:var(--gold)}
+  .card .star{position:absolute;right:150px;top:150px;width:120px;height:120px}
+  .card .cnodes{position:absolute;right:0;bottom:0;width:560px;height:560px;opacity:.9}
+
+  .hint{color:#7f938f;font-size:12px;margin-top:10px}
+  @media(max-width:560px){ .diag{grid-template-columns:1fr} .hero .score{font-size:76px} }
+</style>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="wm">North<span class="g">Reserve</span></div>
+  <div class="eyebrow">Your Financial Mountain</div>
+
+  <div class="hero">
+    <div class="score"><span id="score">67</span><small>/100</small></div>
+    <div class="level" id="level">Climber</div>
+    <div class="ldesc" id="levelDesc">Your foundation is forming — but there's still one real obstacle on your route.</div>
+    <div class="track"><i id="track" style="width:67%"></i></div>
+    <div class="track-labels"><span>Base Camp</span><span>Summit</span></div>
+  </div>
+
+  <h2>Why your score is what it is</h2>
+  <div class="sub">Your Mountain Score is the sum of four reservoirs, filled from the base up.</div>
+  <div class="stack" id="stack"></div>
+
+  <h2>Your diagnosis</h2>
+  <div class="sub">Strongest zone, and the one obstacle holding your climb back.</div>
+  <div class="diag">
+    <div class="dcard strong"><div class="dl">Strongest zone</div><div class="dv" id="strongest">Buffer</div></div>
+    <div class="dcard weak"><div class="dl">Biggest obstacle</div><div class="dv" id="obstacle">Emergency</div></div>
+  </div>
+
+  <h2>Your next move</h2>
+  <div class="sub">One step. The single climb that strengthens your mountain most right now.</div>
+  <div class="move">
+    <div class="ml">Your next move</div>
+    <div class="mt" id="moveTitle">Grow your emergency reserve by $200 this month.</div>
+    <div class="md" id="moveDesc">Your base cash buffer is solid, so the highest-leverage climb is your emergency reserve — the zone just above it. Small, steady adds compound fast.</div>
+    <div class="chips">
+      <div class="chip">What: <b id="mWhat">Emergency reserve</b></div>
+      <div class="chip">How much: <b id="mAmt">$200</b></div>
+      <div class="chip">When: <b id="mWhen">This month</b></div>
+    </div>
+    <button class="btn" id="commit">Make this my goal</button>
+    <button class="btn ghost" id="whyBtn">Why this move?</button>
+  </div>
+
+  <div class="disc">General financial education, personalized to your answers — not individualized financial, investment, or tax advice.
+    Your numbers are calculated on your device. Retirement guidance is informational only.</div>
+
+  <!-- ===================== SHARE CARD ===================== -->
+  <div class="sharewrap">
+    <h2>Share your mountain</h2>
+    <div class="sub">A social-ready 1080×1080 card. This is your growth object — worth sharing, not "check out this app."</div>
+    <div class="sharebar">
+      <button class="btn" id="dl">⬇ Download share card (PNG)</button>
+      <button class="btn ghost" id="copy">Copy caption</button>
+    </div>
+    <div id="scaler" class="scaler">
+      <div class="card" id="card">
+        <div class="cwrap">
+          <div class="ceyebrow">My Financial Mountain</div>
+          <div class="cscore"><span id="cScore">67</span><span class="cof"> / 100</span></div>
+          <div class="clevel" id="cLevel">Climber</div>
+          <div class="cquote" id="cQuote">My mountain is taking shape.</div>
+          <div class="cnext">
+            <div class="cnl">My next climb</div>
+            <div class="cnv" id="cNext">Strengthen my emergency reserve</div>
+            <div class="cfoot">
+              <div class="cask">What's your Mountain Score?</div>
+              <div class="cbrand">North<span class="g">Reserve</span></div>
+            </div>
+          </div>
+        </div>
+        <svg class="star" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,4 60,40 96,50 60,60 50,96 40,60 4,50 40,40" fill="#F6C657"/>
+          <polygon points="50,20 56,44 80,50 56,56 50,80 44,56 20,50 44,44" fill="#FFE6A6"/>
+        </svg>
+        <svg class="cnodes" viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#57C7DA" stroke-width="2" opacity="0.30" fill="none">
+            <polyline points="40,540 150,360 250,410 360,220 470,330 560,150"/>
+          </g>
+          <g fill="#8FE0EC">
+            <circle cx="150" cy="360" r="7"/><circle cx="360" cy="220" r="7"/><circle cx="470" cy="330" r="6"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="hint">Card downloads at full 1080×1080. If the button misbehaves, screenshot the card — it's already square.</div>
+  </div>
+
+</div>
+
+<script>
+  // ===== SINGLE SOURCE OF TRUTH — wire this from your real assessment scoring =====
+  // Zones are listed BASE -> SUMMIT (canonical: Buffer at base, Retirement at summit).
+  const PROFILE = {
+    score: 67,
+    levelName: "Climber",
+    levelDesc: "Your foundation is forming — but there's still one real obstacle on your route.",
+    quote: "My mountain is taking shape.",
+    zones: [
+      { key:"buffer",    label:"Buffer",         pos:"Base",   score:78, colorVar:"--z-buf", note:"~3 weeks of essentials in cash. A steady footing." },
+      { key:"emergency", label:"Emergency",      pos:"Lower",  score:52, colorVar:"--z-emg", note:"2.1 of your 6-month target. Below where you want it." },
+      { key:"sinking",   label:"Sinking Funds",  pos:"Middle", score:61, colorVar:"--z-mid", note:"A few goals funded; some known costs still unplanned." },
+      { key:"retirement",label:"Retirement",     pos:"Summit", score:74, colorVar:"--z-ret", note:"On track for your age. (Informational only.)" }
+    ],
+    nextMove: {
+      title:"Grow your emergency reserve by $200 this month.",
+      desc:"Your base cash buffer is solid, so the highest-leverage climb is your emergency reserve — the zone just above it. Small, steady adds compound fast.",
+      what:"Emergency reserve", amount:"$200", when:"This month",
+      shareLabel:"Strengthen my emergency reserve"
+    }
+  };
+
+  // Level bands (rename freely). Obstacle = LOWEST reservoir still below target,
+  // in fill order (base up) — NOT merely the lowest score. A thin base undermines everything above it.
+  const TARGET = 70; // "filled" threshold for a zone
+
+  function pick(profile){
+    const zones = profile.zones;
+    // strongest = highest score
+    const strongest = zones.reduce((a,b)=> b.score>a.score ? b : a);
+    // obstacle = first zone from the BASE up that is below target; fallback to lowest score
+    const belowFromBase = zones.find(z => z.score < TARGET);
+    const obstacle = belowFromBase || zones.reduce((a,b)=> b.score<a.score ? b : a);
+    return { strongest, obstacle };
+  }
+
+  function render(){
+    const p = PROFILE, cv = getComputedStyle(document.documentElement);
+    document.getElementById('score').textContent = p.score;
+    document.getElementById('level').textContent = p.levelName;
+    document.getElementById('levelDesc').textContent = p.levelDesc;
+    document.getElementById('track').style.width = p.score + '%';
+
+    // zone stack, rendered SUMMIT -> BASE so the base sits at the bottom
+    const stack = document.getElementById('stack');
+    stack.innerHTML = '';
+    [...p.zones].reverse().forEach(z => {
+      const color = cv.getPropertyValue(z.colorVar).trim() || '#57C7DA';
+      const el = document.createElement('div');
+      el.className = 'zone';
+      el.innerHTML =
+        '<div class="zrow"><div class="zname"><span class="dot" style="background:'+color+'"></span>'+z.label+
+        ' <span class="zpos">'+z.pos+'</span></div><div class="zscore" style="color:'+color+'">'+z.score+'</div></div>'+
+        '<div class="zbar"><i style="width:'+z.score+'%;background:'+color+'"></i></div>'+
+        '<div class="znote">'+z.note+'</div>';
+      stack.appendChild(el);
+    });
+
+    const {strongest, obstacle} = pick(p);
+    document.getElementById('strongest').textContent = strongest.label;
+    document.getElementById('obstacle').textContent = obstacle.label;
+
+    document.getElementById('moveTitle').textContent = p.nextMove.title;
+    document.getElementById('moveDesc').textContent = p.nextMove.desc;
+    document.getElementById('mWhat').textContent = p.nextMove.what;
+    document.getElementById('mAmt').textContent = p.nextMove.amount;
+    document.getElementById('mWhen').textContent = p.nextMove.when;
+
+    // share card
+    document.getElementById('cScore').textContent = p.score;
+    document.getElementById('cLevel').textContent = p.levelName;
+    document.getElementById('cQuote').textContent = p.quote;
+    document.getElementById('cNext').textContent = p.nextMove.shareLabel;
+  }
+
+  function fitCard(){
+    const scaler = document.getElementById('scaler');
+    const w = Math.min(document.querySelector('.page').clientWidth, 1080);
+    const s = w / 1080;
+    scaler.style.transform = 'scale(' + s + ')';
+    scaler.style.width = '1080px';
+    scaler.style.height = (1080 * s) + 'px';
+  }
+
+  async function downloadCard(){
+    const scaler = document.getElementById('scaler'), card = document.getElementById('card');
+    const prev = scaler.style.transform;
+    scaler.style.transform = 'none'; scaler.style.height = '1080px';
+    try { if (document.fonts && document.fonts.ready) await document.fonts.ready; } catch(e){}
+    await new Promise(r => setTimeout(r, 60));
+    const canvas = await html2canvas(card, {width:1080, height:1080, scale:1, backgroundColor:'#062028', useCORS:true});
+    fitCard();
+    const a = document.createElement('a');
+    a.download = 'NorthReserve_Mountain_' + PROFILE.score + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
+
+  function caption(){
+    const p = PROFILE;
+    return "🏔️ My Financial Mountain: " + p.score + "/100 — " + p.levelName +
+      ".\nMy next climb: " + p.nextMove.shareLabel + ".\nWhat's your Mountain Score? Take the free 2-minute assessment — link in bio.\n#NorthReserve #ClimbWithConfidence #MoneyConfidence";
+  }
+
+  document.getElementById('dl').addEventListener('click', downloadCard);
+  document.getElementById('copy').addEventListener('click', () => {
+    navigator.clipboard.writeText(caption()).then(()=>{
+      const b=document.getElementById('copy'); const t=b.textContent; b.textContent='Copied ✓'; setTimeout(()=>b.textContent=t,1500);
+    });
+  });
+  document.getElementById('commit').addEventListener('click', () => {
+    const b=document.getElementById('commit'); b.textContent="I'm doing this ✓";
+  });
+  document.getElementById('whyBtn').addEventListener('click', () => {
+    alert("Obstacle = the lowest reservoir still below target, filled base-up. Your Buffer (base) is above target, so the next climb is the Emergency reserve directly above it — strengthen the mountain from the bottom up.");
+  });
+
+  window.addEventListener('resize', fitCard);
+  render(); fitCard();
+</script>
+</body>
+</html>

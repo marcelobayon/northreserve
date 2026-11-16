@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NorthReserve Mountain Membership — Track how you're climbing</title>
+<meta name="description" content="Don't just see where you stand. Save your Mountain, check in monthly, and track your climb with NorthReserve Mountain Membership. Privacy-first — no bank linking.">
+<link rel="canonical" href="https://northreserve.org/membership">
+<meta property="og:title" content="NorthReserve Mountain Membership">
+<meta property="og:description" content="Save your Mountain, check in monthly, and watch your financial progress climb.">
+<meta property="og:url" content="https://northreserve.org/membership">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="theme-color" content="#0A2A2E">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png"><link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nr-app.css">
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body class="nr">
+<main class="nr-main"><div class="nr-wrap" id="app"></div></main>
+<script src="/nr-config.js"></script>
+<script src="/links.js"></script>
+<script src="/nr-core.js"></script>
+<script src="/nr-ui.js"></script>
+<script src="/nr-auth.js"></script>
+<script src="/nr-store-supabase.js"></script>
+<script>
+(function () {
+  "use strict";
+  var app = document.getElementById("app");
+  NR.ui.boot({ active: "membership", route: "membership" });
+  NR.track("membership_viewed", {});
+  var P = NR.config.pricing;
+
+  function benefit(t) { return '<li class="nr-benefit"><span class="c">✓</span><span>' + NR.ui.esc(t) + '</span></li>'; }
+
+  function renderMember() {
+    var pl = NR.membership.plan(), p = NR.account.get();
+    app.innerHTML =
+      '<div class="nr-eyebrow" style="color:var(--gold)">Membership</div><h1>You’re climbing with us</h1>' +
+      '<div class="nr-card pad-lg gold nr-section"><div class="nr-head-row"><div><div class="k">Active membership</div>' +
+      '<h2 style="margin:2px 0">NorthReserve Mountain — ' + (pl === "annual" ? "Annual" : "Monthly") + '</h2>' +
+      '<p style="margin:0">Member since ' + NR.ui.esc(NR.util.fmtDate(p ? p.membershipSince : Date.now())) + '.</p></div>' +
+      '<span class="nr-badge on-track">Member</span></div></div>' +
+      '<div class="nr-card nr-section"><h2>Your membership unlocks</h2><ul class="nr-benefits">' +
+      [benefit("Full Mountain Score history and climb line"), benefit("Your whole Mountain Range of goals"), benefit("Progress milestones archive"), benefit("Monthly Mountain Report"), benefit("Saved tool setups — reload your numbers in any tool")].join("") +
+      '</ul></div>' +
+      '<div class="nr-btn-row"><a class="nr-btn" href="' + NR.config.routes.home + '">Go to my Mountain</a>' +
+      '<button class="nr-btn danger" id="cancel">Cancel membership</button></div>' +
+      (p && p.demoMembership ? '<p class="muted" style="font-size:12.5px;margin-top:14px">Preview membership — live billing isn’t connected yet.</p>' : "");
+    document.getElementById("cancel").addEventListener("click", function () { NR.membership.cancel(); NR.ui.toast("Membership canceled. Your saved mountain stays."); render(); });
+  }
+
+  function renderOffer() {
+    var G = NR.config.guaranteeDays || 30, trialN = NR.config.pricing.trialDays || 0, trialOn = trialN > 0;
+    app.innerHTML =
+      '<div class="nr-eyebrow" style="color:var(--gold)">NorthReserve Mountain Membership</div>' +
+      '<h1>Don’t just see where you stand. Track how you’re climbing.</h1>' +
+      '<p class="nr-lead" style="margin-top:10px">Seeing your Mountain is free, and always will be. Membership is for the part that keeps you climbing — your history, your goals, and a monthly report that answers one question: am I getting stronger?</p>' +
+
+      '<div class="nr-grid nr-grid-2 nr-section">' +
+        '<div class="nr-card"><div class="k">Always free</div><h2 style="margin:2px 0 12px">See your mountain</h2><ul class="nr-benefits">' +
+          [benefit("Take the Financial Mountain assessment"), benefit("Your Mountain Score and stage"), benefit("Save your Mountain"), benefit("Your one Next Move"), benefit("Monthly check-in"), benefit("All calculators, guides and the AR mountain")].join("") + '</ul></div>' +
+        '<div class="nr-card gold"><div class="k gold">Membership</div><h2 style="margin:2px 0 12px">Climb it</h2><ul class="nr-benefits">' +
+          [benefit("Everything in Free, plus:"), benefit("Full Mountain Score history and climb line"), benefit("Your whole Mountain Range of goals"), benefit("Progress milestones"), benefit("Monthly Mountain Report"), benefit("Saved tool setups — reload your numbers in any tool")].join("") + '</ul></div>' +
+      '</div>' +
+
+      '<div class="nr-price-grid nr-section">' +
+        '<div class="nr-price"><div class="plan">Monthly</div><div class="amt">$' + P.monthly + '<small>/mo</small></div><div class="sub">Billed monthly. Cancel anytime.</div>' +
+          '<div class="nr-btn-row"><button class="nr-btn ghost block" data-plan="monthly">' + (trialOn ? ("Start " + trialN + "-day free trial") : "Start monthly") + '</button></div></div>' +
+        '<div class="nr-price best"><div class="tag">Best value · save ' + P.annualSavingsPct() + '%</div><div class="plan">Annual</div>' +
+          '<div class="amt">$' + P.annual + '<small>/yr</small></div><div class="sub">Just $' + P.annualPerMonth() + '/mo, billed yearly.</div>' +
+          '<div class="nr-btn-row"><button class="nr-btn block" data-plan="annual">' + (trialOn ? ("Start " + trialN + "-day free trial") : "Start climbing") + '</button></div></div>' +
+      '</div>' +
+
+      '<div class="nr-privacy" style="justify-content:center"><span class="s">◈</span> No bank linking, ever. Your numbers stay on your device. Cancel anytime.</div>' +
+      '<div class="nr-callout" style="max-width:480px;margin:14px auto 0;text-align:left"><span class="s">✓</span><p><b class="snow">' + G + '-day money-back guarantee.</b> Not climbing? Email us within ' + G + ' days for a full refund — no questions.</p></div>' +
+
+      '<div class="nr-card nr-section"><h2>Questions</h2>' +
+        '<div style="margin-top:10px"><h3>Do I need to connect my bank?</h3><p style="font-size:14px">No. NorthReserve never asks for bank logins or account numbers. You answer in ranges, and everything runs in your browser.</p></div>' +
+        '<hr class="nr-divider"><h3>Can I cancel anytime?</h3><p style="font-size:14px">Yes. Cancel in one click. Your saved Mountain and history stay with you.</p>' +
+        '<hr class="nr-divider"><h3>Is this a budgeting app?</h3><p style="font-size:14px">No. It’s a way to see whether you’re actually getting financially stronger — one mountain, one next move, checked monthly.</p></div>' +
+
+      '<p class="muted" style="font-size:12.5px;margin-top:16px;text-align:center">Live billing isn’t connected in this build — starting a plan activates a free preview of membership features so you can try them. Educational tools, not financial advice.</p>';
+
+    [].forEach.call(app.querySelectorAll("[data-plan]"), function (b) {
+      b.addEventListener("click", function () { startCheckout(b.getAttribute("data-plan")); });
+    });
+  }
+
+  function startCheckout(plan) {
+    NR.track("membership_checkout_started", { membership_plan: plan });
+    NR.membership.createCheckoutSession(plan).then(function (s) {
+      s = s || {};
+      if (s.url) { window.location.href = s.url; return; }                 // real Stripe Checkout
+      if (s.needAuth) { NR.ui.toast("Sign in to start your membership."); window.location.href = NR.config.routes.account; return; }
+      if (s.mock) { NR.membership.start(plan); NR.ui.toast("Membership preview active. Welcome to the climb."); render(); window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+      NR.ui.toast("Couldn\u2019t start checkout. Please try again.");
+    });
+  }
+
+  function render() { if (NR.membership.isMember()) renderMember(); else renderOffer(); }
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "NorthReserve Mountain",
+  "short_name": "Mountain",
+  "description": "See where you stand. Know your next move. Climb with confidence.",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A2A2E",
+  "theme_color": "#0A2A2E",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "productivity", "lifestyle"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Monthly Check-In", "short_name": "Check-In", "url": "/app/check-in" },
+    { "name": "My Progress", "short_name": "Progress", "url": "/app/progress" },
+    { "name": "My Mountain Range", "short_name": "Range", "url": "/app/range" }
+  ]
+}

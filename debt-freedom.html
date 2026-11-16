@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Debt Freedom Calculator — What Pays Off Fastest? | NorthReserve</title>
+<meta name="description" content="Free debt payoff calculator. See how much sooner you'll be debt-free, how much interest you'll save with an extra monthly payment, and its estimated impact on your Financial Mountain.">
+<link rel="canonical" href="https://northreserve.org/debt-freedom">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="Debt Freedom Calculator — What Pays Off Fastest?">
+<meta property="og:description" content="How much sooner you're debt-free, the interest you save, and the lift to your Financial Mountain.">
+<meta property="og:url" content="https://northreserve.org/debt-freedom">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How can I pay off debt faster?","acceptedAnswer":{"@type":"Answer","text":"Adding a fixed extra amount to your monthly payment shortens the payoff time and cuts total interest, because more of every payment goes to principal. Even a small, consistent extra payment can save months and hundreds or thousands in interest."}},
+{"@type":"Question","name":"Should I pay off debt or build savings first?","acceptedAnswer":{"@type":"Answer","text":"A small starter emergency cushion usually comes first so a surprise doesn't put you deeper in debt. After that, high-interest debt like credit cards is often the highest-return use of extra money."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<form name="debt_freedom" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="debt_freedom">
+  <input name="bot-field"><input type="email" name="email">
+  <input name="months_to_payoff"><input name="interest_saved"><input name="mountain_impact">
+</form>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free calculator · Debt Freedom</div>
+    <h1>What pays off fastest — and moves your mountain most.</h1>
+    <p class="lede">Paying down high-interest debt is one of the best returns in personal finance. Enter your numbers and see how much sooner you'd be free, how much interest you'd save, and the lift it gives your Financial Mountain.</p>
+
+    <div class="card">
+      <div class="lead-grid">
+        <div class="field"><label for="balance">Debt balance</label><div class="dollar-wrap"><input class="input dollar" id="balance" type="number" inputmode="decimal" placeholder="8000"></div></div>
+        <div class="field"><label for="apr">Interest rate (APR %)</label><input class="input" id="apr" type="number" inputmode="decimal" placeholder="22"></div>
+      </div>
+      <div class="lead-grid">
+        <div class="field"><label for="min">Minimum monthly payment</label><div class="dollar-wrap"><input class="input dollar" id="min" type="number" inputmode="decimal" placeholder="200"></div></div>
+        <div class="field"><label for="extra">Extra monthly payment</label><div class="dollar-wrap"><input class="input dollar" id="extra" type="number" inputmode="decimal" placeholder="150"></div></div>
+      </div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Show my payoff</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <div class="lead-grid" style="gap:18px">
+          <div><div class="result-label" style="margin-top:0">Debt-free in</div><div class="result-num" style="font-size:38px"><span id="months">0</span> <span style="font-size:18px">mo</span></div></div>
+          <div><div class="result-label" style="margin-top:0">Interest saved</div><div class="result-num" style="font-size:38px" id="saved">$0</div></div>
+        </div>
+        <div class="readout" style="margin-top:6px"><p id="readLine"></p></div>
+        <p style="font-size:13.5px;color:var(--slate);margin:0 0 6px">Estimated Financial Mountain impact once you're debt-free: <b id="impact" style="color:var(--pine-bright)">—</b></p>
+
+        <div id="nr-nextmove"></div>
+        <div id="nr-email"></div>
+        <h3 style="margin-top:24px">Share your result</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>Why does an extra payment help so much?</summary>
+      <p>Your minimum mostly covers interest early on. Every extra dollar goes straight to principal, which shrinks the balance interest is charged on — so the effect compounds in your favor.</p></details>
+    <details><summary>What's a "Mountain impact"?</summary>
+      <p>An estimate of how much becoming debt-free would strengthen your overall Financial Mountain, because clearing high-interest debt frees cash flow and lifts every zone. Take the free assessment for your real score.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "debt-freedom", pageUrl: "https://northreserve.org/debt-freedom", formName: "debt_freedom" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({}, "nr-disclosure");
+  NRCalc.ev.toolViewed(CALC.slug);
+
+  function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+  function payoffMonths(bal, i, pay) {
+    if (pay <= 0) return null; if (i <= 0) return Math.ceil(bal / pay);
+    if (pay <= bal * i) return null;
+    return Math.ceil(-Math.log(1 - i * bal / pay) / Math.log(1 + i));
+  }
+  function totalInterest(bal, pay, months) { return months == null ? null : Math.max(0, pay * months - bal); }
+
+  function compute(balance, apr, min, extra) {
+    var i = apr / 1200, pay = min + extra;
+    var nWith = payoffMonths(balance, i, pay), intWith = totalInterest(balance, pay, nWith);
+    var nMin = payoffMonths(balance, i, min), intMin = totalInterest(balance, min, nMin);
+    var monthsSaved = (nMin != null && nWith != null) ? Math.max(0, nMin - nWith) : null;
+    var interestSaved = (intMin != null && intWith != null) ? Math.max(0, intMin - intWith) : null;
+    var impact = nWith != null ? clamp(Math.round(3 + (monthsSaved || 0) / 4 + (interestSaved || 0) / 1500 + (apr >= 15 ? 3 : 0)), 3, 18) : null;
+    return { pay: pay, nWith: nWith, monthsSaved: monthsSaved, interestSaved: interestSaved, impact: impact };
+  }
+
+  var started = false, last = null;
+  ["balance", "apr", "min", "extra"].forEach(function (idv) {
+    document.getElementById(idv).addEventListener("input", function () { if (!started) { started = true; NRCalc.ev.toolStarted(); } });
+  });
+
+  function calculate() {
+    var balance = NRCalc.parseMoney(document.getElementById("balance").value);
+    var apr = parseFloat(document.getElementById("apr").value || "0");
+    var min = NRCalc.parseMoney(document.getElementById("min").value);
+    var extra = NRCalc.parseMoney(document.getElementById("extra").value);
+    var err = document.getElementById("err");
+    if (balance <= 0 || min <= 0) { err.textContent = "Enter your balance and minimum payment to run it."; return; }
+    var r = compute(balance, apr, min, extra);
+    if (r.nWith == null) { err.textContent = "That payment doesn't quite cover the interest yet — try a slightly higher amount."; return; }
+    err.textContent = "";
+
+    document.getElementById("months").textContent = r.nWith;
+    document.getElementById("saved").textContent = r.interestSaved != null ? NRCalc.money(r.interestSaved) : "—";
+    document.getElementById("impact").textContent = r.impact != null ? "+" + r.impact + " points" : "add an extra payment to see it";
+    var y = Math.floor(r.nWith / 12), m = r.nWith % 12;
+    document.getElementById("readLine").innerHTML = "At " + NRCalc.money(r.pay) + "/month you'll be debt-free in about <b style='color:var(--snow)'>" +
+      (y > 0 ? y + " yr " : "") + m + " mo</b>" + (r.monthsSaved ? ", roughly <b style='color:var(--snow)'>" + r.monthsSaved + " months sooner</b> than minimums alone." : ".");
+
+    var cat = apr >= 15 ? "high_apr" : apr >= 8 ? "moderate" : "low";
+    var priority = apr >= 15 ? "high" : "medium";
+    var mv = extra > 0
+      ? { title: "Automate that extra " + NRCalc.money(extra) + " a month.", detail: "Set it and forget it — you'll be debt-free" + (r.monthsSaved ? " " + r.monthsSaved + " months sooner" : "") + " and save " + (r.interestSaved != null ? NRCalc.money(r.interestSaved) : "real money") + " in interest." }
+      : { title: "Add even $50–$100 extra a month.", detail: "It shaves months off and saves real interest — every extra dollar goes straight to principal. Try it above." };
+
+    last = { months: r.nWith, saved: r.interestSaved != null ? Math.round(r.interestSaved) : 0, impact: r.impact || 0 };
+
+    document.getElementById("result").classList.add("on");
+    document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: cat, priority: priority, intent: "debt" });
+    NRCalc.ev.resultViewed({ result_category: cat });
+    // intent = debt -> education-only; assessment already covers the "deeper" step, so no product CTA.
+    NRCalc.renderNextMove("nr-nextmove", {
+      tool: CALC.slug, intent: "debt", priority: priority, resultCategory: cat, nextMove: mv,
+      recommendedTool: "progress-tracker", economic: { kind: "none" }
+    });
+    NRCalc.renderEmailCapture("nr-email", {
+      title: "Update My Financial Mountain", calc: CALC.slug, formName: CALC.formName,
+      copy: "We'll email a simple payoff plan and show how clearing this debt moves your whole mountain — plus the NorthReserve app to track your climb.",
+      button: "Email me the plan →", done: "Sent — check your inbox for your payoff plan.",
+      fields: function () { return { months_to_payoff: String(last.months), interest_saved: String(last.saved), mountain_impact: String(last.impact) }; }
+    });
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "I mapped my path to debt freedom with NorthReserve. What's yours?";
+    return "I'll be debt-free in " + last.months + " months and save " + NRCalc.money(last.saved) + " in interest — +" + last.impact + " on my Financial Mountain. Map yours free:";
+  }, CALC.pageUrl, CALC.slug);
+
+  NRCalc.registerTool({
+    name: "debt_freedom_calculator",
+    description: "Calculate debt payoff time, interest saved versus minimum-only, and an estimated NorthReserve Financial Mountain impact. Inputs: balance (USD), APR (percent), minimum payment (USD), extra payment (USD).",
+    inputSchema: { type: "object", properties: {
+      balance: { type: "number", description: "Debt balance in USD." }, apr: { type: "number", description: "Annual rate as a percent." },
+      minimumPayment: { type: "number", description: "Minimum monthly payment in USD." }, extraPayment: { type: "number", description: "Extra monthly payment in USD." }
+    }, required: ["balance", "apr", "minimumPayment"] },
+    execute: function (a) {
+      try { var r = compute(Number(a.balance) || 0, Number(a.apr) || 0, Number(a.minimumPayment) || 0, Number(a.extraPayment) || 0);
+        if (r.nWith == null) return { error: "The payment does not cover the monthly interest; increase it." };
+        return { monthsToPayoff: r.nWith, interestSavedVsMinimum: r.interestSaved != null ? Math.round(r.interestSaved) : null, monthsSaved: r.monthsSaved, estimatedMountainImpactPoints: r.impact };
+      } catch (e) { return { error: "Could not calculate — check the inputs." }; }
+    }
+  });
+</script>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex,follow">
+<title>Monthly Check-In · NorthReserve Mountain</title>
+<meta name="description" content="Your monthly Mountain check-in. Update what changed and see whether your Mountain climbed.">
+<meta name="theme-color" content="#0A2A2E">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png"><link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nr-app.css">
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body class="nr">
+<main class="nr-main"><div class="nr-narrow" id="app"></div></main>
+<script src="/nr-config.js"></script>
+<script src="/links.js"></script>
+<script src="/nr-core.js"></script>
+<script src="/nr-ui.js"></script>
+<script src="/nr-auth.js"></script>
+<script src="/nr-store-supabase.js"></script>
+<script>
+(function () {
+  "use strict";
+  var app = document.getElementById("app");
+  var m = NR.store.loadMountain();
+
+  if (!m) {
+    NR.ui.boot({ active: "checkin", route: "checkin_empty" });
+    app.innerHTML = '<div class="nr-card pad-lg" style="text-align:center"><div class="nr-empty"><div class="big">▲</div>' +
+      '<h1>First, see your mountain</h1><p style="margin:0 auto 18px;max-width:42ch">A check-in updates a mountain you’ve already built. Take the quick assessment to create yours.</p>' +
+      '<a class="nr-btn" href="' + NR.config.routes.assessment + '">Take the assessment</a></div></div>';
+    return;
+  }
+
+  NR.ui.boot({ active: "checkin", route: "checkin" });
+  NR.track("checkin_started", { score: m.overall, stage: NR.stage.forScore(m.overall).key });
+
+  var hist = NR.store.getMountainHistory();
+  var last = hist.length ? hist[hist.length - 1] : null;
+  var sel = {
+    scores: { buffer: m.scores.buffer, emergency: m.scores.emergency, sinking: m.scores.sinking, retirement: m.scores.retirement },
+    debt: m.debt, match: m.match, confidence: (m.confidence == null ? 6 : m.confidence)
+  };
+
+  function nearestScore(zone, score) {
+    var ch = NR.score.OPTIONS[zone].choices, best = 0, d = Infinity;
+    ch.forEach(function (o) { var dd = Math.abs(o.score - score); if (dd < d) { d = dd; best = o.score; } });
+    return best;
+  }
+  NR.score.ZONES.forEach(function (z) { sel.scores[z] = nearestScore(z, sel.scores[z]); });
+
+  function zoneGroup(z) {
+    var o = NR.score.OPTIONS[z];
+    var opts = o.choices.map(function (c) {
+      var on = sel.scores[z] === c.score;
+      return '<button type="button" class="nr-opt' + (on ? " sel" : "") + '" data-g="zone" data-z="' + z + '" data-score="' + c.score + '"><span class="rad"></span><span>' + NR.ui.esc(c.label) + '</span></button>';
+    }).join("");
+    return '<div class="nr-q nr-section"><div class="nr-eyebrow">' + NR.ui.esc(o.eyebrow) + '</div>' +
+      '<div class="nr-q-prompt">' + NR.ui.esc(o.prompt) + '</div>' +
+      (o.help ? '<div class="nr-q-help">' + NR.ui.esc(o.help) + '</div>' : "") +
+      '<div class="nr-opts">' + opts + '</div></div>';
+  }
+  function modGroup(key) {
+    var mo = NR.score.MODIFIERS[key];
+    var opts = mo.choices.map(function (c) {
+      var on = sel[key] === c.tag;
+      return '<button type="button" class="nr-opt' + (on ? " sel" : "") + '" data-g="mod" data-k="' + key + '" data-tag="' + c.tag + '"><span class="rad"></span><span>' + NR.ui.esc(c.label) + '</span></button>';
+    }).join("");
+    return '<div class="nr-q nr-section"><div class="nr-eyebrow">' + NR.ui.esc(mo.eyebrow) + '</div>' +
+      '<div class="nr-q-prompt">' + NR.ui.esc(mo.prompt) + '</div><div class="nr-opts">' + opts + '</div></div>';
+  }
+
+  function renderForm() {
+    app.innerHTML =
+      '<div class="nr-crumbs"><a href="' + NR.config.routes.home + '">Mountain</a> / Check-In</div>' +
+      '<div class="nr-eyebrow">Monthly Check-In</div>' +
+      '<h1>Update your Mountain</h1>' +
+      '<p class="nr-lead" style="margin-top:8px">Takes about a minute. Tap what’s changed — your answers are pre-filled from ' + (last ? "your last check-in" : "your assessment") + '.</p>' +
+      '<div class="nr-privacy"><span class="s">◈</span> Ranges, never account numbers. Nothing leaves your device.</div>' +
+      NR.score.ZONES.map(zoneGroup).join("") +
+      modGroup("match") + modGroup("debt") +
+      '<div class="nr-q nr-section"><div class="nr-eyebrow">Last one</div>' +
+        '<div class="nr-q-prompt">How confident do you feel about your finances right now?</div>' +
+        '<div style="display:flex;align-items:center;gap:14px;margin-top:10px">' +
+        '<input type="range" id="conf" min="0" max="10" value="' + sel.confidence + '" style="flex:1;accent-color:#F2B441">' +
+        '<span class="nr-stage-pill" id="confVal" style="min-width:46px;justify-content:center">' + sel.confidence + '/10</span></div></div>' +
+      '<div class="nr-btn-row" style="margin-top:28px"><button class="nr-btn block" id="submit">Update my Mountain</button></div>' +
+      '<div style="text-align:center;margin-top:12px"><a class="nr-textlink" href="' + NR.config.routes.home + '">Cancel</a></div>';
+
+    app.addEventListener("click", onPick);
+    document.getElementById("conf").addEventListener("input", function (e) { sel.confidence = +e.target.value; document.getElementById("confVal").textContent = sel.confidence + "/10"; });
+    document.getElementById("submit").addEventListener("click", submit);
+  }
+
+  function onPick(e) {
+    var b = e.target.closest(".nr-opt"); if (!b) return;
+    if (b.getAttribute("data-g") === "zone") {
+      var z = b.getAttribute("data-z"); sel.scores[z] = +b.getAttribute("data-score");
+      [].forEach.call(app.querySelectorAll('.nr-opt[data-z="' + z + '"]'), function (x) { x.classList.remove("sel"); });
+    } else {
+      var k = b.getAttribute("data-k"); sel[k] = b.getAttribute("data-tag");
+      [].forEach.call(app.querySelectorAll('.nr-opt[data-k="' + k + '"]'), function (x) { x.classList.remove("sel"); });
+    }
+    b.classList.add("sel");
+  }
+
+  function submit() {
+    var res = NR.store.updateCheckIn(sel);
+    NR.track("checkin_completed", { score: res.mountain.overall, stage: NR.stage.forScore(res.mountain.overall).key, delta_band: (res.delta > 0 ? "up" : (res.delta < 0 ? "down" : "flat")) });
+    renderResult(res);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function renderResult(res) {
+    var cur = res.mountain.overall, prev = res.prev ? res.prev.overall : null;
+    var nm = NR.nextMove.compute(res.mountain);
+    var moved = prev != null && res.delta !== 0;
+    var headline = moved ? "Your Mountain moved" : (prev == null ? "Your Mountain is saved" : "Your Mountain held steady");
+    var ms = res.newMilestones && res.newMilestones.length
+      ? '<div class="nr-section"><div class="nr-eyebrow">New milestones</div><div class="nr-milestones">' +
+        res.newMilestones.map(function (x) { return '<span class="nr-chip"><span class="s">✦</span>' + NR.ui.esc(x.label) + '</span>'; }).join("") + '</div></div>'
+      : "";
+    app.removeEventListener("click", onPick);
+    app.innerHTML =
+      '<div class="nr-eyebrow" style="color:var(--gold)">Check-in complete</div>' +
+      '<h1>' + headline + '</h1>' +
+      '<div class="nr-card pad-lg nr-section"><div class="nr-score">' + NR.ui.ring(cur) +
+        '<div class="nr-score-meta">' + NR.ui.stagePill(cur) + '<div style="margin-top:8px">' + NR.ui.deltaBadge(res.delta) + '</div>' +
+        (prev != null ? '<p style="margin-top:10px;font-family:var(--mono);font-size:14px;color:var(--ridge)">' + prev + ' → <span class="gold">' + cur + '</span></p>' : '') +
+        '</div></div></div>' +
+      ms +
+      '<div class="nr-nextmove nr-section"><div class="nr-eyebrow" style="color:var(--gold)">Your next move</div>' +
+        '<div class="nr-nm-title">' + NR.ui.esc(nm.title) + '</div><p class="nr-nm-body">' + NR.ui.esc(nm.body) + '</p></div>' +
+      '<div class="nr-btn-row"><a class="nr-btn" href="' + NR.config.routes.progress + '">See my progress</a>' +
+        '<a class="nr-btn ghost" href="' + NR.config.routes.home + '">Back to my Mountain</a></div>';
+  }
+
+  renderForm();
+})();
+</script>
+</body>
+</html>

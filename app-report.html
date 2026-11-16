@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex,follow">
+<title>Your Monthly Report · NorthReserve Mountain</title>
+<meta name="description" content="Your monthly Mountain Report: what moved in each reservoir this month, your stage, and your one next move.">
+<meta name="theme-color" content="#0A2A2E">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png"><link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nr-app.css">
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body class="nr">
+<main class="nr-main"><div class="nr-narrow" id="app"></div></main>
+<script src="/nr-config.js"></script>
+<script src="/links.js"></script>
+<script src="/nr-core.js"></script>
+<script src="/nr-ui.js"></script>
+<script src="/nr-auth.js"></script>
+<script src="/nr-store-supabase.js"></script>
+<script>
+(function () {
+  "use strict";
+  var app = document.getElementById("app");
+  var E = NR.ui.esc;
+  var R = NR.config.routes;
+  var crumbs = '<div class="nr-crumbs"><a href="' + R.home + '">Mountain</a> / Monthly Report</div>';
+
+  var m = NR.store.loadMountain();
+
+  /* ---- No mountain yet -> send to the assessment ---- */
+  if (!m) {
+    NR.ui.boot({ active: "report", route: "report_empty" });
+    app.innerHTML = '<div class="nr-card pad-lg" style="text-align:center"><div class="nr-empty"><div class="big">◆</div>' +
+      '<h1>Your report needs a mountain</h1>' +
+      '<p style="margin:0 auto 18px;max-width:42ch">Take the two-minute assessment and your first report starts building from there.</p>' +
+      '<a class="nr-btn" href="' + R.assessment + '">Take the assessment</a></div></div>';
+    return;
+  }
+
+  NR.ui.boot({ active: "report", route: "report" });
+  var isMem = NR.membership.isMember();
+  var hist = NR.store.getMountainHistory() || [];
+
+  /* Reusable "one next move" block, built from the live mountain. */
+  function nextMoveCard() {
+    var nm = NR.nextMove.compute(m);
+    return '<div class="nr-card nr-section"><div class="nr-eyebrow" style="color:var(--gold)">Your one next move</div>' +
+      '<h2 style="margin:6px 0 0">' + E(nm.title) + '</h2>' +
+      '<p style="margin-top:8px">' + E(nm.body) + '</p>' +
+      '<ul class="nr-steps" style="margin-top:12px"><li>' + E(nm.step) + '</li>' +
+        (nm.tool ? '<li>Run the numbers: <a class="nr-link" href="' + nm.tool.url + '">' + E(nm.tool.name) + '</a></li>' : '') +
+      '</ul></div>';
+  }
+
+  /* ---- Free user -> teaser that sells the report ---- */
+  if (!isMem) {
+    NR.track("report_teaser_viewed", {});
+    app.innerHTML = crumbs +
+      '<div class="nr-eyebrow">Monthly report</div>' +
+      '<h1>See what moved — every month.</h1>' +
+      '<div class="nr-card nr-section" style="text-align:center;padding:30px 24px">' +
+        '<div class="nr-eyebrow" style="color:var(--gold);display:block">Member feature</div>' +
+        '<h2 style="margin:8px 0 0">Unlock your Monthly Mountain Report</h2>' +
+        '<p style="margin:10px auto 18px;max-width:46ch">On the same day each month, see exactly what moved in every reservoir, whether you changed stage, and the single next move that matters most — written from your own numbers, in about a minute.</p>' +
+        '<a class="nr-btn" href="' + R.membership + '">See membership</a>' +
+        '<div style="margin-top:12px;font-size:12.5px;color:var(--slate)">' + (NR.config.guaranteeDays || 30) + '-day money-back guarantee.</div>' +
+      '</div>' +
+      '<div class="nr-callout nr-section"><span class="s">▲</span><p>Your free Mountain still shows your current score and your one next move anytime — the monthly report is the part that tracks the <i>change</i>.</p></div>' +
+      '<div class="nr-btn-row"><a class="nr-btn ghost" href="' + R.home + '">Back to my Mountain</a></div>';
+    return;
+  }
+
+  /* ---- Member, but fewer than two check-ins -> base camp ---- */
+  if (hist.length < 2) {
+    var base = hist[hist.length - 1] || { overall: m.overall, ts: m.ts, date: NR.util.fmtDate(m.ts) };
+    NR.track("report_basecamp_viewed", {});
+    app.innerHTML = crumbs +
+      '<div class="nr-eyebrow">Monthly report</div>' +
+      '<h1>Your first report is one check-in away.</h1>' +
+      '<div class="nr-callout nr-section"><span class="s">▲</span><p>You set base camp at <b>' + base.overall + '</b> on ' + E(base.date || NR.util.fmtDate(base.ts)) + '. The report shows what moved <i>between</i> check-ins, so it needs a second reading. Do your first check-in and the report writes itself.</p></div>' +
+      nextMoveCard() +
+      '<div class="nr-btn-row"><a class="nr-btn" href="' + R.checkin + '">Do my first check-in</a><a class="nr-btn ghost" href="' + R.home + '">Back to my Mountain</a></div>';
+    return;
+  }
+
+  /* ---- Full monthly report ---- */
+  var latest = hist[hist.length - 1];
+  var prev = hist[hist.length - 2];
+  var od = latest.overall - prev.overall;
+  var monthLabel = NR.util.fmtMonth(latest.ts) + " report";
+
+  var h1;
+  if (od >= 5) h1 = "You climbed " + od + " points this month.";
+  else if (od >= 1) h1 = "You gained " + od + " this month — steady progress.";
+  else if (od === 0) h1 = "Your mountain held steady this month.";
+  else h1 = "Your mountain slipped " + Math.abs(od) + " — here's the way back.";
+
+  var zones = ["emergency", "buffer", "sinking", "retirement"];
+  function chip(dd) {
+    var txt = dd > 0 ? "▲ " + dd : (dd < 0 ? "▼ " + Math.abs(dd) : "—");
+    var col = dd > 0 ? "#1D9E6E" : (dd < 0 ? "#E2553D" : "var(--slate)");
+    return '<span style="font-family:var(--mono);font-size:12.5px;color:' + col + '">' + txt + '</span>';
+  }
+  var rows = zones.map(function (z) {
+    var now = latest.scores[z], was = prev.scores[z], dd = now - was;
+    return '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid var(--line-soft)">' +
+      '<div style="display:flex;align-items:center;gap:10px">' +
+        '<span style="width:9px;height:9px;border-radius:50%;background:' + NR.score.zoneColor(z) + ';flex:none"></span>' +
+        '<span style="font-size:14.5px;color:#D9E6E2">' + E(NR.score.zoneName(z)) + '</span>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:14px">' +
+        '<span style="font-family:var(--mono);font-size:13px;color:var(--ridge)">' + now + '</span>' + chip(dd) +
+      '</div></div>';
+  }).join("");
+
+  var movers = zones.map(function (z) { return { z: z, d: latest.scores[z] - prev.scores[z] }; }).sort(function (a, b) { return b.d - a.d; });
+  var top = movers[0], bottom = movers[movers.length - 1], movedLine;
+  if (top.d > 0) movedLine = NR.score.zoneName(top.z) + " did the most work this month — up " + top.d + ".";
+  else if (bottom.d < 0) movedLine = NR.score.zoneName(bottom.z) + " pulled back " + Math.abs(bottom.d) + " this month — worth a look.";
+  else movedLine = "Every reservoir held where it was. Steady is still progress.";
+
+  var idxNow = NR.stage.indexFor(latest.overall), idxPrev = NR.stage.indexFor(prev.overall);
+  var stageNow = NR.stage.forScore(latest.overall);
+  var stageHtml = "";
+  if (idxNow > idxPrev) stageHtml = '<div class="nr-callout nr-section"><span class="s">▲</span><p>You crossed from <b>' + E(NR.stage.forScore(prev.overall).name) + '</b> into <b>' + E(stageNow.name) + '</b>. ' + E(stageNow.blurb) + '</p></div>';
+  else if (idxNow < idxPrev) stageHtml = '<div class="nr-callout nr-section"><span class="s">▲</span><p>You slipped back to <b>' + E(stageNow.name) + '</b> this month. One focused month usually reverses it — your next move is below.</p></div>';
+
+  NR.track("report_viewed", { score: latest.overall, delta: od, stage: stageNow.key });
+
+  app.innerHTML = crumbs +
+    '<div class="nr-eyebrow">' + E(monthLabel) + '</div>' +
+    '<h1>' + E(h1) + '</h1>' +
+    '<div class="nr-nextmove nr-section">' +
+      '<div class="nr-nm-grid">' +
+        '<div class="nr-stat"><div class="l">Mountain Score</div><div class="v">' + latest.overall + '</div></div>' +
+        '<div class="nr-stat"><div class="l">This month</div><div class="v">' + (od > 0 ? "+" : "") + od + '</div></div>' +
+        '<div class="nr-stat"><div class="l">Stage</div><div class="v" style="font-size:15px">' + E(stageNow.name) + '</div></div>' +
+      '</div>' +
+      '<p style="margin-top:14px;font-size:14.5px;color:#D9E6E2">' + E(movedLine) + '</p>' +
+    '</div>' +
+    '<div class="nr-card nr-section"><h2>What moved</h2><div style="margin-top:4px">' + rows + '</div>' +
+      '<p style="margin-top:14px;font-size:13px;color:var(--slate)">Change vs your ' + E(NR.util.fmtMonth(prev.ts)) + ' check-in.</p></div>' +
+    stageHtml +
+    nextMoveCard() +
+    '<div class="nr-btn-row"><a class="nr-btn" href="' + R.checkin + '">Do this month\'s check-in</a><a class="nr-btn ghost" href="' + R.progress + '">See your full climb</a></div>';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "northreserve-functions",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Function dependencies are declared in the TOP-LEVEL package.json (Netlify installs that one, not this). This file is intentionally dependency-free; it can be deleted."
+}

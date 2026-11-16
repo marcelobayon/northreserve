@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex,follow">
+<title>Your Mountain · NorthReserve Mountain</title>
+<meta name="description" content="Your personal Financial Mountain — score, stage, reservoirs, and your one next move. Save it and climb.">
+<meta name="theme-color" content="#0A2A2E">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nr-app.css">
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body class="nr">
+<main class="nr-main"><div class="nr-wrap" id="app"></div></main>
+
+<script src="/nr-config.js"></script>
+<script src="/links.js"></script>
+<script src="/nr-core.js"></script>
+<script src="/nr-ui.js"></script>
+<script src="/nr-auth.js"></script>
+<script src="/nr-store-supabase.js"></script>
+<script>
+(function () {
+  "use strict";
+  var app = document.getElementById("app");
+  var m = NR.store.loadMountain();
+
+  if (!m) { // STATE 1 — never assessed
+    NR.ui.boot({ active: "home", route: "app_empty" });
+    app.innerHTML =
+      '<div class="nr-eyebrow">Your Mountain</div>' +
+      '<div class="nr-card pad-lg" style="text-align:center">' +
+        '<div class="nr-empty"><div class="big">▲</div>' +
+        '<h1 style="margin-bottom:8px">See your financial mountain</h1>' +
+        '<p style="margin:0 auto 20px;max-width:46ch">Answer a few quick questions and watch your finances rise into a mountain — your whole picture, your Mountain Score, and the one next step that matters.</p>' +
+        '<a class="nr-btn" href="' + NR.config.routes.assessment + '">Take the free assessment — ~3 min</a>' +
+        '<div class="nr-privacy" style="justify-content:center"><span class="s">◈</span> No signup to start. No bank linking. Ranges, never account numbers.</div>' +
+        '</div></div>';
+    return;
+  }
+
+  NR.ui.boot({ active: "home", route: "app" });
+  render();
+
+  function render() {
+    m = NR.store.loadMountain();
+    var saved = NR.store.hasSavedMountain();
+    var hist = NR.store.getMountainHistory();
+    var st = NR.stage.forScore(m.overall);
+    var delta = hist.length >= 2 ? (hist[hist.length - 1].overall - hist[hist.length - 2].overall) : null;
+    var nm = NR.store.getNextMove();
+    var isMember = NR.membership.isMember();
+
+    var saveBanner = saved ? "" :
+      '<div class="nr-card gold" style="margin-bottom:18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">' +
+      '<div style="flex:1;min-width:220px"><div class="k">This is your mountain</div>' +
+      '<h2 style="margin:0 0 4px">Save it to track your climb</h2>' +
+      '<p style="margin:0">Saving is free. Keep your Mountain, do a monthly check-in, and see whether it’s getting stronger.</p></div>' +
+      '<button class="nr-btn" id="saveMtn">Save my Mountain</button></div>';
+
+    // embedded 3D mountain — render exactly the current scores via URL params
+    var q = "embed=1&src=app&b=" + m.scores.buffer + "&e=" + m.scores.emergency + "&s=" + m.scores.sinking + "&r=" + m.scores.retirement + "&debt=" + encodeURIComponent(m.debt) + "&match=" + encodeURIComponent(m.match);
+    var mtn = '<div class="nr-mtn-wrap"><iframe class="nr-mtn-embed" style="height:340px" loading="lazy" title="Your financial mountain" src="' + NR.config.routes.mountain + '?' + q + '"></iframe></div>' +
+      '<div style="text-align:center;margin-top:8px"><a class="nr-textlink" href="' + NR.config.routes.mountain + '?' + q.replace("embed=1&", "") + '">Open the full 3D &amp; AR mountain →</a></div>';
+
+    var hero =
+      '<div class="nr-grid nr-grid-dash nr-section">' +
+        '<div class="nr-card pad-lg">' +
+          '<div class="nr-eyebrow">Mountain Score</div>' +
+          '<div class="nr-score">' + NR.ui.ring(m.overall) +
+            '<div class="nr-score-meta">' + NR.ui.stagePill(m.overall) +
+              '<div style="margin-top:8px">' + (delta != null ? NR.ui.deltaBadge(delta) : '<span class="nr-delta flat">Baseline saved</span>') + '</div>' +
+              '<p style="margin-top:10px;font-size:14px">' + NR.ui.esc(st.blurb) + '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="nr-ladder">' + NR.stage.STAGES.map(function (s, i) { return '<div class="rung" style="background:' + (i <= NR.stage.indexFor(m.overall) ? s.color : "rgba(255,255,255,.08)") + '"></div>'; }).join("") + '</div>' +
+          '<div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--slate);margin-top:6px"><span>Base Camper</span><span>Mountaineer</span></div>' +
+        '</div>' +
+        '<div class="nr-card" style="padding:14px">' + mtn + '</div>' +
+      '</div>';
+
+    var nextMove =
+      '<div class="nr-nextmove nr-section">' +
+        '<div class="nr-eyebrow" style="color:var(--gold)">Your next move — one thing</div>' +
+        '<div class="nr-nm-title">' + NR.ui.esc(nm.title) + '</div>' +
+        '<p class="nr-nm-body">' + NR.ui.esc(nm.body) + '</p>' +
+        '<div class="nr-btn-row"><a class="nr-btn" href="' + NR.config.routes.nextMove + '">View next move</a>' +
+        '<a class="nr-btn ghost" href="' + NR.config.routes.checkin + '">Update my Mountain</a></div>' +
+      '</div>';
+
+    var reservoirs =
+      '<div class="nr-card nr-section">' +
+        '<div class="nr-head-row" style="margin-bottom:16px"><h2 style="margin:0">Your reservoirs</h2>' +
+        '<span class="muted" style="font-size:13px">Summit → base</span></div>' +
+        NR.ui.reservoirs(m) + '</div>';
+
+    // range summary
+    var peaks = NR.store.getMountainRange();
+    var rangeInner;
+    if (isMember || !NR.config.gates.mountainRange) {
+      rangeInner = '<div class="nr-grid nr-grid-2">' + peaks.slice(0, 4).map(peakMini).join("") + '</div>' +
+        '<div class="nr-btn-row"><a class="nr-btn subtle sm" href="' + NR.config.routes.range + '">Open my Mountain Range</a></div>';
+    } else {
+      var primary = NR.range.primary(m);
+      rangeInner = peakMini(primary) +
+        '<div class="nr-card gold" style="margin-top:14px;text-align:center">' +
+          '<div class="nr-lock">◈ Membership</div>' +
+          '<h3 style="margin:4px 0 6px;font-size:19px">Pursue your whole Mountain Range</h3>' +
+          '<p style="font-size:14px;margin:0 auto 14px;max-width:42ch">Emergency Ready, Debt Free, Home Ready, Retirement Ready and more — tracked together with a membership.</p>' +
+          '<a class="nr-btn" href="' + NR.config.routes.membership + '">See membership</a>' + '<div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--slate);margin-top:10px">' + ((NR.config && NR.config.guaranteeDays) || 30) + '-DAY MONEY-BACK GUARANTEE</div></div>';
+    }
+    var range =
+      '<div class="nr-section"><div class="nr-head-row" style="margin-bottom:14px"><h2 style="margin:0">My Mountain Range</h2>' +
+      '<a class="nr-textlink" href="' + NR.config.routes.range + '">All peaks →</a></div>' + rangeInner + '</div>';
+
+    // last check-in + tools
+    var last = hist.length ? hist[hist.length - 1] : null;
+    var footStrip =
+      '<div class="nr-grid nr-grid-2 nr-section">' +
+        '<div class="nr-card"><div class="k">Last check-in</div>' +
+          '<h3 style="margin:2px 0 8px">' + (last ? NR.ui.esc(last.date) : "Not yet") + '</h3>' +
+          '<p style="font-size:14px;margin-bottom:12px">A monthly check-in takes about a minute and updates your whole mountain.</p>' +
+          '<a class="nr-btn sm" href="' + NR.config.routes.checkin + '">Start check-in</a> ' +
+          '<a class="nr-btn ghost sm" href="' + NR.config.routes.progress + '">See progress</a> ' +
+          '<a class="nr-btn ghost sm" href="' + NR.config.routes.report + '">Monthly report</a></div>' +
+        '<div class="nr-card"><div class="k">Tools &amp; guides</div>' +
+          '<h3 style="margin:2px 0 8px">Keep learning</h3>' +
+          '<p style="font-size:14px;margin-bottom:12px">Your free NorthReserve calculators and the Field Guide.</p>' +
+          '<a class="nr-btn ghost sm" href="' + NR.config.routes.tools + '">Calculators</a> ' +
+          '<a class="nr-btn ghost sm" href="' + NR.config.routes.guides + '">The 5 Stages</a></div>' +
+      '</div>';
+
+    app.innerHTML =
+      '<div class="nr-eyebrow">Your Mountain</div>' +
+      '<div class="nr-head-row"><h1 style="margin:0">See where you stand.</h1>' +
+      (isMember ? '<span class="nr-badge on-track">Member</span>' : "") + '</div>' +
+      saveBanner + hero + nextMove + reservoirs + range + footStrip +
+      '<p class="nr-privacy" style="margin-top:22px"><span class="s">◈</span> Everything runs in your browser. We never ask for bank logins or account numbers.</p>';
+
+    var sb = document.getElementById("saveMtn");
+    if (sb) sb.addEventListener("click", function () {
+      var r = NR.store.adoptCurrent();
+      NR.track("mountain_saved", { score: m.overall, stage: NR.stage.forScore(m.overall).key, source: "dashboard" });
+      NR.ui.toast("Mountain saved. Come back monthly to track your climb.");
+      render();
+    });
+  }
+
+  function peakMini(p) {
+    return '<a class="nr-peak" href="' + NR.config.routes.range + '" style="display:block">' +
+      '<div class="nr-peak-head"><span class="nr-peak-ic">' + p.icon + '</span>' +
+      '<span class="nr-peak-ttl">' + NR.ui.esc(p.label) + '</span><span class="nr-peak-pct">' + p.progress + '%</span></div>' +
+      '<div class="nr-peak-bar"><div class="nr-peak-fill" style="width:' + p.progress + '%;background:' + (p.status === "complete" ? "#1D9E6E" : "var(--gold)") + '"></div></div>' +
+      '<div class="nr-peak-cp"><span class="nr-badge ' + p.status + '">' + p.status.replace("-", " ") + '</span></div></a>';
+  }
+})();
+</script>
+</body>
+</html>

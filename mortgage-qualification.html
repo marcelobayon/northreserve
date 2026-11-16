@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mortgage Qualification vs Comfortable Payment Calculator | NorthReserve</title>
+<meta name="description" content="Free calculator: see what a lender will likely approve versus the Mountain-safe home price you can comfortably afford. Two numbers, no credit pull, about a minute.">
+<link rel="canonical" href="https://northreserve.org/mortgage-qualification">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="Mortgage Qualification vs Comfortable Payment">
+<meta property="og:description" content="What a lender will approve vs what you can comfortably afford — two numbers, side by side.">
+<meta property="og:url" content="https://northreserve.org/mortgage-qualification">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What's the difference between qualifying and affording a mortgage?","acceptedAnswer":{"@type":"Answer","text":"Qualifying is the maximum a lender is willing to approve based on your debt-to-income ratio. Affording is the payment that still leaves room for savings, emergencies, and life. The approved number is usually higher than the comfortable one."}},
+{"@type":"Question","name":"How much house can I comfortably afford?","acceptedAnswer":{"@type":"Answer","text":"A common comfortable guideline keeps housing near 25% of gross income, which leaves room for the rest of your financial foundation. This calculator shows that Mountain-safe price alongside the lender maximum."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free calculator · Qualification vs Comfort</div>
+    <h1>What a lender approves vs what you can comfortably afford.</h1>
+    <p class="lede">These are two very different numbers — and the gap between them is where a lot of stress lives. Enter a few figures and see your likely lender maximum next to your Mountain-safe price, the one that leaves room to keep climbing.</p>
+
+    <div class="card">
+      <div class="field"><label for="income">Gross monthly income (before taxes)</label><div class="dollar-wrap"><input class="input dollar" id="income" type="number" inputmode="decimal" placeholder="6500"></div></div>
+      <div class="field"><label for="debts">Total monthly debt payments</label><div class="dollar-wrap"><input class="input dollar" id="debts" type="number" inputmode="decimal" placeholder="600"></div><div class="hint">Car, student loans, minimum card payments — not rent.</div></div>
+      <div class="lead-grid">
+        <div class="field"><label for="down">Down payment saved</label><div class="dollar-wrap"><input class="input dollar" id="down" type="number" inputmode="decimal" placeholder="20000"></div></div>
+        <div class="field"><label for="rate">Interest rate (%)</label><input class="input" id="rate" type="number" inputmode="decimal" placeholder="6.5"></div>
+      </div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Show my two numbers</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <div class="lead-grid" style="gap:18px">
+          <div><div class="result-label" style="margin-top:0;color:var(--coral)">Lender maximum</div><div class="result-num" style="font-size:40px" id="maxPrice">$0</div><div class="hint" id="maxPay"></div></div>
+          <div><div class="result-label" style="margin-top:0;color:var(--pine-bright)">Mountain-safe</div><div class="result-num" style="font-size:40px" id="safePrice">$0</div><div class="hint" id="safePay"></div></div>
+        </div>
+        <p class="big-quote" id="positioning" style="margin-top:18px"></p>
+
+        <div id="nr-nextmove"></div>
+
+        <div class="lead-box" id="leadBox">
+          <div class="eyebrow gold">Prefer I reach out?</div>
+          <p style="margin:0 0 14px;font-size:14.5px">Not ready to book? Send your info and <b style="color:var(--snow)">Marcelo Bayon</b>, a licensed loan officer, will follow up with your real, program-specific numbers. No pressure, no credit pull.</p>
+          <form id="leadForm" onsubmit="return false">
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lname">Your name</label><input class="input" id="lname" type="text" autocomplete="name"></div><div class="field" style="margin-bottom:12px"><label for="lemail">Email</label><input class="input" id="lemail" type="email" autocomplete="email"></div></div>
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lphone">Phone (optional)</label><input class="input" id="lphone" type="tel" autocomplete="tel"></div><div class="field" style="margin-bottom:12px"><label for="lbest">Best way to reach you</label><select class="select" id="lbest"><option>Email</option><option>Call</option><option>Text</option></select></div></div>
+            <button class="btn btn-primary btn-block" id="leadBtn">Send my info to Marcelo →</button>
+            <div class="status" id="leadStatus"></div>
+          </form>
+          <p style="font-size:11.5px;color:var(--slate);margin:12px 0 0;line-height:1.5">Booking or submitting sends your details to Marcelo Bayon, NMLS #1851997. Not a loan application, preapproval, or credit decision; no credit is pulled. Equal Housing Opportunity.</p>
+        </div>
+
+        <h3 style="margin-top:24px">Share your result</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>Why is the lender's number so much higher?</summary>
+      <p>Lenders approve based on ratios, not your life. They'll often stretch to about 43% of gross income going to debt. That can leave little for saving or fun — which is what the Mountain-safe number protects.</p></details>
+    <details><summary>Is the Mountain-safe number a hard rule?</summary>
+      <p>No — it's a guardrail, roughly 25% of gross income toward housing. The point is to choose your number on purpose instead of defaulting to the maximum.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "mortgage-qualification", pageUrl: "https://northreserve.org/mortgage-qualification", nmls: "1851997",
+    leadScriptUrl: "https://script.google.com/macros/s/AKfycbxhQvO8ixlEvh4DfuOnvFodls6b_ZPOJWjnKtmCQ_qyaa3il1TAdDwgVNvO7DpBzBd97Q/exec" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({ mortgage: true, nmls: CALC.nmls }, "nr-disclosure");
+  NRCalc.ev.toolViewed(CALC.slug);
+
+  var TAXINS = 0.015, last = null, started = false, el = function (id) { return document.getElementById(id); };
+  ["income", "debts", "down", "rate"].forEach(function (idv) { el(idv).addEventListener("input", function () { if (!started) { started = true; NRCalc.ev.toolStarted(); } }); });
+
+  function priceFromHousing(housing, down, f) { return Math.max(down, (housing + down * f) / (f + TAXINS / 12)); }
+  function compute(income, debts, down, rate) {
+    var r = rate / 1200, f = r === 0 ? 1 / 360 : r / (1 - Math.pow(1 + r, -360));
+    var maxHousing = Math.max(0, Math.min(income * 0.28, income * 0.43 - debts)), safeHousing = income * 0.25;
+    return { maxHousing: maxHousing, maxPrice: priceFromHousing(maxHousing, down, f), safeHousing: safeHousing, safePrice: priceFromHousing(safeHousing, down, f) };
+  }
+
+  function calculate() {
+    var income = NRCalc.parseMoney(el("income").value), debts = NRCalc.parseMoney(el("debts").value), down = NRCalc.parseMoney(el("down").value), rate = parseFloat(el("rate").value || "0");
+    if (income <= 0 || !rate) { el("err").textContent = "Enter your income and an interest rate to run the numbers."; return; }
+    el("err").textContent = "";
+    var c = compute(income, debts, down, rate), gap = Math.max(0, c.maxPrice - c.safePrice);
+
+    el("maxPrice").textContent = NRCalc.money(c.maxPrice); el("maxPay").textContent = "≈ " + NRCalc.money(c.maxHousing) + "/mo, all-in";
+    el("safePrice").textContent = NRCalc.money(c.safePrice); el("safePay").textContent = "≈ " + NRCalc.money(c.safeHousing) + "/mo, all-in";
+    el("positioning").innerHTML = "A lender may approve you for about <b style='color:var(--snow)'>" + NRCalc.money(c.maxPrice) + "</b>. You'll climb with more confidence around <b style='color:var(--snow)'>" + NRCalc.money(c.safePrice) + "</b>.";
+
+    var big = c.safePrice > 0 && gap / c.safePrice > 0.25, cat = big ? "large_gap" : "aligned", priority = big ? "high" : "medium";
+    var mv = { title: "Shop nearer " + NRCalc.money(c.safePrice) + ".", detail: "That keeps housing around a quarter of your income, leaving room for your emergency fund, sinking funds, and life. Buying between the two numbers can work — just make it a choice, not a default." };
+
+    last = { maxPrice: Math.round(c.maxPrice), safePrice: Math.round(c.safePrice), maxPay: Math.round(c.maxHousing) };
+    el("result").classList.add("on");
+    el("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: cat, priority: priority, intent: "financing" });
+    NRCalc.ev.resultViewed({ result_category: cat });
+    NRCalc.renderNextMove("nr-nextmove", { tool: CALC.slug, intent: "financing", priority: priority, resultCategory: cat, nextMove: mv, recommendedTool: "home-buying-readiness" });
+  }
+
+  el("calcBtn").addEventListener("click", calculate);
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "A lender's max vs what you can comfortably afford are two different numbers. See yours:";
+    return "A lender would approve me for " + NRCalc.money(last.maxPrice) + ", but my Mountain-safe price is " + NRCalc.money(last.safePrice) + ". Know the gap before you shop:";
+  }, CALC.pageUrl, CALC.slug);
+
+  el("leadBtn").addEventListener("click", function () {
+    var name = (el("lname").value || "").trim(), email = (el("lemail").value || "").trim(), st = el("leadStatus");
+    if (!name) { st.className = "status bad"; st.textContent = "Add your name so Marcelo knows who to greet."; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { st.className = "status bad"; st.textContent = "That email doesn't look right."; return; }
+    st.className = "status"; st.textContent = "Sending…";
+    var data = { name: name, email: email, phone: (el("lphone").value || "").trim(), contact_pref: el("lbest").value,
+      target_payment: last ? String(last.maxPay) : "", verdict: last ? ("Max " + NRCalc.money(last.maxPrice) + " / Safe " + NRCalc.money(last.safePrice)) : "", source: "mortgage-qualification", submitted_at: new Date().toISOString() };
+    var done = false; function ok() { if (done) return; done = true; st.className = "status ok"; st.textContent = "Sent. Marcelo will reach out soon."; NRCalc.ev.conversion({ kind: "lead", intent: "financing" }); NRCalc.ev.referralClicked({ intent: "financing", kind: "lead_form", partner: "mortgage" }); el("leadBtn").disabled = true; }
+    NRCalc.postLead(CALC.leadScriptUrl, data).then(ok).catch(ok); setTimeout(ok, 2500);
+  });
+
+  NRCalc.registerTool({
+    name: "mortgage_qualification_vs_comfort",
+    description: "Estimate the maximum home price a lender may approve versus a comfortable Mountain-safe price. Inputs: gross monthly income, monthly debts, down payment (USD), and interest rate (percent). Estimate, not a preapproval.",
+    inputSchema: { type: "object", properties: { grossMonthlyIncome: { type: "number" }, monthlyDebts: { type: "number" }, downPayment: { type: "number" }, interestRate: { type: "number" } }, required: ["grossMonthlyIncome", "interestRate"] },
+    execute: function (a) {
+      try { var c = compute(Number(a.grossMonthlyIncome) || 0, Number(a.monthlyDebts) || 0, Number(a.downPayment) || 0, Number(a.interestRate) || 0);
+        return { lenderMaxPrice: Math.round(c.maxPrice), lenderMaxMonthlyPayment: Math.round(c.maxHousing), mountainSafePrice: Math.round(c.safePrice), mountainSafeMonthlyPayment: Math.round(c.safeHousing), note: "Estimate only, not a preapproval. NMLS #1851997." };
+      } catch (e) { return { error: "Could not calculate — check the inputs." }; }
+    }
+  });
+</script>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>

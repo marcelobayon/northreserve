@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Should I Do With My Next $1,000? | NorthReserve</title>
+<meta name="description" content="Got a spare $1,000? Answer four quick questions and get the single best move for it — emergency fund, debt, employer match, or investing — in the right order. Free and private.">
+<link rel="canonical" href="https://northreserve.org/next-1000">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="What Should I Do With My Next $1,000?">
+<meta property="og:description" content="Four questions. One clear move for your next $1,000, in the right order.">
+<meta property="og:url" content="https://northreserve.org/next-1000">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What should I do with an extra $1,000?","acceptedAnswer":{"@type":"Answer","text":"In most cases the order is: a small starter emergency buffer first, then high-interest debt, then your full employer retirement match, then a fuller emergency fund and your goals. This tool asks four questions and points you to the single highest-leverage move for your situation."}},
+{"@type":"Question","name":"Should I pay off debt or save first?","acceptedAnswer":{"@type":"Answer","text":"A tiny starter cushion (about $1,000) usually comes first so a surprise doesn't put you deeper in debt. After that, high-interest debt like credit cards typically takes priority, because paying it off is a guaranteed return."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<form name="next_1000" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="next_1000">
+  <input name="bot-field"><input type="email" name="email">
+  <input name="recommended_move"><input name="buffer"><input name="debt"><input name="match"><input name="goal">
+</form>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free decision engine · Next $1,000</div>
+    <h1>What should I do with my next $1,000?</h1>
+    <p class="lede">Not another calculator — a decision engine. Four quick questions, and it points you to the single highest-leverage move for a spare $1,000, in the order the money actually matters.</p>
+
+    <div class="card">
+      <div class="field">
+        <label>Do you have at least $1,000 set aside for a rainy day?</label>
+        <div class="seg" data-q="buffer"><button type="button" data-v="no">Not yet</button><button type="button" data-v="yes">Yes</button></div>
+      </div>
+      <div class="field">
+        <label>Are you carrying a credit-card balance month to month?</label>
+        <div class="seg" data-q="debt"><button type="button" data-v="no">No</button><button type="button" data-v="yes">Yes</button></div>
+      </div>
+      <div class="field">
+        <label>Do you get your full employer 401(k) match?</label>
+        <div class="opts" data-q="match">
+          <button type="button" class="opt" data-v="full">Yes — I get the full match</button>
+          <button type="button" class="opt" data-v="none">No match offered (or not sure)</button>
+          <button type="button" class="opt" data-v="gap">There's a match and I'm leaving some on the table</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>What are you building toward next?</label>
+        <div class="opts" data-q="goal">
+          <button type="button" class="opt" data-v="emergency">A fuller emergency fund</button>
+          <button type="button" class="opt" data-v="home">A home down payment</button>
+          <button type="button" class="opt" data-v="invest">Long-term investing</button>
+          <button type="button" class="opt" data-v="grow">Just growing my money</button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Show my move</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <!-- The engine renders the whole move + next tool + economic path -->
+        <div id="nr-nextmove"></div>
+        <div id="nr-email"></div>
+        <h3 style="margin-top:24px">Share your move</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>Why only one move?</summary>
+      <p>Because spreading a small amount across five goals moves none of them. One clear move you'll actually make beats a perfect plan you won't. Once it's done, come back — your next $1,000 gets its own answer.</p></details>
+    <details><summary>What's the usual order?</summary>
+      <p>Starter cushion → high-interest debt → full employer match → fuller emergency fund → your goals. This tool finds where <em>you</em> are in that order.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "next-1000", pageUrl: "https://northreserve.org/next-1000", formName: "next_1000" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({ affiliate: true }, "nr-disclosure");
+  NRCalc.ev.toolViewed(CALC.slug);
+
+  var answers = { buffer: null, debt: null, match: null, goal: null }, started = false, last = null;
+  Array.prototype.forEach.call(document.querySelectorAll("[data-q]"), function (group) {
+    group.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]"); if (!b) return;
+      if (!started) { started = true; NRCalc.ev.toolStarted(); }
+      Array.prototype.forEach.call(group.querySelectorAll("button"), function (x) { x.classList.remove("sel"); });
+      b.classList.add("sel"); answers[group.getAttribute("data-q")] = b.getAttribute("data-v");
+    });
+  });
+
+  // The intent-adaptive brain: each branch sets intent + next tool + economic path.
+  function recommend(a) {
+    if (a.buffer === "no") return {
+      title: "Put your $1,000 into a starter emergency buffer.",
+      detail: "One $1,000 cushion stops a bad week from turning into credit-card debt — the highest-leverage first move on the whole mountain.",
+      intent: "savings", cat: "no_buffer", priority: "high", recommendedTool: "emergency-fund" };
+    if (a.debt === "yes") return {
+      title: "Put your $1,000 toward your highest-interest debt.",
+      detail: "A carried card balance grows faster than any savings can. Paying it down is a guaranteed, tax-free return you won't beat elsewhere.",
+      intent: "debt", cat: "debt", priority: "high", recommendedTool: "debt-freedom", economic: { kind: "none" } };
+    if (a.match === "gap") return {
+      title: "Put your $1,000 toward your 401(k) — up to the match.",
+      detail: "An employer match is free money and an instant return. Grabbing the full match is one of the best things a spare dollar can do.",
+      intent: "investing", cat: "match_gap", priority: "high", recommendedTool: "progress-tracker" };
+    if (a.goal === "home") return {
+      title: "Put your $1,000 into your home down-payment fund.",
+      detail: "Earmark it and let it grow somewhere safe and separate. When you're closer, knowing your real, comfortable payment is the next step.",
+      intent: "savings", cat: "home_goal", priority: "medium", recommendedTool: "home-buying-readiness" };
+    if (a.goal === "invest") return {
+      title: "Point your $1,000 at long-term investing.",
+      detail: "With your foundation set, time in the market is your biggest ally. Keep it boring, automatic, and diversified.",
+      intent: "investing", cat: "invest", priority: "medium", recommendedTool: "progress-tracker" };
+    return {
+      title: "Put your $1,000 toward a fuller emergency fund.",
+      detail: "You've got the basics — now build toward 3–6 months of essentials so a real setback stays an inconvenience.",
+      intent: "savings", cat: "grow", priority: "medium", recommendedTool: "emergency-fund" };
+  }
+
+  function show() {
+    if (!answers.buffer || !answers.debt || !answers.match || !answers.goal) {
+      document.getElementById("err").textContent = "Answer all four so I can point you to the right one move."; return;
+    }
+    document.getElementById("err").textContent = "";
+    var rec = recommend(answers); last = rec;
+
+    document.getElementById("result").classList.add("on");
+    document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: rec.cat, priority: rec.priority, intent: rec.intent });
+    NRCalc.ev.resultViewed({ result_category: rec.cat });
+
+    NRCalc.renderNextMove("nr-nextmove", {
+      tool: CALC.slug, intent: rec.intent, priority: rec.priority, resultCategory: rec.cat,
+      nextMove: { title: rec.title, detail: rec.detail },
+      recommendedTool: rec.recommendedTool, economic: rec.economic
+    });
+
+    NRCalc.renderEmailCapture("nr-email", {
+      title: "Want the full order of operations?", calc: CALC.slug, formName: CALC.formName,
+      copy: "We'll email you the simple “where does my next dollar go?” map — the whole climb, one step at a time — plus the NorthReserve app to track your climb.",
+      button: "Email me the map →", done: "Sent — the full map is on its way.",
+      fields: function () { return { recommended_move: rec.title, buffer: answers.buffer, debt: answers.debt, match: answers.match, goal: answers.goal }; }
+    });
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", show);
+
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "I found the best move for my next $1,000 with NorthReserve. What's yours?";
+    return "My next $1,000 should go to: " + last.title.replace(/^Put your \$1,000 (into|toward) /i, "").replace(/^Point your \$1,000 at /i, "").replace(/\.$/, "") + ". Where should yours go? Free 30-second answer:";
+  }, CALC.pageUrl, CALC.slug);
+</script>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>

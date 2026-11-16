@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Financial Mountain Progress Tracker — Project Your Score | NorthReserve</title>
+<meta name="description" content="See how a monthly contribution raises your Financial Mountain Score over 3, 6, and 12 months. Set your climb, watch it grow, and come back to check your progress. Free.">
+<link rel="canonical" href="https://northreserve.org/progress-tracker">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="Financial Mountain Progress Tracker">
+<meta property="og:description" content="Watch your Mountain Score climb, month by month, from what you save.">
+<meta property="og:url" content="https://northreserve.org/progress-tracker">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<style>
+  .proj{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 4px}
+  .proj .cell{border:1px solid var(--line);border-radius:12px;padding:14px 10px;text-align:center;background:rgba(14,58,64,.4)}
+  .proj .cell.now{border-color:rgba(87,199,218,.4)} .proj .cell.best{border-color:rgba(242,180,65,.5);background:rgba(242,180,65,.08)}
+  .proj .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+  .proj .v{font-family:var(--disp);font-weight:700;font-size:30px;color:var(--snow);margin-top:4px} .proj .cell.best .v{color:var(--gold)}
+  @media(max-width:460px){.proj{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a Financial Mountain Score?","acceptedAnswer":{"@type":"Answer","text":"A 0–100 measure of how resilient your finances are — cash buffer, emergency fund, sinking funds, and long-term investing — from NorthReserve's free assessment. A higher score means a stronger foundation, not a higher income."}},
+{"@type":"Question","name":"Is the projected score exact?","acceptedAnswer":{"@type":"Answer","text":"No — it's an estimate to show momentum and give you a target. Take the free assessment for your real current score, and the app tracks your climb as it actually happens."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<form name="progress_tracker" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="progress_tracker">
+  <input name="bot-field"><input type="email" name="email">
+  <input name="current_score"><input name="target_amount"><input name="monthly_contribution"><input name="projected_12mo">
+</form>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free tracker · Financial Mountain</div>
+    <h1>Watch your Mountain Score climb.</h1>
+    <p class="lede">Progress you can see is progress you keep making. Set what you'll put toward your next move each month and watch your projected Financial Mountain Score rise — 3, 6, and 12 months out.</p>
+
+    <div class="card">
+      <div class="field">
+        <label for="score">Your current Mountain Score (0–100)</label>
+        <input class="input" id="score" type="number" inputmode="decimal" min="0" max="100" placeholder="64">
+        <div class="hint">Don't know it? <a href="/assessment">Take the free assessment</a> — about 3 minutes.</div>
+      </div>
+      <div class="field">
+        <label for="target">Your next-move target amount</label>
+        <div class="dollar-wrap"><input class="input dollar" id="target" type="number" inputmode="decimal" placeholder="2400"></div>
+        <div class="hint">e.g., the emergency reserve you're building toward.</div>
+      </div>
+      <div class="field">
+        <label for="monthly">What you'll put toward it each month</label>
+        <div class="dollar-wrap"><input class="input dollar" id="monthly" type="number" inputmode="decimal" placeholder="300"></div>
+      </div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Project my climb</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <div class="result-label" style="margin-top:0">Projected Mountain Score</div>
+        <div class="proj">
+          <div class="cell now"><div class="t">Today</div><div class="v" id="p0">0</div></div>
+          <div class="cell"><div class="t">3 months</div><div class="v" id="p3">0</div></div>
+          <div class="cell"><div class="t">6 months</div><div class="v" id="p6">0</div></div>
+          <div class="cell best"><div class="t">12 months</div><div class="v" id="p12">0</div></div>
+        </div>
+        <div class="readout" style="margin-top:12px"><p id="readLine"></p></div>
+
+        <div id="nr-nextmove"></div>
+        <div class="cta-row"><a class="btn btn-ghost btn-block" href="/app">Track it live in the app →</a></div>
+        <div id="nr-email"></div>
+        <h3 style="margin-top:24px">Share your climb</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>Where do I get my current score?</summary>
+      <p>From the free <a href="/assessment">Financial Mountain Assessment</a> — seven questions, about three minutes. Then bring your score here to project the climb.</p></details>
+    <details><summary>Why project a score at all?</summary>
+      <p>Because a distant goal is easy to ignore, but watching a number rise is a reason to come back. Seeing 64 → 81 makes the next $300 feel worth it.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "progress-tracker", pageUrl: "https://northreserve.org/progress-tracker", formName: "progress_tracker" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({ affiliate: true }, "nr-disclosure");
+  (function(){try{var q=new URLSearchParams(location.search);
+    ["score","target","monthly"].forEach(function(k){var el=document.getElementById(k),v=q.get(k);if(v&&el)el.value=v;});
+  }catch(e){}})();
+  NRCalc.ev.toolViewed(CALC.slug);
+
+  function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+  function project(score, target, monthly) {
+    var fullGain = clamp(Math.round((100 - score) * 0.3), 4, 16);
+    function at(months) { var frac = target > 0 ? Math.min(1, (monthly * months) / target) : 0; return Math.min(100, Math.round(score + fullGain * frac)); }
+    return { p0: Math.round(score), p3: at(3), p6: at(6), p12: at(12), monthsToComplete: (monthly > 0 && target > 0) ? Math.ceil(target / monthly) : null };
+  }
+
+  var started = false, last = null;
+  ["score", "target", "monthly"].forEach(function (idv) {
+    document.getElementById(idv).addEventListener("input", function () { if (!started) { started = true; NRCalc.ev.toolStarted(); } });
+  });
+
+  function calculate() {
+    var score = clamp(parseFloat(document.getElementById("score").value || "0"), 0, 100);
+    var target = NRCalc.parseMoney(document.getElementById("target").value);
+    var monthly = NRCalc.parseMoney(document.getElementById("monthly").value);
+    var err = document.getElementById("err");
+    if (!score || target <= 0 || monthly <= 0) { err.textContent = "Enter your score, a target, and a monthly amount to project the climb."; return; }
+    err.textContent = "";
+
+    var r = project(score, target, monthly);
+    document.getElementById("p0").textContent = r.p0; document.getElementById("p3").textContent = r.p3;
+    document.getElementById("p6").textContent = r.p6; document.getElementById("p12").textContent = r.p12;
+    document.getElementById("readLine").innerHTML = r.monthsToComplete
+      ? "At " + NRCalc.money(monthly) + "/month you'll complete this climb in about <b style='color:var(--snow)'>" + r.monthsToComplete + " months</b>, taking your score from <b style='color:var(--snow)'>" + r.p0 + "</b> toward <b style='color:var(--gold)'>" + r.p12 + "</b>."
+      : "Add a monthly amount to see your climb.";
+
+    last = { p0: r.p0, p12: r.p12, monthly: Math.round(monthly), target: Math.round(target) };
+    document.getElementById("result").classList.add("on");
+    document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: "projecting", priority: "medium", intent: "savings" });
+    NRCalc.ev.resultViewed({ result_category: "projecting" });
+    NRCalc.renderNextMove("nr-nextmove", {
+      tool: CALC.slug, intent: "savings", priority: "medium", resultCategory: "projecting",
+      nextMove: { title: "Automate " + NRCalc.money(monthly) + " a month.", detail: "The climbers who reach the summit are the ones who automate it. Set the auto-transfer and let " + r.p0 + " become " + r.p12 + "." },
+      recommendedTool: "next-1000"
+      // economic defaults to the savings (HYSA) path — "where to auto-save"
+    });
+    NRCalc.renderEmailCapture("nr-email", {
+      title: "We'll check in on your climb", calc: CALC.slug, formName: CALC.formName,
+      copy: "Get a monthly nudge as your projected score rises — the gentle accountability that keeps the climb going. Plus the NorthReserve app.",
+      button: "Keep me climbing →", done: "You're in — we'll check in as you climb.",
+      fields: function () { return { current_score: String(last.p0), target_amount: String(last.target), monthly_contribution: String(last.monthly), projected_12mo: String(last.p12) }; }
+    });
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "I'm projecting my Financial Mountain climb with NorthReserve. What's yours?";
+    return "My Financial Mountain Score: " + last.p0 + " today → " + last.p12 + " in a year, on " + NRCalc.money(last.monthly) + "/month. Project your climb free:";
+  }, CALC.pageUrl, CALC.slug);
+
+  NRCalc.registerTool({
+    name: "financial_mountain_progress_projection",
+    description: "Project a NorthReserve Financial Mountain Score over 3, 6, and 12 months from a current score (0-100), a savings target (USD), and a monthly contribution (USD).",
+    inputSchema: { type: "object", properties: {
+      currentScore: { type: "number", description: "Current score, 0 to 100." }, targetAmount: { type: "number", description: "Savings target in USD." }, monthlyContribution: { type: "number", description: "Monthly contribution in USD." }
+    }, required: ["currentScore", "targetAmount", "monthlyContribution"] },
+    execute: function (a) {
+      try { var r = project(clamp(Number(a.currentScore) || 0, 0, 100), Number(a.targetAmount) || 0, Number(a.monthlyContribution) || 0);
+        return { today: r.p0, in3Months: r.p3, in6Months: r.p6, in12Months: r.p12, monthsToCompleteTarget: r.monthsToComplete }; }
+      catch (e) { return { error: "Could not project — check the inputs." }; }
+    }
+  });
+</script>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>

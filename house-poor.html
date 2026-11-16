@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>House Poor Calculator — Will the House Own You? | NorthReserve</title>
+<meta name="description" content="Free house poor calculator. See what percentage of your take-home pay a mortgage would eat, whether you're Mountain-safe, tight, or house poor — and a payment that keeps you comfortable.">
+<link rel="canonical" href="https://northreserve.org/house-poor">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="House Poor Calculator — Will the House Own You?">
+<meta property="og:description" content="You can qualify for a house. That doesn't mean you should buy it. See where your payment lands.">
+<meta property="og:url" content="https://northreserve.org/house-poor">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does house poor mean?","acceptedAnswer":{"@type":"Answer","text":"Being house poor means so much of your income goes to housing that little is left for savings, emergencies, and life. You can technically afford the payment, but it squeezes everything else."}},
+{"@type":"Question","name":"What percentage of income should go to housing?","acceptedAnswer":{"@type":"Answer","text":"A common guideline keeps housing around 28% of gross income. On take-home pay, staying near or below 30% usually leaves healthy room; above about 40% of take-home is where many people start to feel house poor."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free calculator · House Poor</div>
+    <h1>Will the house own you?</h1>
+    <p class="lede">A lender will tell you what you <em>can</em> borrow. This tells you what it would actually cost your life. Enter two numbers and see how much of your take-home pay a housing payment would swallow.</p>
+
+    <div class="card">
+      <div class="field"><label for="income">Your monthly take-home pay</label><div class="dollar-wrap"><input class="input dollar" id="income" type="number" inputmode="decimal" placeholder="5200"></div><div class="hint">After taxes — what actually lands in your account.</div></div>
+      <div class="field"><label for="payment">The monthly housing payment you're considering</label><div class="dollar-wrap"><input class="input dollar" id="payment" type="number" inputmode="decimal" placeholder="2200"></div><div class="hint">All-in: principal, interest, taxes, insurance, HOA.</div></div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Check where I land</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <div class="result-num"><span id="pctNum">0</span><span>%</span></div>
+        <div class="result-label">of your take-home goes to housing</div>
+        <div id="statusPill"></div>
+        <div class="readout" style="margin-top:14px"><p id="readLine"></p></div>
+        <p class="big-quote" id="positioning"></p>
+
+        <div id="nr-nextmove"></div>
+
+        <div class="lead-box" id="leadBox">
+          <div class="eyebrow gold">Prefer I reach out?</div>
+          <p style="margin:0 0 14px;font-size:14.5px">Want the real, all-in payment for a specific price — and a plan that keeps you out of house-poor territory? Send your info and <b style="color:var(--snow)">Marcelo Bayon</b>, a licensed loan officer, will follow up. No pressure, no credit pull.</p>
+          <form id="leadForm" onsubmit="return false">
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lname">Your name</label><input class="input" id="lname" type="text" autocomplete="name"></div><div class="field" style="margin-bottom:12px"><label for="lemail">Email</label><input class="input" id="lemail" type="email" autocomplete="email"></div></div>
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lphone">Phone (optional)</label><input class="input" id="lphone" type="tel" autocomplete="tel"></div><div class="field" style="margin-bottom:12px"><label for="lbest">Best way to reach you</label><select class="select" id="lbest"><option>Email</option><option>Call</option><option>Text</option></select></div></div>
+            <button class="btn btn-primary btn-block" id="leadBtn">Send my info to Marcelo →</button>
+            <div class="status" id="leadStatus"></div>
+          </form>
+          <p style="font-size:11.5px;color:var(--slate);margin:12px 0 0;line-height:1.5">Submitting sends your details to Marcelo Bayon, NMLS #1851997. Not a loan application, preapproval, or credit decision; no credit is pulled. Equal Housing Opportunity.</p>
+        </div>
+
+        <h3 style="margin-top:24px">Share your result</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>What's the difference between qualifying and affording?</summary>
+      <p>Qualifying is a lender deciding you'll likely repay. Affording is you keeping a life — savings, emergencies, breathing room — after the payment. They're not the same number.</p></details>
+    <details><summary>Take-home or gross income?</summary>
+      <p>This tool uses take-home because that's the money you actually live on. A 28% gross guideline often lands around 33–38% of take-home.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "house-poor", pageUrl: "https://northreserve.org/house-poor", nmls: "1851997",
+    leadScriptUrl: "https://script.google.com/macros/s/AKfycbxhQvO8ixlEvh4DfuOnvFodls6b_ZPOJWjnKtmCQ_qyaa3il1TAdDwgVNvO7DpBzBd97Q/exec" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({ mortgage: true, nmls: CALC.nmls }, "nr-disclosure");
+  NRCalc.ev.toolViewed(CALC.slug);
+  var el = function (id) { return document.getElementById(id); }, started = false, last = null;
+  ["income", "payment"].forEach(function (idv) { el(idv).addEventListener("input", function () { if (!started) { started = true; NRCalc.ev.toolStarted(); } }); });
+
+  function calculate() {
+    var income = NRCalc.parseMoney(el("income").value), payment = NRCalc.parseMoney(el("payment").value);
+    if (income <= 0 || payment <= 0) { el("err").textContent = "Enter your take-home pay and the payment you're weighing."; return; }
+    el("err").textContent = "";
+    var pct = Math.round(payment / income * 100), cls, txt, cat, priority;
+    if (pct <= 30) { cls = "safe"; txt = "Mountain-safe"; cat = "safe"; priority = "low"; }
+    else if (pct <= 40) { cls = "tight"; txt = "Tight"; cat = "tight"; priority = "medium"; }
+    else { cls = "risk"; txt = "House poor"; cat = "house_poor"; priority = "high"; }
+
+    el("pctNum").textContent = pct;
+    el("statusPill").innerHTML = '<span class="pill ' + cls + '">' + txt + '</span>';
+    el("readLine").innerHTML = "Your <b style='color:var(--snow)'>" + NRCalc.money(payment) + "</b> payment would consume <b style='color:var(--snow)'>" + pct + "%</b> of your take-home income.";
+    el("positioning").textContent = cls === "safe" ? "That leaves real room to keep climbing the rest of your mountain." : "You can qualify for this house. That doesn't mean you should buy it.";
+
+    var safe = income * 0.30, mv;
+    if (cls === "safe") mv = { title: "You've got margin — protect it.", detail: "Keep your emergency and sinking funds full so a surprise doesn't turn this comfortable payment into a stressful one." };
+    else mv = { title: "Aim for a payment near " + NRCalc.money(safe) + ".", detail: "That holds housing around 30% of your take-home and leaves room for savings, the unexpected, and a life outside the mortgage. A bigger down payment or a lower price gets you there." };
+
+    last = { pct: pct, verdict: txt, payment: payment };
+    el("result").classList.add("on");
+    el("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: cat, priority: priority, intent: "home" });
+    NRCalc.ev.resultViewed({ result_category: cat });
+    NRCalc.renderNextMove("nr-nextmove", { tool: CALC.slug, intent: "home", priority: priority, resultCategory: cat, nextMove: mv, recommendedTool: "mortgage-qualification" });
+  }
+
+  el("calcBtn").addEventListener("click", calculate);
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "I checked whether a house would make me house poor with NorthReserve. What about you?";
+    return "A mortgage would eat " + last.pct + "% of my take-home (" + last.verdict + "). Are you Mountain-safe, tight, or house poor? Free check:";
+  }, CALC.pageUrl, CALC.slug);
+
+  el("leadBtn").addEventListener("click", function () {
+    var name = (el("lname").value || "").trim(), email = (el("lemail").value || "").trim(), st = el("leadStatus");
+    if (!name) { st.className = "status bad"; st.textContent = "Add your name so Marcelo knows who to greet."; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { st.className = "status bad"; st.textContent = "That email doesn't look right."; return; }
+    st.className = "status"; st.textContent = "Sending…";
+    var data = { name: name, email: email, phone: (el("lphone").value || "").trim(), contact_pref: el("lbest").value,
+      housing_percent: last ? String(last.pct) : "", verdict: last ? last.verdict : "", target_payment: last ? String(Math.round(last.payment)) : "",
+      source: "house-poor", submitted_at: new Date().toISOString() };
+    var done = false; function ok() { if (done) return; done = true; st.className = "status ok"; st.textContent = "Sent. Marcelo will reach out soon."; NRCalc.ev.conversion({ kind: "lead", intent: "home" }); NRCalc.ev.referralClicked({ intent: "home", kind: "lead_form", partner: "mortgage" }); el("leadBtn").disabled = true; }
+    NRCalc.postLead(CALC.leadScriptUrl, data).then(ok).catch(ok); setTimeout(ok, 2500);
+  });
+
+  NRCalc.registerTool({
+    name: "house_poor_calculator",
+    description: "Given monthly take-home pay and a housing payment (USD), return the housing percentage and whether it is Mountain-safe, tight, or house poor.",
+    inputSchema: { type: "object", properties: { monthlyTakeHome: { type: "number" }, monthlyHousingPayment: { type: "number" } }, required: ["monthlyTakeHome", "monthlyHousingPayment"] },
+    execute: function (a) {
+      try { var inc = Number(a.monthlyTakeHome) || 0, pay = Number(a.monthlyHousingPayment) || 0; if (inc <= 0) return { error: "Take-home must be greater than zero." };
+        var pct = Math.round(pay / inc * 100); return { housingPercent: pct, verdict: pct <= 30 ? "Mountain-safe" : pct <= 40 ? "Tight" : "House poor", comfortablePayment: Math.round(inc * 0.30) };
+      } catch (e) { return { error: "Could not calculate." }; }
+    }
+  });
+</script>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>

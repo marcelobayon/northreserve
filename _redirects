@@ -1,0 +1,25 @@
+# NorthReserve — clean-URL rewrites.
+# Place this file (named exactly "_redirects", no extension) in your site's
+# publish root — the same folder as index.html, assessment.html, mountain.html.
+# 200 = rewrite: the browser URL stays clean while Netlify serves the .html file.
+# These make the extensionless links bulletproof even if Netlify "Pretty URLs" is off.
+
+/mountain          /mountain.html          200
+/assessment        /assessment.html        200
+/four-reservoirs   /four-reservoirs.html   200
+/emergency-fund    /emergency-fund.html    200
+/visibility        /visibility.html        200
+
+# NorthReserve Mountain — application layer (clean URLs -> static files)
+/app               /app.html               200
+/app/check-in      /app-check-in.html      200
+/app/progress      /app-progress.html      200
+/app/next-move     /app-next-move.html     200
+/app/range         /app-range.html         200
+/app/settings      /app-settings.html      200
+/app/report        /app-report.html        200
+/account           /account.html           200
+/membership        /membership.html        200
+
+# Waitlist retired — the app is live.
+/waitlist          /membership             302

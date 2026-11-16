@@ -1,0 +1,17 @@
+# NorthReserve — static site + serverless functions (Stripe + Supabase).
+# No build step; this tells Netlify where functions live and which PUBLIC config
+# values the secrets scanner must NOT treat as leaked secrets.
+[build]
+  publish = "."
+
+# The Supabase project URL and anon key are PUBLIC by design: they ship in the
+# browser (nr-config.js) and Row-Level Security protects the data. Exempt them
+# from secrets scanning. The REAL secrets — STRIPE_SECRET_KEY,
+# STRIPE_WEBHOOK_SECRET, SUPABASE_SERVICE_ROLE_KEY — are deliberately NOT listed,
+# so the scanner keeps protecting them. Never put those in any committed file.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_URL,SUPBASE_URL,SUPABASE_ANON_KEY"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

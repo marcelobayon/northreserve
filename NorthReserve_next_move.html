@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NorthReserve — Your Next Climb</title>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --basalt:#0A2A2E; --ink:#0E3A40; --glacier:#57C7DA; --gold:#F2B441; --gold-2:#F6C657;
+    --gold-soft:#FFE6A6; --snow:#F4F6F3; --slate:#8DA09C; --pine-bright:#1E8A6E; --coral:#E2553D;
+    --z-buffer:#7F77DD; --z-emergency:#2A8ADD; --z-sinking:#BA7517; --z-retirement:#1D6E45;
+    --disp:'Clash Display',system-ui,sans-serif; --body:'Satoshi',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+    --line:rgba(87,199,218,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);color:var(--snow);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(1100px 700px at 30% -5%,#12545f 0%,rgba(18,84,95,0) 60%),linear-gradient(180deg,#0A2A2E,#0E3A40);
+    min-height:100vh;display:flex;justify-content:center;padding:28px 18px 70px}
+  .app{width:100%;max-width:460px}
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+  .wm{font-family:var(--disp);font-weight:700;font-size:18px}
+  .wm b{color:var(--gold)}
+  .streak{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--slate);
+    border:1px solid var(--line);border-radius:99px;padding:5px 11px}
+  .streak b{color:var(--gold);font-weight:500}
+
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--glacier);margin-bottom:8px}
+  .card{background:rgba(9,32,37,.55);border:1px solid var(--line);border-radius:22px;padding:26px 24px;
+    backdrop-filter:blur(6px);box-shadow:0 24px 60px -30px rgba(0,0,0,.6)}
+
+  .mtn-wrap{display:flex;justify-content:center;margin:4px 0 6px}
+  .mtn-wrap svg{width:230px;height:auto;overflow:visible}
+  .scoreline{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-top:6px}
+  .scoreline .num{font-family:var(--disp);font-weight:700;font-size:40px;color:var(--snow)}
+  .scoreline .lab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--glacier)}
+  .delta{font-family:var(--mono);font-size:13px;color:var(--pine-bright);opacity:0;transition:opacity .4s ease}
+  .delta.show{opacity:1}
+
+  /* the ONE move */
+  .move{margin-top:18px;background:radial-gradient(120% 140% at 100% 0%,rgba(242,180,65,.16),transparent 60%),linear-gradient(160deg,var(--ink),var(--basalt));
+    border:1px solid rgba(242,180,65,.34);border-radius:18px;padding:22px 22px}
+  .move .k{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .move h2{font-family:var(--disp);font-weight:600;font-size:24px;line-height:1.15;margin:8px 0 10px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .chip{font-family:var(--mono);font-size:12px;color:#CFE0DC;background:rgba(87,199,218,.10);border:1px solid rgba(87,199,218,.26);border-radius:9px;padding:7px 11px}
+  .chip b{color:var(--snow)}
+  .btn{width:100%;font-family:var(--disp);font-weight:600;font-size:18px;background:linear-gradient(180deg,var(--gold-2),var(--gold));
+    color:#20160a;border:none;border-radius:14px;padding:17px;cursor:pointer;box-shadow:0 16px 30px -14px rgba(242,180,65,.6)}
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:translateY(1px)}
+  .ghost{width:100%;background:none;border:none;color:var(--slate);font-family:var(--body);font-size:14px;
+    padding:12px;margin-top:6px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+  .ghost:hover{color:var(--glacier)}
+
+  /* celebration (hidden until action) */
+  .cheer{margin-top:18px;border-radius:18px;padding:22px;text-align:center;
+    background:linear-gradient(180deg,rgba(30,110,69,.28),rgba(14,58,64,.4));border:1px solid rgba(30,138,110,.5);
+    opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;display:none}
+  .cheer.show{opacity:1;transform:none}
+  .cheer .big{font-family:var(--disp);font-weight:700;font-size:26px;color:#7FE0A8}
+  .cheer .sub{font-size:15px;color:#DCE6E3;margin-top:6px}
+  .cheer .metric{font-family:var(--mono);font-size:13px;color:var(--snow);margin-top:12px;letter-spacing:.03em}
+  .cheer .metric b{color:var(--gold)}
+
+  .next{margin-top:16px;border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:none;
+    opacity:0;transition:opacity .5s ease}
+  .next.show{display:block;opacity:1}
+  .next .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--glacier);margin-bottom:6px}
+  .next h3{font-family:var(--disp);font-weight:600;font-size:18px;margin-bottom:4px}
+  .next .when{font-family:var(--mono);font-size:12px;color:var(--slate)}
+  .next .share{margin-top:14px;width:100%;font-family:var(--disp);font-weight:600;font-size:15px;background:transparent;
+    color:var(--glacier);border:1.5px solid rgba(87,199,218,.45);border-radius:12px;padding:12px;cursor:pointer}
+  .next .share:hover{border-color:var(--glacier);background:rgba(87,199,218,.07)}
+
+  .disc{font-size:12px;color:var(--slate);margin-top:18px;line-height:1.5;text-align:center}
+</style>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <span class="wm">North<b>Reserve</b></span>
+    <span class="streak" id="streak"><b id="streakN">0</b>-week climbing streak</span>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Your mountain today</div>
+    <div class="mtn-wrap" id="mtnWrap"></div>
+    <div class="scoreline">
+      <span class="num" id="scoreNum">67</span>
+      <span class="lab">Mountain Score</span>
+      <span class="delta" id="delta"></span>
+    </div>
+
+    <!-- THE ONE MOVE -->
+    <div class="move" id="moveCard">
+      <div class="k">Your next climb</div>
+      <h2 id="moveTitle">Add $200 to your Emergency reserve.</h2>
+      <div class="chips">
+        <span class="chip">What: <b id="mWhat">Emergency</b></span>
+        <span class="chip">How much: <b id="mAmt">$200</b></span>
+        <span class="chip">When: <b id="mWhen">This week</b></span>
+      </div>
+      <button class="btn" id="didIt">I did it</button>
+      <button class="ghost" id="notYet">Not yet — remind me</button>
+    </div>
+
+    <!-- CELEBRATION (after action) -->
+    <div class="cheer" id="cheer">
+      <div class="big">You climbed.</div>
+      <div class="sub" id="cheerSub">Your Emergency reservoir just rose.</div>
+      <div class="metric" id="cheerMetric"></div>
+    </div>
+
+    <!-- NEXT CLIMB -->
+    <div class="next" id="next">
+      <div class="k">Your next climb</div>
+      <h3 id="nextTitle">Top up Emergency toward one month of essentials.</h3>
+      <div class="when" id="nextWhen">Unlocks tomorrow — one step at a time.</div>
+      <button class="share" id="share">Share this climb →</button>
+    </div>
+
+    <p class="disc">Progress is measured by the climb, not the summit. General financial education — not individualized advice.</p>
+  </div>
+</div>
+
+<script>
+  // ===== Same Mountain Profile shape as the assessment — wire from PlayerPrefs / your store =====
+  var PROFILE = {
+    score: 67,
+    streakWeeks: 2,
+    zones: { retirement:74, sinking:61, emergency:52, buffer:78 }, // 0-100 each
+    move: {
+      zone:"emergency", title:"Add $200 to your Emergency reserve.",
+      what:"Emergency", amount:"$200", when:"This week",
+      risePct:8,   // how much this action raises that reservoir
+      scoreGain:2  // how much it moves the Mountain Score
+    },
+    next: { title:"Top up Emergency toward one month of essentials.", when:"Unlocks tomorrow — one step at a time." }
+  };
+
+  // ---- trapezoid mountain (summit -> base), identical language to the assessment ----
+  var ZONES = [
+    {key:"retirement", top:44,  bot:119, color:"#1D6E45"},
+    {key:"sinking",    top:119, bot:194, color:"#BA7517"},
+    {key:"emergency",  top:194, bot:269, color:"#2A8ADD"},
+    {key:"buffer",     top:269, bot:344, color:"#7F77DD"}
+  ];
+  var APEX=44, BASE=344, HALF=150;
+  function hw(y){ return HALF*(y-APEX)/(BASE-APEX); }
+
+  function buildMountain(){
+    var defs="", bg="", fills="", rings="";
+    ZONES.forEach(function(z){
+      var tlx=200-hw(z.top), trx=200+hw(z.top), blx=200-hw(z.bot), brx=200+hw(z.bot);
+      var trap="M "+tlx+" "+z.top+" L "+trx+" "+z.top+" L "+brx+" "+z.bot+" L "+blx+" "+z.bot+" Z";
+      defs += '<clipPath id="clip-'+z.key+'"><path d="'+trap+'"/></clipPath>';
+      bg   += '<path d="'+trap+'" fill="'+z.color+'" fill-opacity="0.10" stroke="'+z.color+'" stroke-opacity="0.5" stroke-width="1.4"/>';
+      fills+= '<rect id="fill-'+z.key+'" x="'+blx+'" y="'+z.bot+'" width="'+(brx-blx)+'" height="0" fill="'+z.color+'" fill-opacity="0.85" clip-path="url(#clip-'+z.key+')"/>';
+      // highlight ring for the target zone
+      rings+= '<path id="ring-'+z.key+'" d="'+trap+'" fill="none" stroke="#F2B441" stroke-width="2.5" opacity="0"/>';
+    });
+    var sil='<path d="M 200 44 L 50 344 L 350 344 Z" fill="none" stroke="#57C7DA" stroke-opacity="0.22" stroke-width="1.5"/>';
+    var cap='<path d="M 200 44 L '+(200-hw(74))+' 74 L '+(200+hw(74))+' 74 Z" fill="#EAF6F8" fill-opacity="0.92"/>';
+    var star='<path transform="translate(200,40)" d="M0 -9 L2.4 -2.4 L9 0 L2.4 2.4 L0 9 L-2.4 2.4 L-9 0 L-2.4 -2.4 Z" fill="#F2B441"/>';
+    document.getElementById("mtnWrap").innerHTML =
+      '<svg viewBox="0 0 400 384" role="img" aria-label="Your financial mountain"><defs>'+defs+'</defs>'+sil+bg+fills+rings+cap+star+'</svg>';
+  }
+
+  function setFill(key, pct, animate){
+    var z = ZONES.find(function(x){return x.key===key;});
+    var rect = document.getElementById("fill-"+key);
+    if(!rect) return;
+    var full = z.bot - z.top;
+    var target = full * Math.max(0,Math.min(100,pct))/100;
+    if(!animate){ rect.setAttribute("height", target); rect.setAttribute("y", z.bot-target); return; }
+    var startH = parseFloat(rect.getAttribute("height"))||0;
+    var t0=performance.now(), dur=900;
+    (function frame(now){
+      var p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+      var h=startH+(target-startH)*e;
+      rect.setAttribute("height", h); rect.setAttribute("y", z.bot-h);
+      if(p<1) requestAnimationFrame(frame);
+    })(performance.now());
+  }
+
+  function pulseRing(key){
+    var ring=document.getElementById("ring-"+key); if(!ring) return;
+    var t0=performance.now(), dur=2200;
+    (function frame(now){
+      var p=((now-t0)%dur)/dur;
+      ring.setAttribute("opacity", (0.15+0.55*Math.abs(Math.sin(p*Math.PI))).toFixed(3));
+      if(now-t0 < 6000) requestAnimationFrame(frame); else ring.setAttribute("opacity",0);
+    })(performance.now());
+  }
+
+  function animateScore(from, to){
+    var el=document.getElementById("scoreNum"), t0=performance.now(), dur=900;
+    (function frame(now){
+      var p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+      el.textContent = Math.round(from+(to-from)*e);
+      if(p<1) requestAnimationFrame(frame);
+    })(performance.now());
+  }
+
+  // ---- initial render ----
+  function render(){
+    buildMountain();
+    document.getElementById("scoreNum").textContent = PROFILE.score;
+    document.getElementById("streakN").textContent = PROFILE.streakWeeks;
+    document.getElementById("moveTitle").textContent = PROFILE.move.title;
+    document.getElementById("mWhat").textContent = PROFILE.move.what;
+    document.getElementById("mAmt").textContent = PROFILE.move.amount;
+    document.getElementById("mWhen").textContent = PROFILE.move.when;
+    document.getElementById("nextTitle").textContent = PROFILE.next.title;
+    document.getElementById("nextWhen").textContent = PROFILE.next.when;
+    ZONES.forEach(function(z){ setFill(z.key, PROFILE.zones[z.key]||0, false); });
+    setTimeout(function(){ ZONES.forEach(function(z){ setFill(z.key, PROFILE.zones[z.key]||0, true); }); }, 120);
+    pulseRing(PROFILE.move.zone); // draw attention to the target reservoir
+  }
+
+  // ---- THE MOMENT: I did it -> reservoir rises, score ticks, celebrate, next climb ----
+  var done=false;
+  function didIt(){
+    if(done) return; done=true;
+    var m=PROFILE.move, zoneKey=m.zone;
+    var before=PROFILE.score;
+    var newZone=Math.min(100,(PROFILE.zones[zoneKey]||0)+m.risePct);
+    var newScore=Math.min(100,before+m.scoreGain);
+
+    setFill(zoneKey, newZone, true);      // watch the reservoir rise
+    animateScore(before, newScore);       // score ticks up
+    var delta=document.getElementById("delta");
+    delta.textContent="+"+m.scoreGain; delta.classList.add("show");
+
+    document.getElementById("moveCard").style.display="none";
+    var cheer=document.getElementById("cheer");
+    cheer.style.display="block";
+    requestAnimationFrame(function(){ cheer.classList.add("show"); });
+    document.getElementById("cheerSub").textContent="Your "+m.what+" reservoir just rose.";
+    document.getElementById("cheerMetric").innerHTML =
+      m.what+" +"+m.risePct+"% &nbsp;·&nbsp; Mountain Score <b>"+before+" → "+newScore+"</b>";
+
+    PROFILE.streakWeeks += 1;
+    document.getElementById("streakN").textContent = PROFILE.streakWeeks;
+
+    setTimeout(function(){
+      var n=document.getElementById("next"); n.classList.add("show");
+    }, 1100);
+  }
+
+  document.getElementById("didIt").addEventListener("click", didIt);
+  document.getElementById("notYet").addEventListener("click", function(){
+    this.textContent="We'll remind you. No pressure. ✓"; this.style.color="var(--glacier)";
+  });
+  document.getElementById("share").addEventListener("click", function(){
+    this.textContent="Shared your climb ✓";
+  });
+
+  render();
+</script>
+</body>
+</html>

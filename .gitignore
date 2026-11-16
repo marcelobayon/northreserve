@@ -1,0 +1,6 @@
+.nr_write_test
+node_modules/
+.DS_Store
+Thumbs.db
+_nr_site.tgz
+_to_delete/

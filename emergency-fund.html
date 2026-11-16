@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emergency Fund Calculator — How Many Months Are You Covered? | NorthReserve</title>
+<meta name="description" content="Free emergency fund calculator. Enter your monthly essentials and current savings to see how many months of protection you have — and your one next move. About 30 seconds, private.">
+<link rel="canonical" href="https://northreserve.org/emergency-fund">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="Emergency Fund Calculator — How Many Months Are You Covered?">
+<meta property="og:description" content="See your months of protection, your target, and your one next move. Free and private.">
+<meta property="og:url" content="https://northreserve.org/emergency-fund">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How many months of emergency fund do I need?","acceptedAnswer":{"@type":"Answer","text":"A common target is three to six months of essential expenses — housing, utilities, food, insurance — not a percentage of income. You don't need the full amount to benefit; reaching one month meaningfully changes how a surprise feels."}},
+{"@type":"Question","name":"How is months of protection calculated?","acceptedAnswer":{"@type":"Answer","text":"Divide your current emergency savings by your monthly essential expenses. $8,000 saved and $4,000 of essential monthly expenses is 2 months of protection."}},
+{"@type":"Question","name":"Where should I keep my emergency fund?","acceptedAnswer":{"@type":"Answer","text":"Somewhere safe, separate from checking, and reachable within a day or two — most people use a high-yield savings account so the money earns interest while staying liquid."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<form name="emergency_calculator" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="emergency_calculator">
+  <input name="bot-field"><input type="email" name="email">
+  <input name="months_of_protection"><input name="target_amount"><input name="gap">
+  <input name="monthly_expenses"><input name="current_savings"><input name="target_months">
+</form>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free calculator · Emergency Fund</div>
+    <h1>How many months are you covered?</h1>
+    <p class="lede">Your emergency fund isn't measured in dollars — it's measured in <em>time</em>. Enter two numbers and see how many months of essential expenses you could cover if your income stopped tomorrow, plus your one next move.</p>
+
+    <div class="card">
+      <div class="field">
+        <label for="expenses">Your essential monthly expenses</label>
+        <div class="dollar-wrap"><input class="input dollar" id="expenses" type="number" inputmode="decimal" placeholder="4000"></div>
+        <div class="hint">Housing, utilities, food, insurance — the must-pays only.</div>
+      </div>
+      <div class="field">
+        <label for="savings">Current emergency savings</label>
+        <div class="dollar-wrap"><input class="input dollar" id="savings" type="number" inputmode="decimal" placeholder="7000"></div>
+        <div class="hint">Money you'd actually tap in a pinch — not retirement.</div>
+      </div>
+      <div class="field">
+        <label>Your target (months of essentials)</label>
+        <div class="seg" id="targetSeg">
+          <button type="button" data-m="3">3 months</button>
+          <button type="button" data-m="6" class="sel">6 months</button>
+          <button type="button" data-m="12">12 months</button>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Calculate my protection</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <div class="result-num"><span id="protoNum">0</span> <span style="font-size:22px">months</span></div>
+        <div class="result-label">of protection</div>
+        <div id="statusPill"></div>
+        <div class="readout" style="margin-top:14px"><p id="readLine"></p></div>
+
+        <!-- The engine renders: Your Next Move -> Continue your mountain -> next tool -> economic CTA -->
+        <div id="nr-nextmove" style="margin-top:8px"></div>
+
+        <div id="nr-email"></div>
+
+        <h3 style="margin-top:24px">Share your result</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>How many months do I actually need?</summary>
+      <p>Three to six months of <em>essential</em> expenses is the common range — not a percentage of income. One month is a huge first win; build in milestones from there.</p></details>
+    <details><summary>Does my checking buffer count?</summary>
+      <p>Keep them separate. A ~$500–$1,000 buffer in checking handles everyday timing; the emergency fund is larger and for a real loss of income.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "emergency-fund", pageUrl: "https://northreserve.org/emergency-fund", formName: "emergency_calculator" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({ affiliate: true }, "nr-disclosure");
+  NRCalc.ev.toolViewed(CALC.slug);
+
+  var targetMonths = 6, started = false, last = null;
+  document.getElementById("targetSeg").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-m]"); if (!b) return;
+    Array.prototype.forEach.call(this.querySelectorAll("button"), function (x) { x.classList.remove("sel"); });
+    b.classList.add("sel"); targetMonths = parseInt(b.getAttribute("data-m"), 10);
+  });
+  ["expenses", "savings"].forEach(function (idv) {
+    document.getElementById(idv).addEventListener("input", function () { if (!started) { started = true; NRCalc.ev.toolStarted(); } });
+  });
+
+  function calculate() {
+    var E = NRCalc.parseMoney(document.getElementById("expenses").value);
+    var S = NRCalc.parseMoney(document.getElementById("savings").value);
+    var err = document.getElementById("err");
+    if (E <= 0) { err.textContent = "Enter your monthly essential expenses to run the numbers."; return; }
+    err.textContent = "";
+
+    var months = S / E, target = E * targetMonths, gap = Math.max(0, target - S), pct = months / targetMonths;
+
+    // standardized result bucket + priority
+    var cat, pillCls, pillTxt, priority;
+    if (pct >= 1)        { cat = "solid";    pillCls = "safe";  pillTxt = "Target reached"; priority = "low"; }
+    else if (pct >= 0.5) { cat = "building"; pillCls = "tight"; pillTxt = "Building";       priority = "medium"; }
+    else                 { cat = "thin";     pillCls = "risk";  pillTxt = "Thin — worth attention"; priority = "high"; }
+
+    document.getElementById("protoNum").textContent = months.toFixed(months < 10 ? 1 : 0);
+    document.getElementById("statusPill").innerHTML = '<span class="pill ' + pillCls + '">' + pillTxt + '</span>';
+    document.getElementById("readLine").innerHTML =
+      "Your Mountain target is <b style='color:var(--snow)'>" + NRCalc.money(target) + "</b> (" + targetMonths + " months of essentials)." +
+      (gap > 0 ? " You're <b style='color:var(--snow)'>" + NRCalc.money(gap) + "</b> away." : " You've hit it — nicely done.");
+
+    // the ONE next move
+    var mv;
+    if (gap > 0) {
+      var perMonth = Math.ceil(gap / 12 / 25) * 25;
+      mv = { title: "Set aside " + NRCalc.money(perMonth) + " a month.", detail: "That reaches your full target in about a year — automate it and you'll barely feel it. Even one month of essentials is a milestone worth celebrating first." };
+    } else {
+      mv = { title: "Maintain it — then climb higher.", detail: "Your base is solid. The next reservoir up the mountain is your sinking funds: money for the irregular costs you know are coming." };
+    }
+
+    last = { months: months, target: target, gap: gap, E: E, S: S, cat: cat };
+
+    document.getElementById("result").classList.add("on");
+    document.getElementById("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: cat, priority: priority, intent: "savings" });
+    NRCalc.ev.resultViewed({ result_category: cat });
+
+    // ONE standardized Next Move block (intent = savings -> economic path is HYSA)
+    NRCalc.renderNextMove("nr-nextmove", {
+      tool: CALC.slug, intent: "savings", priority: priority, resultCategory: cat, nextMove: mv
+      // recommendedTool defaults to next-1000; economic defaults to the savings (HYSA) path
+    });
+
+    NRCalc.renderEmailCapture("nr-email", {
+      title: "Get your milestone plan", calc: CALC.slug, formName: CALC.formName,
+      copy: "We'll email a simple, month-by-month plan to reach your target without feeling it — plus the NorthReserve app to track your climb.",
+      button: "Email me the plan →", done: "Sent — check your inbox for your milestone plan.",
+      fields: function () {
+        return { months_of_protection: last.months.toFixed(1), target_amount: String(Math.round(last.target)), gap: String(Math.round(last.gap)),
+                 monthly_expenses: String(Math.round(last.E)), current_savings: String(Math.round(last.S)), target_months: String(targetMonths) };
+      }
+    });
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "I just checked my emergency fund with NorthReserve. What's yours?";
+    return "I've got " + last.months.toFixed(1) + " months of financial protection built — how many do you have? Free 30-second check:";
+  }, CALC.pageUrl, CALC.slug);
+
+  // WebMCP: agent-callable
+  NRCalc.registerTool({
+    name: "emergency_fund_calculator",
+    description: "Calculate months of emergency-fund protection and a target for NorthReserve. Inputs: monthly essential expenses (USD), current emergency savings (USD), and target months (3, 6, or 12).",
+    inputSchema: { type: "object", properties: {
+      monthlyExpenses: { type: "number", description: "Essential monthly expenses in USD." },
+      currentSavings: { type: "number", description: "Current emergency savings in USD." },
+      targetMonths: { type: "number", description: "Target months of coverage (3, 6, or 12).", enum: [3, 6, 12] }
+    }, required: ["monthlyExpenses", "currentSavings"] },
+    execute: function (a) {
+      try {
+        var E = Number(a.monthlyExpenses) || 0, S = Number(a.currentSavings) || 0, tm = Number(a.targetMonths) || 6;
+        if (E <= 0) return { error: "Monthly expenses must be greater than zero." };
+        var months = S / E, target = E * tm;
+        return { monthsOfProtection: Math.round(months * 10) / 10, targetAmount: Math.round(target), gap: Math.max(0, Math.round(target - S)) };
+      } catch (e) { return { error: "Could not calculate — check the inputs." }; }
+    }
+  });
+</script>
+//added guide section
+<div><span class="tag">Free Guide</span>
+  <h1>How Much Emergency Fund Do You Really Need?</h1>
+  <p class="subtitle">Find your number — and a calm path to reach it, without panic.</p>
+  <p class="hook">Three months? Six? A year? The conflicting advice is its own kind of stress. This free guide helps you find the number that’s actually right for you — and a step-by-step way to get there that never feels overwhelming.</p>
+
+  <div id="formwrap">
+    <div class="inside">
+      <div class="h">What's inside</div>
+      <ul><li>How to calculate your real number (hint: it’s not based on your income)</li><li>A simple way to choose your target — 3, 6, or more months</li><li>The milestone method to get there without panic, starting with your first foothold</li><li>Where to keep it, how to automate it, and the mistakes to avoid</li></ul>
+    </div>
+    <form name="guide-emergency-fund" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" class="waitform" id="waitform">
+      <input type="hidden" name="form-name" value="guide-emergency-fund">
+      <p class="hidden"><label>Leave blank: <input name="bot-field"></label></p>
+      <input type="email" name="email" required placeholder="you@email.com" aria-label="Email address">
+      <button type="submit">Send me the guide</button>
+    </form>
+    <p class="formnote">No spam, ever. Your guide opens instantly, and we'll email you a copy too.</p>
+  </div>
+
+  <div id="success" class="success" hidden>
+    <h2>Your guide is ready.</h2>
+    <p>Tap below to open it now — we've also sent a copy to your inbox. And the NorthReserve app is live — open it anytime.</p>
+    <a class="dlbtn" href="/guides/emergency-fund.html" target="_blank" rel="noopener">Read the guide →</a>
+    <a class="backlink" href="/">← Back to NorthReserve</a>
+  </div>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>

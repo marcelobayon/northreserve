@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rent vs Buy Calculator — Which One Wins for You? | NorthReserve</title>
+<meta name="description" content="Free rent vs buy calculator. Compare the real monthly cost of owning against renting, plus the net cost over the years you'll stay — and the break-even point where buying pulls ahead.">
+<link rel="canonical" href="https://northreserve.org/rent-vs-buy">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="Rent vs Buy Calculator — Which One Wins for You?">
+<meta property="og:description" content="The real monthly cost of owning vs renting, and the break-even point — in about a minute.">
+<meta property="og:url" content="https://northreserve.org/rent-vs-buy">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is it better to rent or buy?","acceptedAnswer":{"@type":"Answer","text":"It depends mostly on how long you'll stay. Buying has big upfront costs, so the longer you own, the more time there is to make them back through equity. Short stays usually favor renting; longer stays usually favor buying."}},
+{"@type":"Question","name":"What is the break-even point for buying a home?","acceptedAnswer":{"@type":"Answer","text":"It's the number of years of ownership at which buying becomes cheaper than renting once you account for the down payment, closing costs, taxes, maintenance, and the equity you build."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free calculator · Rent vs Buy</div>
+    <h1>Rent or buy — which wins for you?</h1>
+    <p class="lede">There's no universal answer, only yours. The biggest lever isn't the interest rate — it's how long you'll stay. Enter a few numbers and see the real monthly cost of each, plus the point where buying pulls ahead.</p>
+
+    <div class="card">
+      <div class="field"><label for="rent">Monthly rent (what you'd pay to rent instead)</label><div class="dollar-wrap"><input class="input dollar" id="rent" type="number" inputmode="decimal" placeholder="2000"></div></div>
+      <div class="field"><label for="price">Home price you're considering</label><div class="dollar-wrap"><input class="input dollar" id="price" type="number" inputmode="decimal" placeholder="400000"></div></div>
+      <div class="lead-grid">
+        <div class="field"><label for="downpct">Down payment (%)</label><input class="input" id="downpct" type="number" inputmode="decimal" placeholder="10"></div>
+        <div class="field"><label for="rate">Interest rate (%)</label><input class="input" id="rate" type="number" inputmode="decimal" placeholder="6.5"></div>
+      </div>
+      <div class="field"><label for="years">How long will you stay? (years)</label><input class="input" id="years" type="number" inputmode="decimal" placeholder="7"></div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Compare rent vs buy</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <p class="big-quote" id="verdict"></p>
+        <div class="lead-grid" style="margin:6px 0 4px">
+          <div><div class="result-label" style="margin-top:0">Owning ≈ / month</div><div class="result-num" style="font-size:34px" id="ownMo">$0</div></div>
+          <div><div class="result-label" style="margin-top:0">Renting ≈ / month</div><div class="result-num" style="font-size:34px" id="rentMo">$0</div></div>
+        </div>
+        <div class="readout"><p id="readLine"></p></div>
+
+        <div id="nr-nextmove"></div>
+
+        <div class="lead-box" id="leadBox">
+          <div class="eyebrow gold">Prefer I reach out?</div>
+          <p style="margin:0 0 14px;font-size:14.5px">This is an estimate. For your true payment, rate, and program — and how buying fits your bigger picture — send your info and <b style="color:var(--snow)">Marcelo Bayon</b>, a licensed loan officer, will follow up. No pressure, no credit pull.</p>
+          <form id="leadForm" onsubmit="return false">
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lname">Your name</label><input class="input" id="lname" type="text" autocomplete="name"></div><div class="field" style="margin-bottom:12px"><label for="lemail">Email</label><input class="input" id="lemail" type="email" autocomplete="email"></div></div>
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lphone">Phone (optional)</label><input class="input" id="lphone" type="tel" autocomplete="tel"></div><div class="field" style="margin-bottom:12px"><label for="lbest">Best way to reach you</label><select class="select" id="lbest"><option>Email</option><option>Call</option><option>Text</option></select></div></div>
+            <button class="btn btn-primary btn-block" id="leadBtn">Send my info to Marcelo →</button>
+            <div class="status" id="leadStatus"></div>
+          </form>
+          <p style="font-size:11.5px;color:var(--slate);margin:12px 0 0;line-height:1.5">Submitting sends your details to Marcelo Bayon, NMLS #1851997. Not a loan application, preapproval, or credit decision; no credit is pulled. Equal Housing Opportunity.</p>
+        </div>
+
+        <h3 style="margin-top:24px">Share your result</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>Why does how long I stay matter so much?</summary>
+      <p>Buying front-loads big costs — down payment, closing, and the first years of a mortgage that are mostly interest. Time is what lets equity and appreciation catch up and pass those costs.</p></details>
+    <details><summary>What isn't included here?</summary>
+      <p>To stay honest and simple, this leaves out tax deductions, PMI, HOA dues, and the return you'd earn investing your down payment if you rented. Those can shift the answer — which a pro can model for you.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "rent-vs-buy", pageUrl: "https://northreserve.org/rent-vs-buy", nmls: "1851997",
+    leadScriptUrl: "https://script.google.com/macros/s/AKfycbxhQvO8ixlEvh4DfuOnvFodls6b_ZPOJWjnKtmCQ_qyaa3il1TAdDwgVNvO7DpBzBd97Q/exec" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({ mortgage: true, nmls: CALC.nmls }, "nr-disclosure");
+  NRCalc.ev.toolViewed(CALC.slug);
+
+  var APPREC = 0.03, RENT_GROWTH = 0.03, TAX_INS = 0.015, MAINT = 0.01, CLOSING = 0.03, P = {}, last = null, started = false;
+  var el = function (id) { return document.getElementById(id); };
+  ["rent", "price", "downpct", "rate", "years"].forEach(function (idv) { el(idv).addEventListener("input", function () { if (!started) { started = true; NRCalc.ev.toolStarted(); } }); });
+
+  function amortMonthly(L, r, n) { return r === 0 ? L / n : L * r / (1 - Math.pow(1 + r, -n)); }
+  function remaining(L, r, n, k) { if (r === 0) return Math.max(0, L * (1 - k / n)); return L * (Math.pow(1 + r, n) - Math.pow(1 + r, k)) / (Math.pow(1 + r, n) - 1); }
+  function ownMonthly() { return P.Mpi + P.price * TAX_INS / 12 + P.price * MAINT / 12; }
+  function netOwn(N) { var cashOut = P.down + P.price * CLOSING + ownMonthly() * 12 * N; var hv = P.price * Math.pow(1 + APPREC, N); return cashOut - (hv - remaining(P.L, P.r, 360, 12 * N)); }
+  function netRent(N) { var s = 0; for (var y = 0; y < N; y++) s += P.rent * 12 * Math.pow(1 + RENT_GROWTH, y); return s; }
+  function breakEven() { for (var N = 1; N <= 30; N++) if (netOwn(N) <= netRent(N)) return N; return null; }
+
+  function calculate() {
+    var rent = NRCalc.parseMoney(el("rent").value), price = NRCalc.parseMoney(el("price").value);
+    var downpct = parseFloat(el("downpct").value || "0"), rate = parseFloat(el("rate").value || "0"), years = parseFloat(el("years").value || "0");
+    if (rent <= 0 || price <= 0 || !years) { el("err").textContent = "Enter your rent, a home price, and how long you'll stay."; return; }
+    el("err").textContent = "";
+    P.rent = rent; P.price = price; P.down = price * downpct / 100; P.L = price - P.down; P.r = rate / 1200; P.Mpi = amortMonthly(P.L, P.r, 360);
+
+    var N = years, own = netOwn(N), rentC = netRent(N), be = breakEven(), buyWins = own < rentC, diff = Math.abs(own - rentC);
+    el("verdict").innerHTML = buyWins
+      ? "Over " + N + " years, <b style='color:#7FE0A8'>buying</b> could come out ahead by about <b style='color:var(--snow)'>" + NRCalc.money(diff) + "</b>."
+      : "Over " + N + " years, <b style='color:var(--glacier)'>renting</b> could come out ahead by about <b style='color:var(--snow)'>" + NRCalc.money(diff) + "</b>.";
+    el("ownMo").textContent = NRCalc.money(ownMonthly()); el("rentMo").textContent = NRCalc.money(rent);
+    el("readLine").innerHTML = "That's the net cost after your down payment, closing, taxes, insurance, maintenance — and the equity you'd build (assuming modest 3%/yr appreciation and rent growth).";
+
+    var mv;
+    if (be === null) mv = { title: "Renting stays ahead at these numbers.", detail: "Across any reasonable horizon here, renting keeps its edge. A bigger down payment, a lower price, or a better rate could change that." };
+    else mv = { title: "Buying tends to win after about " + be + " years.", detail: (N >= be ? "You're planning to stay " + N + " years — past that line, a point in buying's favor. " : "You're planning to stay " + N + " years — short of that line, a point in renting's favor. ") + "Your real break-even shifts with your actual rate and program." };
+
+    var cat = buyWins ? "buying" : "renting", priority = "medium";
+    last = { verdict: buyWins ? "Buying ahead" : "Renting ahead", ownMonthly: Math.round(ownMonthly()), years: N };
+    el("result").classList.add("on");
+    el("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: cat, priority: priority, intent: "home" });
+    NRCalc.ev.resultViewed({ result_category: cat });
+    NRCalc.renderNextMove("nr-nextmove", { tool: CALC.slug, intent: "home", priority: priority, resultCategory: cat, nextMove: mv, recommendedTool: "home-buying-readiness" });
+  }
+
+  el("calcBtn").addEventListener("click", calculate);
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "I ran the rent vs buy numbers on NorthReserve. What's your break-even?";
+    return "Rent vs buy for me: " + last.verdict + " over " + last.years + " years. Run yours free in a minute:";
+  }, CALC.pageUrl, CALC.slug);
+
+  el("leadBtn").addEventListener("click", function () {
+    var name = (el("lname").value || "").trim(), email = (el("lemail").value || "").trim(), st = el("leadStatus");
+    if (!name) { st.className = "status bad"; st.textContent = "Add your name so Marcelo knows who to greet."; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { st.className = "status bad"; st.textContent = "That email doesn't look right."; return; }
+    st.className = "status"; st.textContent = "Sending…";
+    var data = { name: name, email: email, phone: (el("lphone").value || "").trim(), contact_pref: el("lbest").value,
+      verdict: last ? last.verdict : "", target_payment: last ? String(last.ownMonthly) : "", timeframe: last ? (last.years + " year stay") : "", source: "rent-vs-buy", submitted_at: new Date().toISOString() };
+    var done = false; function ok() { if (done) return; done = true; st.className = "status ok"; st.textContent = "Sent. Marcelo will reach out soon."; NRCalc.ev.conversion({ kind: "lead", intent: "home" }); NRCalc.ev.referralClicked({ intent: "home", kind: "lead_form", partner: "mortgage" }); el("leadBtn").disabled = true; }
+    NRCalc.postLead(CALC.leadScriptUrl, data).then(ok).catch(ok); setTimeout(ok, 2500);
+  });
+
+  NRCalc.registerTool({
+    name: "rent_vs_buy_calculator",
+    description: "Compare renting vs buying: monthly cost of owning, and net cost over N years including down payment, closing, taxes, insurance, maintenance, equity, and modest appreciation. Estimate only.",
+    inputSchema: { type: "object", properties: { monthlyRent: { type: "number" }, homePrice: { type: "number" }, downPaymentPercent: { type: "number" }, interestRate: { type: "number" }, yearsStaying: { type: "number" } }, required: ["monthlyRent", "homePrice", "yearsStaying"] },
+    execute: function (a) {
+      try {
+        P.rent = Number(a.monthlyRent) || 0; P.price = Number(a.homePrice) || 0; P.down = P.price * (Number(a.downPaymentPercent) || 0) / 100;
+        P.L = P.price - P.down; P.r = (Number(a.interestRate) || 0) / 1200; P.Mpi = amortMonthly(P.L, P.r, 360);
+        var N = Number(a.yearsStaying) || 0, own = netOwn(N), rentC = netRent(N);
+        return { ownMonthlyAllIn: Math.round(ownMonthly()), verdict: own < rentC ? "buying" : "renting", netDifferenceOverYears: Math.round(Math.abs(own - rentC)), breakEvenYears: breakEven(), note: "Estimate; excludes taxes benefits, PMI, HOA, investing the down payment." };
+      } catch (e) { return { error: "Could not calculate — check the inputs." }; }
+    }
+  });
+</script>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+/* =============================================================================
+   funnel.css  ·  Shared styling for the NorthReserve book funnels.
+   Put at site root: <link rel="stylesheet" href="/funnel.css">
+   Same brand as the calculators (basalt / glacier / gold, Clash / Satoshi / mono).
+   ============================================================================= */
+:root{
+  --basalt:#0A2A2E; --ink:#0E3A40; --pine:#176658; --glacier:#57C7DA; --gold:#F2B441; --gold-2:#F6C657;
+  --gold-soft:#FFE6A6; --snow:#F4F6F3; --slate:#8DA09C; --ridge:#B8C6C3; --pine-bright:#1E8A6E; --coral:#E2553D;
+  --disp:'Clash Display',system-ui,sans-serif; --body:'Satoshi',system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  --line:rgba(87,199,218,.16);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth} html,body{margin:0}
+body{font-family:var(--body);color:var(--snow);line-height:1.6;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(1100px 700px at 30% -5%,#12545f 0%,rgba(18,84,95,0) 62%),linear-gradient(180deg,#0A2A2E,#0E3A40);
+  background-attachment:fixed;min-height:100vh;padding:24px 18px 80px}
+a{color:var(--glacier)}
+.wrap{max-width:760px;margin:0 auto}
+
+/* header (mirrors the site nav, trimmed) */
+.nrc-nav{border-bottom:1px solid var(--line);margin-bottom:30px}
+.nrc-nav-inner{display:flex;align-items:center;gap:16px;padding:2px 0 16px}
+.nrc-brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);font-weight:700;font-size:20px;color:var(--snow);text-decoration:none}
+.nrc-brand svg{width:32px;height:32px;flex:none} .nrc-brand .r{color:var(--gold)}
+.nrc-nav-inner nav{margin-left:auto;display:flex;gap:20px}
+.nrc-nav-inner nav a{color:var(--ridge);text-decoration:none;font-size:14.5px;font-weight:500}
+.nrc-nav-inner nav a:hover{color:var(--glacier)}
+@media(max-width:560px){.nrc-nav-inner nav{display:none}}
+
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--glacier);margin-bottom:12px}
+.eyebrow.gold{color:var(--gold)}
+h1{font-family:var(--disp);font-weight:700;font-size:clamp(32px,6.4vw,50px);line-height:1.03;letter-spacing:-.02em;margin:0 0 16px}
+h2{font-family:var(--disp);font-weight:600;font-size:clamp(23px,4vw,32px);line-height:1.1;margin:44px 0 14px}
+h3{font-family:var(--disp);font-weight:600;font-size:19px;margin:0 0 8px}
+p{color:#DCE6E3;margin:0 0 16px} .lede{font-size:19px;color:#EAF1EF;margin-bottom:22px}
+strong{color:var(--snow)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:36px;align-items:center;margin-bottom:10px}
+@media(max-width:680px){.hero{grid-template-columns:1fr;gap:22px}}
+.cover{width:100%;max-width:300px;border-radius:12px;box-shadow:0 30px 70px -28px rgba(0,0,0,.8),0 0 0 1px rgba(87,199,218,.14);display:block;margin:0 auto}
+.hero .badge{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(242,180,65,.4);border-radius:99px;padding:5px 12px;margin-bottom:16px}
+
+/* lists */
+.learn{display:grid;grid-template-columns:1fr 1fr;gap:10px 20px;margin:16px 0 8px;padding:0;list-style:none}
+@media(max-width:560px){.learn{grid-template-columns:1fr}}
+.learn li{position:relative;padding-left:26px;font-size:15px;color:#DCE6E3}
+.learn li::before{content:"▲";position:absolute;left:0;top:1px;color:var(--gold);font-size:11px}
+.who{background:rgba(87,199,218,.05);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+
+/* checkout card */
+.checkout{background:rgba(9,32,37,.6);border:1px solid rgba(242,180,65,.3);border-radius:20px;padding:28px 26px;
+  backdrop-filter:blur(6px);box-shadow:0 24px 60px -30px rgba(0,0,0,.6);margin:14px 0}
+.checkout .price{font-family:var(--disp);font-weight:700;font-size:34px;color:var(--snow)}
+.checkout .price s{color:var(--slate);font-weight:500;font-size:20px;margin-right:10px}
+.checkout .sh{font-size:14px;color:var(--slate);margin:2px 0 16px}
+.bump{display:flex;gap:12px;align-items:flex-start;border:1.5px dashed rgba(242,180,65,.45);border-radius:13px;
+  padding:15px 16px;margin:12px 0;background:rgba(242,180,65,.06);cursor:pointer}
+.bump input{width:20px;height:20px;margin-top:2px;accent-color:var(--gold);flex:none}
+.bump .bt{font-family:var(--disp);font-weight:600;font-size:15px}
+.bump .bd{font-size:13px;color:#CBD8D5;margin-top:3px}
+.bump .bp{color:var(--gold);font-weight:600}
+.mini{font-size:12.5px;color:var(--slate);margin-top:5px}
+.mini li{margin:2px 0}
+
+.btn{font-family:var(--disp);font-weight:600;font-size:18px;border:none;border-radius:13px;cursor:pointer;
+  padding:16px 26px;text-decoration:none;display:inline-block;text-align:center;transition:transform .12s;width:100%}
+.btn-primary{background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#20160a;box-shadow:0 16px 32px -14px rgba(242,180,65,.6)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--glacier);border:1.5px solid rgba(87,199,218,.4);font-weight:600}
+.btn-ghost:hover{border-color:var(--glacier);background:rgba(87,199,218,.06)}
+.trust{font-family:var(--mono);font-size:12px;color:var(--slate);text-align:center;margin-top:12px;letter-spacing:.03em}
+
+/* included / bundle */
+.included{border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;background:rgba(14,58,64,.4)}
+.included ul{margin:8px 0 0;padding-left:20px} .included li{margin:6px 0;color:#DCE6E3;font-size:15px}
+
+/* offer pages (upsell/downsell) */
+.offer{background:radial-gradient(120% 140% at 100% 0%,rgba(242,180,65,.14),transparent 60%),linear-gradient(160deg,var(--ink),var(--basalt));
+  border:1px solid rgba(242,180,65,.34);border-radius:20px;padding:30px 28px;margin:14px 0}
+.offer .p{font-family:var(--disp);font-weight:700;font-size:40px;color:var(--gold);margin:6px 0}
+.offer .p s{color:var(--slate);font-weight:500;font-size:22px;margin-right:10px}
+.decline{background:none;border:none;color:var(--slate);font-family:var(--body);font-size:14px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;margin-top:14px;display:inline-block}
+.decline:hover{color:var(--glacier)}
+
+/* related + faq + footer */
+.related{border:1px solid var(--line);border-left-width:3px;border-left-color:var(--glacier);border-radius:12px;padding:16px 18px;margin:16px 0;background:rgba(14,58,64,.4)}
+.related a{color:var(--gold);text-decoration:none;font-weight:600}
+details{border-bottom:1px solid var(--line);padding:14px 0}
+summary{font-family:var(--disp);font-weight:600;font-size:16.5px;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none} summary::after{content:"+";float:right;color:var(--gold)}
+details[open] summary::after{content:"–"}
+.disclosure{font-size:12px;color:var(--slate);line-height:1.6;border-top:1px solid var(--line);padding-top:18px;margin-top:34px}
+.nr-foot{text-align:center;font-size:12.5px;color:var(--slate);margin-top:26px}
+.nr-foot b{color:var(--slate);font-weight:500}

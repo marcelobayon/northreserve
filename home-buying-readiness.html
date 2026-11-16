@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0Z24386PQN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0Z24386PQN');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Buying Readiness Calculator — Are You Actually Ready to Buy? | NorthReserve</title>
+<meta name="description" content="Free home buying readiness score. Answer 8 quick questions on income, credit, debt, down payment and reserves to see your readiness out of 100 — and your biggest gap before you shop.">
+<link rel="canonical" href="https://northreserve.org/home-buying-readiness">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NorthReserve">
+<meta property="og:title" content="Home Buying Readiness Calculator">
+<meta property="og:description" content="Your readiness score out of 100, your biggest gap, and your next move — in about two minutes.">
+<meta property="og:url" content="https://northreserve.org/home-buying-readiness">
+<meta property="og:image" content="https://northreserve.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/calc-network.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is a good home buying readiness score?","acceptedAnswer":{"@type":"Answer","text":"This tool scores readiness out of 100 across five areas: credit, debt-to-income, down payment, cash reserves, and timeline. A higher score means fewer gaps to close before you shop. It's an educational gauge, not a preapproval."}},
+{"@type":"Question","name":"Does checking my readiness affect my credit?","acceptedAnswer":{"@type":"Answer","text":"No. Nothing here pulls your credit. You enter a rough credit range yourself, and the calculation runs in your browser."}}]}
+</script>
+  <script src="https://my-portfolio-intelligence.netlify.app/sdk/pi.js" data-pi-project="northreserve" defer></script>
+</head>
+<body>
+
+<div class="nr-wrap">
+  <div id="nr-header"></div>
+
+  <article>
+    <div class="eyebrow">Free calculator · Home Buying Readiness</div>
+    <h1>Are you actually ready to buy?</h1>
+    <p class="lede">Getting approved and being ready aren't the same thing. Answer eight quick questions and get your readiness score out of 100 — plus the one gap most worth closing before you shop. Nothing here pulls your credit.</p>
+
+    <div class="card">
+      <div class="field"><label for="income">Gross monthly income (before taxes)</label><div class="dollar-wrap"><input class="input dollar" id="income" type="number" inputmode="decimal" placeholder="6500"></div></div>
+      <div class="field"><label for="debt">Total monthly debt payments</label><div class="dollar-wrap"><input class="input dollar" id="debt" type="number" inputmode="decimal" placeholder="600"></div><div class="hint">Car, student loans, minimum card payments — not rent.</div></div>
+      <div class="field"><label for="payment">Target monthly housing payment</label><div class="dollar-wrap"><input class="input dollar" id="payment" type="number" inputmode="decimal" placeholder="2200"></div></div>
+      <div class="field"><label for="credit">Credit range</label>
+        <select class="select" id="credit"><option value="">Choose…</option><option value="100">Excellent (760+)</option><option value="80">Good (700–759)</option><option value="55">Fair (640–699)</option><option value="25">Building (below 640)</option><option value="45">Not sure</option></select></div>
+      <div class="field"><label for="down">Down payment saved</label><div class="dollar-wrap"><input class="input dollar" id="down" type="number" inputmode="decimal" placeholder="20000"></div></div>
+      <div class="field"><label for="ef">Emergency reserves (separate from down payment)</label><div class="dollar-wrap"><input class="input dollar" id="ef" type="number" inputmode="decimal" placeholder="6000"></div><div class="hint">What you'd have left AFTER buying.</div></div>
+      <div class="field"><label for="timeframe">When do you want to buy?</label>
+        <select class="select" id="timeframe"><option value="">Choose…</option><option value="100" data-t="0–3 months">In the next 3 months</option><option value="85" data-t="3–6 months">3–6 months</option><option value="70" data-t="6–12 months">6–12 months</option><option value="55" data-t="12+ months">More than a year</option><option value="35" data-t="Just exploring">Just exploring</option></select></div>
+      <button class="btn btn-primary btn-block" id="calcBtn">Get my readiness score</button>
+      <div class="err" id="err"></div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <div class="result-num"><span id="scoreNum">0</span><span>/100</span></div>
+        <div class="result-label">Home Buying Readiness</div>
+        <div id="statusPill"></div>
+        <div class="readout" style="margin-top:14px"><p id="readLine"></p></div>
+        <p style="font-size:13.5px;color:var(--slate)">Biggest gap: <b id="gapName" style="color:var(--coral)"></b></p>
+
+        <div id="nr-nextmove"></div>
+
+        <div class="lead-box" id="leadBox">
+          <div class="eyebrow gold">Prefer I reach out?</div>
+          <p style="margin:0 0 14px;font-size:14.5px">Not ready to book a call? Send your info and <b style="color:var(--snow)">Marcelo Bayon</b>, a licensed loan officer, will follow up with a realistic plan. No pressure, no credit pull.</p>
+          <form id="leadForm" onsubmit="return false">
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lname">Your name</label><input class="input" id="lname" type="text" autocomplete="name"></div><div class="field" style="margin-bottom:12px"><label for="lemail">Email</label><input class="input" id="lemail" type="email" autocomplete="email"></div></div>
+            <div class="lead-grid"><div class="field" style="margin-bottom:12px"><label for="lphone">Phone (optional)</label><input class="input" id="lphone" type="tel" autocomplete="tel"></div><div class="field" style="margin-bottom:12px"><label for="lbest">Best way to reach you</label><select class="select" id="lbest"><option>Email</option><option>Call</option><option>Text</option></select></div></div>
+            <button class="btn btn-primary btn-block" id="leadBtn">Send my info to Marcelo →</button>
+            <div class="status" id="leadStatus"></div>
+          </form>
+          <p style="font-size:11.5px;color:var(--slate);margin:12px 0 0;line-height:1.5">Submitting sends your details to Marcelo Bayon, NMLS #1851997. Not a loan application, preapproval, or credit decision; no credit is pulled. Equal Housing Opportunity.</p>
+        </div>
+
+        <h3 style="margin-top:24px">Share your score</h3>
+        <div id="nr-share"></div>
+      </div>
+    </div>
+
+    <h2>Questions people ask</h2>
+    <details><summary>What counts as "ready"?</summary>
+      <p>Steady income, manageable debt, a down payment, cash reserves left after closing, and decent credit. This tool weighs all five so you can see which one is holding you back — before a lender does.</p></details>
+    <details><summary>What DTI do lenders look for?</summary>
+      <p>Often a total debt-to-income ratio around 43% or lower, most comfortable near 36% — your monthly debts plus the new housing payment, divided by gross monthly income.</p></details>
+
+    <div id="nr-network" style="margin-top:40px"></div>
+    <div id="nr-disclosure"></div>
+  </article>
+</div>
+
+<script src="/links.js"></script>
+<script src="/calc-network.js"></script>
+<script>
+  var CALC = { slug: "home-buying-readiness", pageUrl: "https://northreserve.org/home-buying-readiness", nmls: "1851997",
+    leadScriptUrl: "https://script.google.com/macros/s/AKfycbxhQvO8ixlEvh4DfuOnvFodls6b_ZPOJWjnKtmCQ_qyaa3il1TAdDwgVNvO7DpBzBd97Q/exec" };
+  NRCalc.renderHeader("nr-header");
+  NRCalc.renderNetwork(CALC.slug, "nr-network");
+  NRCalc.renderDisclosure({ mortgage: true, nmls: CALC.nmls }, "nr-disclosure");
+  NRCalc.ev.toolViewed(CALC.slug);
+
+  function band(v, a, b, c, d) { if (v >= a) return 100; if (v >= b) return 75; if (v >= c) return 50; if (v >= d) return 30; return 12; }
+  var el = function (id) { return document.getElementById(id); }, started = false, last = null;
+  ["income", "debt", "payment", "down", "ef"].forEach(function (idv) { el(idv).addEventListener("input", function () { if (!started) { started = true; NRCalc.ev.toolStarted(); } }); });
+
+  function calculate() {
+    var income = NRCalc.parseMoney(el("income").value), debt = NRCalc.parseMoney(el("debt").value), payment = NRCalc.parseMoney(el("payment").value),
+        down = NRCalc.parseMoney(el("down").value), ef = NRCalc.parseMoney(el("ef").value),
+        credit = parseFloat(el("credit").value || "0"), tf = parseFloat(el("timeframe").value || "0"),
+        tfLabel = el("timeframe").options[el("timeframe").selectedIndex] ? (el("timeframe").options[el("timeframe").selectedIndex].getAttribute("data-t") || "") : "";
+    if (income <= 0 || !credit || !tf || payment <= 0) { el("err").textContent = "Fill in income, target payment, credit range, and timeframe to score it."; return; }
+    el("err").textContent = "";
+
+    var dtiRatio = (debt + payment) / income;
+    var subDti = dtiRatio <= 0.36 ? 100 : dtiRatio <= 0.43 ? 72 : dtiRatio <= 0.50 ? 42 : 15;
+    var sub = { credit: credit, dti: subDti, down: band(down, 40000, 20000, 10000, 3000), reserves: band(ef, 10000, 5000, 2000, 500), timeframe: tf };
+    var w = { credit: 0.25, dti: 0.30, down: 0.20, reserves: 0.15, timeframe: 0.10 };
+    var score = Math.round(sub.credit * w.credit + sub.dti * w.dti + sub.down * w.down + sub.reserves * w.reserves + sub.timeframe * w.timeframe);
+
+    var order = ["dti", "credit", "down", "reserves", "timeframe"], gapKey = order[0];
+    order.forEach(function (k) { if (sub[k] < sub[gapKey]) gapKey = k; });
+    var names = { credit: "Credit", dti: "Debt-to-income", down: "Down payment", reserves: "Cash reserves", timeframe: "Timeline" };
+    var moves = {
+      credit: ["Give your credit some runway.", "Even 20–40 points can change your rate. Paying card balances below 30% of their limit and fixing report errors are the fastest levers."],
+      dti: ["Open up your debt-to-income room.", "This payment stretches your income thin. Paying off a monthly obligation, or aiming at a lower payment, moves this the most."],
+      down: ["Build your down payment.", "Even 3–5% down works for many programs — the goal is getting there without draining the reserves you'll need after closing."],
+      reserves: ["Build your after-closing reserves.", ""],
+      timeframe: ["Use your runway to get the plan right.", "You're earlier in the journey — the best time to close gaps calmly. Map them now so you're ready when you shop."]
+    };
+    var mv = moves[gapKey].slice();
+    if (gapKey === "reserves") { var gapRes = Math.max(0, 5000 - ef); mv[1] = "Lenders — and your future self — want cash left after you close. Building another " + NRCalc.money(gapRes) + " in reserves before you shop would strengthen this the most."; }
+
+    var pillCls = score >= 80 ? "safe" : score >= 55 ? "tight" : "risk";
+    var pillTxt = score >= 80 ? "Strong — worth a conversation" : score >= 55 ? "Close — a gap or two to go" : "Early — a clear plan helps most";
+    var cat = score >= 80 ? "ready" : score >= 55 ? "close" : "early", priority = score < 55 ? "high" : "medium";
+
+    el("scoreNum").textContent = score;
+    el("statusPill").innerHTML = '<span class="pill ' + pillCls + '">' + pillTxt + '</span>';
+    el("readLine").innerHTML = "Your expected housing costs would use about <b style='color:var(--snow)'>" + Math.round(dtiRatio * 100) + "%</b> of your gross income (with existing debts). Lenders are most comfortable near 36%.";
+    el("gapName").textContent = names[gapKey];
+
+    last = { score: score, gap: names[gapKey], payment: payment, dti: Math.round(dtiRatio * 100), tf: tfLabel };
+    el("result").classList.add("on");
+    el("result").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    NRCalc.ev.toolCompleted({ result_category: cat, priority: priority, intent: "home" });
+    NRCalc.ev.resultViewed({ result_category: cat });
+    NRCalc.renderNextMove("nr-nextmove", {
+      tool: CALC.slug, intent: "home", priority: priority, resultCategory: cat,
+      nextMove: { title: mv[0], detail: mv[1] }, recommendedTool: "mortgage-qualification"
+    });
+  }
+
+  el("calcBtn").addEventListener("click", calculate);
+
+  NRCalc.shareButtons("nr-share", function () {
+    if (!last) return "I checked my home buying readiness with NorthReserve. What's yours?";
+    return "My Home Buying Readiness Score is " + last.score + "/100 — what's yours? Free 2-minute check, no credit pull:";
+  }, CALC.pageUrl, CALC.slug);
+
+  el("leadBtn").addEventListener("click", function () {
+    var name = (el("lname").value || "").trim(), email = (el("lemail").value || "").trim(), st = el("leadStatus");
+    if (!name) { st.className = "status bad"; st.textContent = "Add your name so Marcelo knows who to greet."; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { st.className = "status bad"; st.textContent = "That email doesn't look right."; return; }
+    st.className = "status"; st.textContent = "Sending…";
+    var data = { name: name, email: email, phone: (el("lphone").value || "").trim(), contact_pref: el("lbest").value,
+      readiness_score: last ? String(last.score) : "", biggest_gap: last ? last.gap : "", target_payment: last ? String(Math.round(last.payment)) : "",
+      dti_percent: last ? String(last.dti) : "", timeframe: last ? last.tf : "", source: "home-buying-readiness", submitted_at: new Date().toISOString() };
+    var done = false; function ok() { if (done) return; done = true; st.className = "status ok"; st.textContent = "Sent. Marcelo will reach out soon."; NRCalc.ev.conversion({ kind: "lead", intent: "home" }); NRCalc.ev.referralClicked({ intent: "home", kind: "lead_form", partner: "mortgage" }); el("leadBtn").disabled = true; }
+    NRCalc.postLead(CALC.leadScriptUrl, data).then(ok).catch(ok); setTimeout(ok, 2500);
+  });
+
+  NRCalc.registerTool({
+    name: "home_buying_readiness_score",
+    description: "Score home-buying readiness 0-100 across credit, debt-to-income, down payment, reserves, and timeline, and identify the biggest gap. Not a preapproval.",
+    inputSchema: { type: "object", properties: {
+      grossMonthlyIncome: { type: "number" }, monthlyDebts: { type: "number" }, targetMonthlyPayment: { type: "number" },
+      creditScoreRange: { type: "string", enum: ["excellent", "good", "fair", "building", "unsure"] },
+      downPayment: { type: "number" }, emergencyReserves: { type: "number" },
+      timeframe: { type: "string", enum: ["0-3m", "3-6m", "6-12m", "12m+", "exploring"] }
+    }, required: ["grossMonthlyIncome", "targetMonthlyPayment", "creditScoreRange", "timeframe"] },
+    execute: function (a) {
+      try {
+        var creditMap = { excellent: 100, good: 80, fair: 55, building: 25, unsure: 45 }, tfMap = { "0-3m": 100, "3-6m": 85, "6-12m": 70, "12m+": 55, exploring: 35 };
+        var income = Number(a.grossMonthlyIncome) || 0, debt = Number(a.monthlyDebts) || 0, payment = Number(a.targetMonthlyPayment) || 0;
+        var dtiRatio = income > 0 ? (debt + payment) / income : 1;
+        var subDti = dtiRatio <= 0.36 ? 100 : dtiRatio <= 0.43 ? 72 : dtiRatio <= 0.50 ? 42 : 15;
+        var sub = { credit: creditMap[a.creditScoreRange] || 45, dti: subDti, down: band(Number(a.downPayment) || 0, 40000, 20000, 10000, 3000), reserves: band(Number(a.emergencyReserves) || 0, 10000, 5000, 2000, 500), timeframe: tfMap[a.timeframe] || 35 };
+        var score = Math.round(sub.credit * 0.25 + sub.dti * 0.30 + sub.down * 0.20 + sub.reserves * 0.15 + sub.timeframe * 0.10);
+        var order = ["dti", "credit", "down", "reserves", "timeframe"], gapKey = order[0]; order.forEach(function (k) { if (sub[k] < sub[gapKey]) gapKey = k; });
+        return { readinessScore: score, biggestGap: gapKey, dtiPercent: Math.round(dtiRatio * 100), note: "Educational estimate, not a preapproval. NMLS #1851997." };
+      } catch (e) { return { error: "Could not calculate — check the inputs." }; }
+    }
+  });
+</script>
+  <script src="/nr-nav.js"></script>
+  <script src="/nr-setups.js"></script>
+</body>
+</html>
